@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://oxop7s84xh2o"]
+
+[ext_resource type="Script" path="res://scripts/combat_debug_ui.gd" id="1_6bdvm"]
+
+[node name="CombatDebugUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6bdvm")
+
+[node name="VBC_MethodBinderButtons" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 38.0
+offset_bottom = 31.0
+alignment = 1

@@ -1,28 +1,32 @@
 extends Node
 
-
 func _ready():
 	pass
 
 func _process(delta):
+	#if vbc_method_binder_buttons != null:
+		#print("hey")
+	#else: 
+		#print("null")
 	pass
-
 
 
 
 #######################################
 ########### DEBUG CALLBACKS ###########
 #######################################
-var debug_method_dict = {}
+var vbc_method_binder_buttons
+const DEBUG_BUTTON_FOR_METHOD_BINDING = preload("res://scenes/combat/debug/debug_button_for_method_binding.tscn")
 
+# this should only be called by the debug ui to instantiate the UI element
+func set_debug_button_binding_container(node):
+	vbc_method_binder_buttons = node
 
 func bind_debug_method(debug_method: Callable, method_name: String):
-	debug_method_dict[method_name] = debug_method
-	
-	var binding_method = call_debug_method(method_name)
-	# spawn UI element with name 
-	# bind UI element to debug method dictionary
+	var button = DEBUG_BUTTON_FOR_METHOD_BINDING.instantiate()
+	button.pressed.connect(debug_method)
+	button.text = method_name
+	vbc_method_binder_buttons.add_child(button)
 	pass
 
-func call_debug_method(method_name: String):
-	debug_method_dict[method_name].Call()
+
