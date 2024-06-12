@@ -11,7 +11,13 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6bdvm")
 
-[node name="VBC_MethodBinderButtons" type="VBoxContainer" parent="."]
+[node name="VBC_FixedDebugButtons" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 38.0
+offset_bottom = 31.0
+alignment = 1
+
+[node name="VBC_MethodBinderButtons2" type="VBoxContainer" parent="."]
 layout_mode = 0
 offset_right = 38.0
 offset_bottom = 31.0
