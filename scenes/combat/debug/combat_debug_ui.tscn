@@ -1,8 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://oxop7s84xh2o"]
+[gd_scene load_steps=2 format=3 uid="uid://oxop7s84xh2o"]
 
 [ext_resource type="Script" path="res://scripts/combat/combat_debug_ui.gd" id="1_6bdvm"]
-[ext_resource type="PackedScene" uid="uid://bamg0v3fdliy1" path="res://scenes/combat/player_skill_button_base.tscn" id="2_6qn6u"]
-[ext_resource type="Resource" uid="uid://sptqulim357w" path="res://resources/combat/player_skills/player_skill_repair.tres" id="3_pr45m"]
 
 [node name="CombatDebugUI" type="Control"]
 layout_mode = 3
@@ -21,14 +19,7 @@ alignment = 1
 
 [node name="VBC_MethodBinderButtons" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_right = 38.0
+offset_left = 224.0
+offset_right = 262.0
 offset_bottom = 31.0
 alignment = 1
-
-[node name="PlayerSkillButton" parent="." instance=ExtResource("2_6qn6u")]
-layout_mode = 0
-offset_left = 689.0
-offset_top = 412.0
-offset_right = 745.0
-offset_bottom = 468.0
-playerCombatSkill = ExtResource("3_pr45m")
