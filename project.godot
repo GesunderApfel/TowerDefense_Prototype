@@ -16,4 +16,4 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-CombatDebug="*res://scripts/combat_debug.gd"
+CombatDebug="*res://scripts/combat/combat_debug.gd"

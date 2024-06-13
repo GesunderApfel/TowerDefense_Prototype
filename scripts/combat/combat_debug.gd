@@ -1,6 +1,7 @@
 extends Node
 
 func _ready():
+	#this should pretty much never be called
 	pass
 
 func _process(delta):
@@ -39,6 +40,7 @@ var vbc_fixed_debug_buttons
 # this should only be called by combat_debug_ui to instantiate the UI element
 func set_fixed_debug_button_binding_container(node):
 	vbc_fixed_debug_buttons = node
+	create_fixed_debug_buttons()
 	
 func create_fixed_debug_buttons():
 	create_skill_cooldown_reset_button()
@@ -49,9 +51,9 @@ func create_skill_cooldown_reset_button():
 	button.text = "Reset Skills Cooldown"
 	vbc_fixed_debug_buttons.add_child(button)
 
-var cooldown_actions = [PlayerSkill]
+var cooldown_actions = [PlayerSkillButton]
 func cooldown_reset():
 	# for all cooldown_actions -> reset
 	for action in cooldown_actions:
-		pass
+		action.reset_button()
 	pass

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PlayerCombatSkill_Repair" load_steps=3 format=3 uid="uid://sptqulim357w"]
+
+[ext_resource type="Script" path="res://scripts/combat/player_combat_skills/player_combat_skill_repair.gd" id="1_5svtq"]
+[ext_resource type="Texture2D" uid="uid://basnm6v1i4gii" path="res://assets/graphics/combat/ui/PlayerSkill_Repair.png" id="2_5w1kj"]
+
+[resource]
+script = ExtResource("1_5svtq")
+name = "Repair"
+texture = ExtResource("2_5w1kj")
+cooldown = 5.0

@@ -1,14 +1,20 @@
-class_name PlayerSkill
+class_name PlayerSkillButton
 extends Node
 
 @onready var player_skill_button = $"."
 @onready var texture_progress_bar = $TextureProgressBar
 
-@export var cooldown = 1.0
+@export var playerCombatSkill : PlayerCombatSkill
+
+var cooldown = 1.0
 var cooldown_timer : Timer
 var current_cooldown_time
 
-func _ready():
+func _init(playerCombatSkill : PlayerCombatSkill):
+	cooldown = playerCombatSkill.cooldown
+	player_skill_button.texture_pressed = playerCombatSkill.texture
+	player_skill_button.texture_normal = playerCombatSkill.texture
+
 	cooldown_timer = Timer.new()
 	self.add_child(cooldown_timer)
 	

@@ -1,6 +1,6 @@
 extends Control
-@onready var vbc_fixed_debug_buttons = $VBC_FixedDebugButtons
 
+@onready var vbc_fixed_debug_buttons = $VBC_FixedDebugButtons
 @onready var vbc_method_binder_buttons = $VBC_MethodBinderButtons
 # CombatDebug.bind_debug_method(method, method_name) <- thats how you create debug buttons for methods
 

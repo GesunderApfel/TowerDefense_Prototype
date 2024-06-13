@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PlayerCombatSkill_KillEverythingOnScreen" load_steps=3 format=3 uid="uid://cm8ud5fm31is8"]
+
+[ext_resource type="Script" path="res://scripts/combat/player_combat_skills/player_combat_skill_kill_everything_on_screen.gd" id="1_fel60"]
+[ext_resource type="Texture2D" uid="uid://camccayrq2xki" path="res://assets/graphics/combat/ui/PlayerSkill_Skull.png" id="2_mxkyc"]
+
+[resource]
+script = ExtResource("1_fel60")
+name = "I am Death!"
+texture = ExtResource("2_mxkyc")
+cooldown = 15.0
