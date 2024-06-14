@@ -51,7 +51,7 @@ func create_skill_cooldown_reset_button():
 	button.text = "Reset Skills Cooldown"
 	vbc_fixed_debug_buttons.add_child(button)
 
-var cooldown_actions = [PlayerSkillButton]
+var cooldown_actions: Array[PlayerSkillButton] = []
 func cooldown_reset():
 	# for all cooldown_actions -> reset
 	for action in cooldown_actions:
