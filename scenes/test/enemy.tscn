@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://vk8atre4luad"]
+
+[ext_resource type="Script" path="res://scripts/test/enemy.gd" id="1_qmlrr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3milo"]
+size = Vector2(60, 112)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rhphi"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_u8vqy"]
+material = SubResource("StandardMaterial3D_rhphi")
+size = Vector3(60, 112, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_o30p3"]
+blend_mode = 2
+
+[node name="enemy" type="CharacterBody2D" groups=["enemy"]]
+process_priority = 1
+script = ExtResource("1_qmlrr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -56)
+shape = SubResource("RectangleShape2D_3milo")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="CollisionShape2D"]
+visible = false
+mesh = SubResource("BoxMesh_u8vqy")
+
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="CollisionShape2D"]
+visible = false
+material = SubResource("CanvasItemMaterial_o30p3")
+mesh = SubResource("BoxMesh_u8vqy")

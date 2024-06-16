@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://djwilso1op4es"]
+
+[ext_resource type="Script" path="res://scripts/test/banditspawner.gd" id="1_cuyjv"]
+
+[node name="BanditSpawner" type="Node2D"]
+script = ExtResource("1_cuyjv")
+
+[node name="Start" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="Node" type="Node" parent="."]
+
+[connection signal="timeout" from="Start" to="." method="_on_start_timeout"]

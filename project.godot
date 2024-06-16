@@ -17,3 +17,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 CombatDebug="*res://scripts/combat/combat_debug.gd"
+
+[display]
+
+window/size/viewport_width=1600
+window/size/viewport_height=900

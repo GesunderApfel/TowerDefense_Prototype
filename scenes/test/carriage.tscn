@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://o31cabihijgu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_btd1r"]
+size = Vector2(200, 120)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ypy61"]
+size = Vector3(200, 120, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_j4rc8"]
+radius = 15.0
+height = 30.0
+
+[node name="Carriage" type="Node2D" groups=["ride"]]
+process_priority = 2
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, -76)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_btd1r")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D/CollisionShape2D"]
+mesh = SubResource("BoxMesh_ypy61")
+
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="StaticBody2D/CollisionShape2D"]
+position = Vector2(-85, 60)
+mesh = SubResource("SphereMesh_j4rc8")
+
+[node name="MeshInstance2D3" type="MeshInstance2D" parent="StaticBody2D/CollisionShape2D"]
+position = Vector2(85, 60)
+mesh = SubResource("SphereMesh_j4rc8")
