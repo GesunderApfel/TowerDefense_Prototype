@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://kd4xv22ktbk8"]
+
+[ext_resource type="Script" path="res://scripts/combat/enemy_test.gd" id="1_6duvw"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_1wcct"]
+
+[node name="TestEnemy" type="Node2D"]
+script = ExtResource("1_6duvw")
+combat_movement_type = {
+"flying": 1,
+"grounded": 0
+}
+combat_attack_type = {
+"melee": 0,
+"ranged": 1,
+"support": 2
+}
+
+[node name="EnemyAnimator" type="Node" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="EnemyAnimator"]
+tree_root = SubResource("AnimationNodeStateMachine_1wcct")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EnemyAnimator"]

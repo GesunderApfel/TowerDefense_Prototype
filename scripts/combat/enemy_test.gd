@@ -1,5 +1,17 @@
 extends Node
 
+enum CombatMovementType {
+	GROUNDED, 
+	FLYING,
+}
+
+enum CombatAttackType {
+	MELEE,
+	RANGED,
+	SUPPORT,
+}
+
+
 # Attributes in DTO? Allows for composition instead of inheritance...
 var health = 100
 var move_speed = 10
@@ -14,19 +26,10 @@ var animator #object which controls animations and events (e.g. animation_end)
 # TODO research if possible with resource file type (see player_skills)
 # if not, we can create a custom node for each combat participiant and name the events the same 
 
+@export var combat_movement_type = CombatMovementType.GROUNDED
+@export var combat_attack_type = CombatAttackType.MELEE
 
 
-
-enum combat_movement_type {
-	grounded, 
-	flying,
-}
-
-enum combat_attack_type {
-	melee,
-	ranged,
-	support,
-}
 
 func attack():
 	# needs a kind of frequency -> timer for now
