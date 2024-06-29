@@ -29,17 +29,25 @@ var attack_frequence = 5.0 #in seconds
 
 var target #what is the next target of action -> for now carriage
 
-var animator #object which controls animations and events (e.g. animation_end) 
-# -> probably in-build timeline, must be possible to create different variants
-# TODO research if possible with resource file type (see player_skills)
-# if not, we can create a custom node for each combat participiant and name the events the same 
-
 @export var combat_movement_type = CombatMovementType.GROUNDED
 @export var combat_attack_type = CombatAttackType.MELEE
+
+# Animation
+@onready var animation_tree = $EnemyAnimator/AnimationTree
+@onready var sprite = $EnemyAnimator/AnimatedSprite2D
+var is_looking_left = false
+
+func _ready():
+	animation_tree.active = true
+	CombatDebug.bind_debug_method(debug_walk, "Enemy Walking")
+	CombatDebug.bind_debug_method(debug_idle, "Enemy Idleing")
+	CombatDebug.bind_debug_method(debug_toogle_look_direction, "Enemy Toogle Direction")
 
 func _process(delta):
 	if target == null:
 		return
+	
+	sprite.flip_h = is_looking_left
 	
 	match current_state:
 		EnemyState.GO_TO_TARGET:
@@ -54,6 +62,10 @@ func _process(delta):
 	
 
 func go_to_target():
+	# walk animation
+	# move to target
+	# check if target is in attack range
+	# if yes -> change state to attack
 	pass
 
 func attack():
@@ -83,6 +95,18 @@ func receive_damage(damage):
 		current_state= EnemyState.GET_HIT
 	pass
 
+
+func debug_walk():
+	animation_tree.set("parameters/IsMoving/blend_position", 1)
+	
+func debug_idle():
+	animation_tree.set("parameters/IsMoving/blend_position", 0)
+
+func debug_toogle_look_direction():
+	is_looking_left = not is_looking_left
+	sprite.flip_h = is_looking_left
+	
+	
 
 
 

@@ -1,11 +1,33 @@
-[gd_scene load_steps=28 format=3 uid="uid://kd4xv22ktbk8"]
+[gd_scene load_steps=38 format=3 uid="uid://kd4xv22ktbk8"]
 
 [ext_resource type="Script" path="res://scripts/combat/enemy_test.gd" id="1_6duvw"]
 [ext_resource type="Texture2D" uid="uid://bsx3bcku7oeis" path="res://assets/graphics/combat/combat_test_graphics/pixelAxeBandit/Axe Bandit Attack.png" id="2_ph6rl"]
+[ext_resource type="PackedScene" uid="uid://oxop7s84xh2o" path="res://scenes/combat/debug/combat_debug_ui.tscn" id="2_s4iao"]
 [ext_resource type="Texture2D" uid="uid://ceyx3ssv54iea" path="res://assets/graphics/combat/combat_test_graphics/pixelAxeBandit/Axe Bandit.png" id="3_sti7g"]
 [ext_resource type="Texture2D" uid="uid://dgdveeepmxvqc" path="res://assets/graphics/combat/combat_test_graphics/pixelAxeBandit/axe bandit run.png" id="4_0mlg0"]
 
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_1wcct"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dcaqb"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_c7buf"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_udweh"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_dcaqb")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_c7buf")
+blend_point_1/pos = 1.0
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nvqu8"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_6m1py"]
+states/IsMoving/node = SubResource("AnimationNodeBlendSpace1D_udweh")
+states/IsMoving/position = Vector2(427, 100)
+states/Start/position = Vector2(184, 100)
+transitions = ["Start", "IsMoving", SubResource("AnimationNodeStateMachineTransition_nvqu8")]
+graph_offset = Vector2(-32, -38)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q0c2f"]
 atlas = ExtResource("2_ph6rl")
@@ -168,22 +190,153 @@ animations = [{
 "texture": SubResource("AtlasTexture_8rnss")
 }],
 "loop": true,
-"name": &"run",
+"name": &"walk",
 "speed": 12.0
 }]
+
+[sub_resource type="Animation" id="Animation_xvpet"]
+resource_name = "idle"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_q4tl2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_8ecui"]
+resource_name = "walk"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"walk"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_kvjdg"]
+resource_name = "attack"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"attack"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_df5fh"]
+_data = {
+"RESET": SubResource("Animation_q4tl2"),
+"attack": SubResource("Animation_kvjdg"),
+"idle": SubResource("Animation_xvpet"),
+"walk": SubResource("Animation_8ecui")
+}
 
 [node name="TestEnemy" type="Node2D"]
 script = ExtResource("1_6duvw")
 
+[node name="CombatDebugUI" parent="." instance=ExtResource("2_s4iao")]
+
 [node name="EnemyAnimator" type="Node" parent="."]
 
 [node name="AnimationTree" type="AnimationTree" parent="EnemyAnimator"]
-tree_root = SubResource("AnimationNodeStateMachine_1wcct")
+active = false
+tree_root = SubResource("AnimationNodeStateMachine_6m1py")
+anim_player = NodePath("../AnimationPlayer")
+parameters/IsMoving/blend_position = 1.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="EnemyAnimator"]
 texture_filter = 1
+position = Vector2(160, 160)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_4bak4")
 animation = &"idle"
-autoplay = "idle"
-frame_progress = 0.77028
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EnemyAnimator"]
+libraries = {
+"": SubResource("AnimationLibrary_df5fh")
+}
