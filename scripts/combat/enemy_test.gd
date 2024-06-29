@@ -11,6 +11,14 @@ enum CombatAttackType {
 	SUPPORT,
 }
 
+enum EnemyState {
+	GO_TO_TARGET,
+	ATTACK_TARGET,
+	GET_HIT,
+	DYING,
+}
+
+var current_state := EnemyState.GO_TO_TARGET
 
 # Attributes in DTO? Allows for composition instead of inheritance...
 var health = 100
@@ -29,7 +37,24 @@ var animator #object which controls animations and events (e.g. animation_end)
 @export var combat_movement_type = CombatMovementType.GROUNDED
 @export var combat_attack_type = CombatAttackType.MELEE
 
+func _process(delta):
+	if target == null:
+		return
+	
+	match current_state:
+		EnemyState.GO_TO_TARGET:
+			go_to_target()
+		EnemyState.ATTACK_TARGET:
+			attack()
+		EnemyState.GET_HIT:
+			get_hit()
+		EnemyState.DYING:
+			die()
+			
+	
 
+func go_to_target():
+	pass
 
 func attack():
 	# needs a kind of frequency -> timer for now
@@ -45,10 +70,17 @@ func die():
 	# for now just a 3 second delay or smth
 	pass
 
+func get_hit():
+	# play get hit animation
+	pass
+
 func receive_damage(damage):
-	# play animation
 	# receive damage
 	health -= damage
+	if health <= 0:
+		current_state= EnemyState.DYING
+	else:
+		current_state= EnemyState.GET_HIT
 	pass
 
 
