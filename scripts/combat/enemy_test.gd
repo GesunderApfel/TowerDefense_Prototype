@@ -39,6 +39,7 @@ var is_looking_left = false
 
 func _ready():
 	animation_tree.active = true
+	CombatDebug.initialize_combat_debug_ui()
 	CombatDebug.bind_debug_method(debug_walk, "Enemy Walking")
 	CombatDebug.bind_debug_method(debug_idle, "Enemy Idleing")
 	CombatDebug.bind_debug_method(debug_toogle_look_direction, "Enemy Toogle Direction")

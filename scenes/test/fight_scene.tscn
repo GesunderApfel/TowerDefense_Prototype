@@ -24,3 +24,4 @@ mesh = SubResource("BoxMesh_ryfg2")
 position = Vector2(800, 880)
 
 [node name="BanditSpawner" parent="." instance=ExtResource("2_qecib")]
+enemy_amount = 1

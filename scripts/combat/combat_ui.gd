@@ -8,6 +8,8 @@ const PLAYER_SKILL_REPAIR = preload("res://resources/combat/player_skills/player
 const PLAYER_SKILL_I_AM_DEATH = preload("res://resources/combat/player_skills/player_skill_i_am_death.tres")
 
 func _ready():
+	CombatDebug.initialize_combat_debug_ui()
+	
 	var skill_repair = PLAYER_SKILL_BUTTON_BASE.instantiate()
 	skill_repair.initialize(PLAYER_SKILL_REPAIR)
 	

@@ -1,32 +1,33 @@
 extends Node2D
 
-var enemy = preload("res://scenes/test/enemy.tscn")
-var amount
-#var meleecount
-#var rangedcount
-#var supportcount
+const TEST_ENEMY_SCN = preload("res://scenes/combat/combat_test/test_enemy.tscn")
+
+@export var enemy_amount = 1
+
+@export_range(0,10000) var ground_height = 880
+@export var spawn_offset = Vector2(900,1200) # y value is for flying monsters
 
 func _ready():
-	amount = 6
-	$Start.start()
+	#$Start.start()
+	CombatDebug.initialize_combat_debug_ui()
+	CombatDebug.bind_debug_method(spawnEnemy,"Spawn Enemy")
+
 
 func _process(delta):
 	pass
 
-#func setcounts(mc, rc, sc):
-	#meleecount = mc
-	#rangedcount = rc
-	#supportcount = sc
 
 func spawnEnemy():
-	var r = randi() % 2
-	var spawn = enemy.instantiate()
-	spawn.position = Vector2(800 + (800 + randf_range(0,300))*pow(-1,r),880)
-	$Node.add_child(spawn)
+	var horizontal_spawn_direction = 1 if(randi_range(0,1) == 0) else -1 #ternary operation
+	var spawn = TEST_ENEMY_SCN.instantiate()
+	
+	spawn.position = Vector2(spawn_offset.x * horizontal_spawn_direction,ground_height)
+	$Enemies.add_child(spawn)
 
-func _on_start_timeout():
-	var i = 0
-	while i < amount:
-		spawnEnemy()
-		i+=1
-	$Start.stop()
+
+#func _on_start_timeout():
+	#var i = 0
+	#while i < enemy_amount:
+		#spawnEnemy()
+		#i+=1
+	#$Start.stop()
