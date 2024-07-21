@@ -12,7 +12,7 @@ size = Vector3(200, 120, 1)
 radius = 15.0
 height = 30.0
 
-[node name="Carriage" type="Node2D" groups=["ride"]]
+[node name="Carriage" type="Node2D" groups=["carriage"]]
 process_priority = 2
 script = ExtResource("1_sd2nm")
 

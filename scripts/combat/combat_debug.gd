@@ -17,18 +17,27 @@ func _process(delta):
 		#print("null")
 	pass
 
+func validate_debugger():
+	if !DEBUG_ACTIVE:
+		return false
+		
+	if debug_ui == null:
+		initialize_combat_debug_ui()
+		
+	return true
+
 func initialize_combat_debug_ui():
 	print("Combat Debug UI - IsActive: {isActive}".format({"isActive": DEBUG_ACTIVE}))	
 	
 	if !DEBUG_ACTIVE:
-		pass
+		return
 	
 	if debug_ui != null:
-		pass
+		return
 	else:
 		debug_ui = COMBAT_DEBUG_UI.instantiate()
 		add_child(debug_ui)
-		pass
+		return
 
 #######################################
 ########### DEBUG CALLBACKS ###########
@@ -38,14 +47,14 @@ const DEBUG_BUTTON_FOR_METHOD_BINDING = preload("res://scenes/combat/debug/debug
 
 # this should only be called by combat_debug_ui to instantiate the UI element
 func set_debug_button_binding_container(node):
-	if !DEBUG_ACTIVE:
-		pass 
+	if !validate_debugger():
+		return 
 	vbc_method_binder_buttons = node
 	
 
 func bind_debug_method(debug_method: Callable, method_name: String):
-	if !DEBUG_ACTIVE:
-		pass 
+	if !validate_debugger():
+		return 
 	
 	var button = DEBUG_BUTTON_FOR_METHOD_BINDING.instantiate()
 	button.pressed.connect(debug_method)
@@ -61,20 +70,20 @@ var vbc_fixed_debug_buttons
 
 # this should only be called by combat_debug_ui to instantiate the UI element
 func set_fixed_debug_button_binding_container(node):
-	if !DEBUG_ACTIVE:
-		pass 
+	if !validate_debugger():
+		return 
 	
 	vbc_fixed_debug_buttons = node
 	create_fixed_debug_buttons()
 	
 func create_fixed_debug_buttons():
-	if !DEBUG_ACTIVE:
-		pass 
+	if !validate_debugger():
+		return 
 	create_skill_cooldown_reset_button()
 
 func create_skill_cooldown_reset_button():
-	if !DEBUG_ACTIVE:
-		pass 
+	if !validate_debugger():
+		return 
 	
 	var button = DEBUG_BUTTON_FOR_METHOD_BINDING.instantiate()
 	button.pressed.connect(cooldown_reset)
@@ -83,10 +92,9 @@ func create_skill_cooldown_reset_button():
 
 var cooldown_actions: Array[PlayerSkillButton] = []
 func cooldown_reset():
-	if !DEBUG_ACTIVE:
-		pass 
+	if !validate_debugger():
+		return 
 	
 	# for all cooldown_actions -> reset
 	for action in cooldown_actions:
 		action.reset_button()
-	pass

@@ -1,5 +1,7 @@
 extends Node2D
 
+@onready var body2D = $StaticBody2D
+
 var maxHealth = 10
 var health = 10
 var defense = 0

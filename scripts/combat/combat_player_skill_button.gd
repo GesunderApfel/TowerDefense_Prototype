@@ -27,7 +27,7 @@ func _ready():
 	
 	CombatDebug.cooldown_actions.append(self)
 
-func _process(delta):
+func _process(_delta):
 	if player_skill_button.disabled == true:
 		texture_progress_bar.value = int(cooldown_timer.time_left / cooldown * 100)
 
