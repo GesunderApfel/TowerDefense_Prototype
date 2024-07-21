@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://phoobbn48iov"]
 
-[ext_resource type="PackedScene" uid="uid://o31cabihijgu" path="res://scenes/test/carriage.tscn" id="1_242hn"]
-[ext_resource type="PackedScene" uid="uid://djwilso1op4es" path="res://scenes/test/enemy_spawner.tscn" id="2_b3tj7"]
+[ext_resource type="PackedScene" uid="uid://o31cabihijgu" path="res://scenes/combat/combat_test/carriage.tscn" id="1_242hn"]
+[ext_resource type="PackedScene" uid="uid://djwilso1op4es" path="res://scenes/combat/combat_test/enemy_spawner.tscn" id="2_b3tj7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_arwvp"]
 size = Vector2(2000, 20)

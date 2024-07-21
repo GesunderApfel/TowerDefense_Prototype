@@ -1,9 +1,9 @@
-[gd_scene load_steps=39 format=3 uid="uid://kd4xv22ktbk8"]
+[gd_scene load_steps=40 format=3 uid="uid://kd4xv22ktbk8"]
 
-[ext_resource type="Script" path="res://scripts/combat/enemy.gd" id="1_51u0k"]
-[ext_resource type="Texture2D" uid="uid://bsx3bcku7oeis" path="res://assets/graphics/combat/combat_test_graphics/pixelAxeBandit/Axe Bandit Attack.png" id="2_gu3kr"]
-[ext_resource type="Texture2D" uid="uid://ceyx3ssv54iea" path="res://assets/graphics/combat/combat_test_graphics/pixelAxeBandit/Axe Bandit.png" id="3_8saxm"]
-[ext_resource type="Texture2D" uid="uid://dgdveeepmxvqc" path="res://assets/graphics/combat/combat_test_graphics/pixelAxeBandit/axe bandit run.png" id="4_2b65j"]
+[ext_resource type="Script" path="res://scripts/combat/enemy.gd" id="1_5ktnc"]
+[ext_resource type="Texture2D" uid="uid://bsx3bcku7oeis" path="res://assets/graphics/combat/combat_test_graphics/pixelAxeBandit/Axe Bandit Attack.png" id="2_p0vfr"]
+[ext_resource type="Texture2D" uid="uid://ceyx3ssv54iea" path="res://assets/graphics/combat/combat_test_graphics/pixelAxeBandit/Axe Bandit.png" id="3_4v4lo"]
+[ext_resource type="Texture2D" uid="uid://dgdveeepmxvqc" path="res://assets/graphics/combat/combat_test_graphics/pixelAxeBandit/axe bandit run.png" id="4_smi3s"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yqcq4"]
 radius = 20.8
@@ -13,87 +13,87 @@ height = 99.0
 radius = 39.55
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q0c2f"]
-atlas = ExtResource("2_gu3kr")
+atlas = ExtResource("2_p0vfr")
 region = Rect2(0, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hufbh"]
-atlas = ExtResource("2_gu3kr")
+atlas = ExtResource("2_p0vfr")
 region = Rect2(80, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_npo52"]
-atlas = ExtResource("2_gu3kr")
+atlas = ExtResource("2_p0vfr")
 region = Rect2(160, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fhcan"]
-atlas = ExtResource("2_gu3kr")
+atlas = ExtResource("2_p0vfr")
 region = Rect2(240, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8opkb"]
-atlas = ExtResource("2_gu3kr")
+atlas = ExtResource("2_p0vfr")
 region = Rect2(320, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x32v3"]
-atlas = ExtResource("2_gu3kr")
+atlas = ExtResource("2_p0vfr")
 region = Rect2(400, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j81ca"]
-atlas = ExtResource("2_gu3kr")
+atlas = ExtResource("2_p0vfr")
 region = Rect2(480, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jnv8t"]
-atlas = ExtResource("3_8saxm")
+atlas = ExtResource("3_4v4lo")
 region = Rect2(0, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_enrsj"]
-atlas = ExtResource("3_8saxm")
+atlas = ExtResource("3_4v4lo")
 region = Rect2(80, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r6cwa"]
-atlas = ExtResource("3_8saxm")
+atlas = ExtResource("3_4v4lo")
 region = Rect2(160, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r6l0m"]
-atlas = ExtResource("3_8saxm")
+atlas = ExtResource("3_4v4lo")
 region = Rect2(240, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nk8cy"]
-atlas = ExtResource("3_8saxm")
+atlas = ExtResource("3_4v4lo")
 region = Rect2(320, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vdmmv"]
-atlas = ExtResource("3_8saxm")
+atlas = ExtResource("3_4v4lo")
 region = Rect2(400, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vvlec"]
-atlas = ExtResource("4_2b65j")
+atlas = ExtResource("4_smi3s")
 region = Rect2(0, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eumt4"]
-atlas = ExtResource("4_2b65j")
+atlas = ExtResource("4_smi3s")
 region = Rect2(80, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p7q75"]
-atlas = ExtResource("4_2b65j")
+atlas = ExtResource("4_smi3s")
 region = Rect2(160, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_42udq"]
-atlas = ExtResource("4_2b65j")
+atlas = ExtResource("4_smi3s")
 region = Rect2(240, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q3hrc"]
-atlas = ExtResource("4_2b65j")
+atlas = ExtResource("4_smi3s")
 region = Rect2(320, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_turlb"]
-atlas = ExtResource("4_2b65j")
+atlas = ExtResource("4_smi3s")
 region = Rect2(400, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5i4qj"]
-atlas = ExtResource("4_2b65j")
+atlas = ExtResource("4_smi3s")
 region = Rect2(480, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8rnss"]
-atlas = ExtResource("4_2b65j")
+atlas = ExtResource("4_smi3s")
 region = Rect2(560, 0, 80, 80)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4bak4"]
@@ -177,27 +177,30 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dcaqb"]
-animation = &"idle"
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3oto2"]
+animation = &"attack"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_c7buf"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_salig"]
 animation = &"walk"
 
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_udweh"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_dcaqb")
-blend_point_0/pos = 0.0
-blend_point_1/node = SubResource("AnimationNodeAnimation_c7buf")
-blend_point_1/pos = 1.0
-blend_mode = 1
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nvqu8"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_idp7p"]
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m0fdm"]
+advance_mode = 2
+advance_condition = &"IsAttacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i3hya"]
+advance_mode = 2
+advance_condition = &"IsWalking"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_6m1py"]
-states/IsMoving/node = SubResource("AnimationNodeBlendSpace1D_udweh")
-states/IsMoving/position = Vector2(427, 100)
 states/Start/position = Vector2(184, 100)
-transitions = ["Start", "IsMoving", SubResource("AnimationNodeStateMachineTransition_nvqu8")]
+states/attack/node = SubResource("AnimationNodeAnimation_3oto2")
+states/attack/position = Vector2(611, 42)
+states/walk/node = SubResource("AnimationNodeAnimation_salig")
+states/walk/position = Vector2(402, 100)
+transitions = ["Start", "walk", SubResource("AnimationNodeStateMachineTransition_idp7p"), "walk", "attack", SubResource("AnimationNodeStateMachineTransition_m0fdm"), "attack", "walk", SubResource("AnimationNodeStateMachineTransition_i3hya")]
 graph_offset = Vector2(-32, -38)
 
 [sub_resource type="Animation" id="Animation_q4tl2"]
@@ -323,8 +326,9 @@ _data = {
 }
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
+position = Vector2(500, 0)
 collision_mask = 3
-script = ExtResource("1_51u0k")
+script = ExtResource("1_5ktnc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(4.26, -50)
@@ -335,9 +339,10 @@ debug_color = Color(0.992482, 0, 0.251412, 0.42)
 rotation = 6.28319
 
 [node name="AttackArea_Melee_R" type="Area2D" parent="Areas_FacingRight"]
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Areas_FacingRight/AttackArea_Melee_R"]
-position = Vector2(21.15, -62.585)
+position = Vector2(0, -62.585)
 shape = SubResource("CircleShape2D_qmhym")
 
 [node name="Areas_FacingLeft" type="Node2D" parent="."]
@@ -345,9 +350,10 @@ visible = false
 rotation = 6.28319
 
 [node name="AttackArea_Melee_L" type="Area2D" parent="Areas_FacingLeft"]
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Areas_FacingLeft/AttackArea_Melee_L"]
-position = Vector2(-21.15, -62.585)
+position = Vector2(0, -62.585)
 shape = SubResource("CircleShape2D_qmhym")
 
 [node name="Animator" type="Node2D" parent="."]
@@ -363,7 +369,8 @@ animation = &"idle"
 active = false
 tree_root = SubResource("AnimationNodeStateMachine_6m1py")
 anim_player = NodePath("../AnimationPlayer")
-parameters/IsMoving/blend_position = 1.0
+parameters/conditions/IsAttacking = false
+parameters/conditions/IsWalking = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Animator"]
 libraries = {

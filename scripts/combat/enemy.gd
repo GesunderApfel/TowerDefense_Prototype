@@ -18,6 +18,7 @@ enum EnemyState {
 	DYING,
 }
 
+
 var current_state := EnemyState.GO_TO_TARGET
 
 # Attributes in DTO? Allows for composition instead of inheritance...
@@ -44,7 +45,6 @@ var is_looking_left = false
 
 @onready var attack_area_melee_r = $Areas_FacingRight/AttackArea_Melee_R
 @onready var attack_area_melee_l = $Areas_FacingLeft/AttackArea_Melee_L
-
 
 func _ready():
 	animation_tree.active = true
@@ -78,19 +78,22 @@ func _physics_process(delta):
 	
 
 func go_to_target():
-	animation_tree.set("parameters/IsMoving/blend_position", 1)
+	animation_tree.set("parameters/conditions/IsWalking", true)
+	animation_tree.set("parameters/conditions/IsAttacking", false)
 	velocity = position.direction_to(target.position) * move_speed
 	move_and_slide()
 	
-	if attack_area_melee_r.overlaps_body(target.body2D) or attack_area_melee_l.overlaps_body(target.body2D):
-		print("Can attack carriage")
-		pass
+	if attack_area_melee_r.overlaps_body(target.body2D) \
+	or attack_area_melee_l.overlaps_body(target.body2D):
+		current_state = EnemyState.ATTACK_TARGET
 	
 	# check if target is in attack range
 	# if yes -> change state to attack
 	pass
 
 func attack():
+	animation_tree.set("parameters/conditions/IsWalking", false)
+	animation_tree.set("parameters/conditions/IsAttacking", true)
 	# needs a kind of frequency -> timer for now
 	# decide if skill or normal attack -> for now just attack
 	# play animation -> use animator
@@ -134,7 +137,7 @@ func debug_toogle_look_direction():
 
 func _on_attack_area_melee_l_body_entered(body):
 	#if carriage.is_in_group():
-	#	print("Can attack carriage")
+	#print("Can attack carriage")
 	pass # Replace with function body.
 
 
