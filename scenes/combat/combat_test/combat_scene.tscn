@@ -28,4 +28,4 @@ carriage = NodePath("../Carriage")
 spawn_offset = Vector2(600, 1200)
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(801, 954)
+position = Vector2(801, 704)

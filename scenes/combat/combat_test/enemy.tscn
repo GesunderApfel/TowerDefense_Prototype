@@ -327,7 +327,7 @@ _data = {
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 position = Vector2(500, 0)
-collision_mask = 3
+collision_mask = 2
 script = ExtResource("1_5ktnc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -376,6 +376,14 @@ parameters/conditions/IsWalking = false
 libraries = {
 "": SubResource("AnimationLibrary_df5fh")
 }
+
+[node name="Timers" type="Node2D" parent="."]
+
+[node name="Attacks" type="Node2D" parent="Timers"]
+
+[node name="AttackTimer" type="Timer" parent="Timers/Attacks"]
+wait_time = 2.5
+one_shot = true
 
 [connection signal="body_entered" from="Areas_FacingRight/AttackArea_Melee_R" to="." method="_on_attack_area_melee_r_body_entered"]
 [connection signal="body_entered" from="Areas_FacingLeft/AttackArea_Melee_L" to="." method="_on_attack_area_melee_l_body_entered"]

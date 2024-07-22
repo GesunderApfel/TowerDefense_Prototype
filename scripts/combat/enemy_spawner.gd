@@ -37,7 +37,6 @@ func spawn_enemy():
 		enemy.is_looking_left = false
 		
 	var pos_x : float = carriage.position.x + spawn_offset.x * horizontal_spawn_direction
-	print(pos_x);
 	
 	enemy.position = Vector2(pos_x,ground_height)
 	$Enemies.add_child(enemy)

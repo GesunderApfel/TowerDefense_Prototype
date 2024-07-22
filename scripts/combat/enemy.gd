@@ -26,7 +26,11 @@ var health = 100
 var move_speed = 120
 var attack_damage = 1
 var defense = 1
-var attack_frequence = 5.0 #in seconds
+var attack_frequence = 2.5 #in seconds
+
+# attack
+var can_attack = true
+
 
 var target #what is the next target of action -> for now carriage
 
@@ -46,11 +50,12 @@ var is_looking_left = false
 @onready var attack_area_melee_r = $Areas_FacingRight/AttackArea_Melee_R
 @onready var attack_area_melee_l = $Areas_FacingLeft/AttackArea_Melee_L
 
+# Timers
+@onready var attack_timer = $Timers/Attacks/AttackTimer
+
 func _ready():
 	animation_tree.active = true
-	CombatDebug.bind_debug_method(debug_walk, "Enemy Walking")
-	CombatDebug.bind_debug_method(debug_idle, "Enemy Idleing")
-	CombatDebug.bind_debug_method(debug_toogle_look_direction, "Enemy Toogle Direction")
+
 
 func _physics_process(delta):
 	
@@ -87,13 +92,16 @@ func go_to_target():
 	or attack_area_melee_l.overlaps_body(target.body2D):
 		current_state = EnemyState.ATTACK_TARGET
 	
-	# check if target is in attack range
-	# if yes -> change state to attack
 	pass
 
 func attack():
 	animation_tree.set("parameters/conditions/IsWalking", false)
 	animation_tree.set("parameters/conditions/IsAttacking", true)
+	
+	if attack_timer.is_stopped():
+		attack_timer.start()
+		target.take_damage(5)
+
 	# needs a kind of frequency -> timer for now
 	# decide if skill or normal attack -> for now just attack
 	# play animation -> use animator
@@ -119,27 +127,3 @@ func receive_damage(damage):
 	else:
 		current_state= EnemyState.GET_HIT
 	pass
-
-
-func debug_walk():
-	animation_tree.set("parameters/IsMoving/blend_position", 1)
-	
-func debug_idle():
-	animation_tree.set("parameters/IsMoving/blend_position", 0)
-
-func debug_toogle_look_direction():
-	is_looking_left = not is_looking_left
-	sprite.flip_h = is_looking_left
-
-
-
-
-
-func _on_attack_area_melee_l_body_entered(body):
-	#if carriage.is_in_group():
-	#print("Can attack carriage")
-	pass # Replace with function body.
-
-
-func _on_attack_area_melee_r_body_entered(body):
-	pass # Replace with function body.
