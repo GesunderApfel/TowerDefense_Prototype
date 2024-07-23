@@ -1,9 +1,9 @@
-[gd_scene load_steps=40 format=3 uid="uid://kd4xv22ktbk8"]
+[gd_scene load_steps=47 format=3 uid="uid://kd4xv22ktbk8"]
 
 [ext_resource type="Script" path="res://scripts/combat/enemy.gd" id="1_5ktnc"]
-[ext_resource type="Texture2D" uid="uid://bsx3bcku7oeis" path="res://assets/graphics/combat/combat_test_graphics/pixelAxeBandit/Axe Bandit Attack.png" id="2_p0vfr"]
-[ext_resource type="Texture2D" uid="uid://ceyx3ssv54iea" path="res://assets/graphics/combat/combat_test_graphics/pixelAxeBandit/Axe Bandit.png" id="3_4v4lo"]
-[ext_resource type="Texture2D" uid="uid://dgdveeepmxvqc" path="res://assets/graphics/combat/combat_test_graphics/pixelAxeBandit/axe bandit run.png" id="4_smi3s"]
+[ext_resource type="Texture2D" uid="uid://bsx3bcku7oeis" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/pixelAxeBandit/Axe Bandit Attack.png" id="2_yug3r"]
+[ext_resource type="Texture2D" uid="uid://ceyx3ssv54iea" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/pixelAxeBandit/Axe Bandit.png" id="3_q7iku"]
+[ext_resource type="Texture2D" uid="uid://dgdveeepmxvqc" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/pixelAxeBandit/axe bandit run.png" id="4_682wd"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yqcq4"]
 radius = 20.8
@@ -13,87 +13,87 @@ height = 99.0
 radius = 39.55
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q0c2f"]
-atlas = ExtResource("2_p0vfr")
+atlas = ExtResource("2_yug3r")
 region = Rect2(0, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hufbh"]
-atlas = ExtResource("2_p0vfr")
+atlas = ExtResource("2_yug3r")
 region = Rect2(80, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_npo52"]
-atlas = ExtResource("2_p0vfr")
+atlas = ExtResource("2_yug3r")
 region = Rect2(160, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fhcan"]
-atlas = ExtResource("2_p0vfr")
+atlas = ExtResource("2_yug3r")
 region = Rect2(240, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8opkb"]
-atlas = ExtResource("2_p0vfr")
+atlas = ExtResource("2_yug3r")
 region = Rect2(320, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x32v3"]
-atlas = ExtResource("2_p0vfr")
+atlas = ExtResource("2_yug3r")
 region = Rect2(400, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j81ca"]
-atlas = ExtResource("2_p0vfr")
+atlas = ExtResource("2_yug3r")
 region = Rect2(480, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jnv8t"]
-atlas = ExtResource("3_4v4lo")
+atlas = ExtResource("3_q7iku")
 region = Rect2(0, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_enrsj"]
-atlas = ExtResource("3_4v4lo")
+atlas = ExtResource("3_q7iku")
 region = Rect2(80, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r6cwa"]
-atlas = ExtResource("3_4v4lo")
+atlas = ExtResource("3_q7iku")
 region = Rect2(160, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r6l0m"]
-atlas = ExtResource("3_4v4lo")
+atlas = ExtResource("3_q7iku")
 region = Rect2(240, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nk8cy"]
-atlas = ExtResource("3_4v4lo")
+atlas = ExtResource("3_q7iku")
 region = Rect2(320, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vdmmv"]
-atlas = ExtResource("3_4v4lo")
+atlas = ExtResource("3_q7iku")
 region = Rect2(400, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vvlec"]
-atlas = ExtResource("4_smi3s")
+atlas = ExtResource("4_682wd")
 region = Rect2(0, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eumt4"]
-atlas = ExtResource("4_smi3s")
+atlas = ExtResource("4_682wd")
 region = Rect2(80, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p7q75"]
-atlas = ExtResource("4_smi3s")
+atlas = ExtResource("4_682wd")
 region = Rect2(160, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_42udq"]
-atlas = ExtResource("4_smi3s")
+atlas = ExtResource("4_682wd")
 region = Rect2(240, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q3hrc"]
-atlas = ExtResource("4_smi3s")
+atlas = ExtResource("4_682wd")
 region = Rect2(320, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_turlb"]
-atlas = ExtResource("4_smi3s")
+atlas = ExtResource("4_682wd")
 region = Rect2(400, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5i4qj"]
-atlas = ExtResource("4_smi3s")
+atlas = ExtResource("4_682wd")
 region = Rect2(480, 0, 80, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8rnss"]
-atlas = ExtResource("4_smi3s")
+atlas = ExtResource("4_682wd")
 region = Rect2(560, 0, 80, 80)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4bak4"]
@@ -180,6 +180,12 @@ animations = [{
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3oto2"]
 animation = &"attack"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tem6a"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_r6yn8"]
+animation = &"skill_berserk"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_salig"]
 animation = &"walk"
 
@@ -194,14 +200,34 @@ advance_condition = &"IsAttacking"
 advance_mode = 2
 advance_condition = &"IsWalking"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_70ga5"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o6vab"]
+advance_mode = 2
+advance_condition = &"IsAttacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xs3ie"]
+advance_mode = 2
+advance_condition = &"IsBerserk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4h8bo"]
+advance_mode = 2
+advance_condition = &"IsAttacking"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_6m1py"]
 states/Start/position = Vector2(184, 100)
 states/attack/node = SubResource("AnimationNodeAnimation_3oto2")
 states/attack/position = Vector2(611, 42)
+states/idle/node = SubResource("AnimationNodeAnimation_tem6a")
+states/idle/position = Vector2(716, 100)
+states/skill_berserk/node = SubResource("AnimationNodeAnimation_r6yn8")
+states/skill_berserk/position = Vector2(830, 42)
 states/walk/node = SubResource("AnimationNodeAnimation_salig")
 states/walk/position = Vector2(402, 100)
-transitions = ["Start", "walk", SubResource("AnimationNodeStateMachineTransition_idp7p"), "walk", "attack", SubResource("AnimationNodeStateMachineTransition_m0fdm"), "attack", "walk", SubResource("AnimationNodeStateMachineTransition_i3hya")]
-graph_offset = Vector2(-32, -38)
+transitions = ["Start", "walk", SubResource("AnimationNodeStateMachineTransition_idp7p"), "walk", "attack", SubResource("AnimationNodeStateMachineTransition_m0fdm"), "attack", "walk", SubResource("AnimationNodeStateMachineTransition_i3hya"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_70ga5"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_o6vab"), "idle", "skill_berserk", SubResource("AnimationNodeStateMachineTransition_xs3ie"), "skill_berserk", "idle", SubResource("AnimationNodeStateMachineTransition_4h8bo")]
+graph_offset = Vector2(273, -17)
 
 [sub_resource type="Animation" id="Animation_q4tl2"]
 length = 0.001
@@ -233,7 +259,6 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_kvjdg"]
 resource_name = "attack"
 length = 0.5
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -288,6 +313,35 @@ tracks/1/keys = {
 "values": [1, 2, 3, 4, 5]
 }
 
+[sub_resource type="Animation" id="Animation_qgsh1"]
+resource_name = "skill_berserk"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"attack"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5, 6]
+}
+
 [sub_resource type="Animation" id="Animation_8ecui"]
 resource_name = "walk"
 length = 0.7
@@ -322,10 +376,11 @@ _data = {
 "RESET": SubResource("Animation_q4tl2"),
 "attack": SubResource("Animation_kvjdg"),
 "idle": SubResource("Animation_xvpet"),
+"skill_berserk": SubResource("Animation_qgsh1"),
 "walk": SubResource("Animation_8ecui")
 }
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="CharacterBody2D" type="CharacterBody2D" groups=["enemy"]]
 position = Vector2(500, 0)
 collision_mask = 2
 script = ExtResource("1_5ktnc")
@@ -370,6 +425,7 @@ active = false
 tree_root = SubResource("AnimationNodeStateMachine_6m1py")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/IsAttacking = false
+parameters/conditions/IsBerserk = false
 parameters/conditions/IsWalking = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Animator"]
@@ -383,6 +439,22 @@ libraries = {
 
 [node name="AttackTimer" type="Timer" parent="Timers/Attacks"]
 wait_time = 2.5
+one_shot = true
+
+[node name="Skill_Berserk_Duration" type="Timer" parent="Timers/Attacks"]
+wait_time = 5.0
+one_shot = true
+
+[node name="Skill_Berserk_DiceThrow_Timer" type="Timer" parent="Timers/Attacks"]
+wait_time = 0.25
+one_shot = true
+
+[node name="Skill_Berserk_Timer" type="Timer" parent="Timers/Attacks"]
+wait_time = 0.75
+one_shot = true
+
+[node name="Skill_Berserk_Cooldown" type="Timer" parent="Timers/Attacks"]
+wait_time = 15.0
 one_shot = true
 
 [connection signal="body_entered" from="Areas_FacingRight/AttackArea_Melee_R" to="." method="_on_attack_area_melee_r_body_entered"]

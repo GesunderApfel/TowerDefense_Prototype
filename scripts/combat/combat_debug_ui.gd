@@ -7,7 +7,7 @@ extends Control
 func _ready():
 	CombatDebug.set_debug_button_binding_container(vbc_method_binder_buttons)
 	CombatDebug.set_fixed_debug_button_binding_container(vbc_fixed_debug_buttons)
-	print("Debug Buttons")
+	print("Combat UI Initialized")
 	pass
 
 

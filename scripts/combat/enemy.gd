@@ -29,8 +29,8 @@ var defense = 1
 var attack_frequence = 2.5 #in seconds
 
 # attack
-var can_attack = true
-
+var can_attack : bool = true
+var is_berserk: bool = true
 
 var target #what is the next target of action -> for now carriage
 
@@ -52,10 +52,14 @@ var is_looking_left = false
 
 # Timers
 @onready var attack_timer = $Timers/Attacks/AttackTimer
+@onready var skill_berserk_duration = $Timers/Attacks/Skill_Berserk_Duration
+@onready var skill_berserk_timer = $Timers/Attacks/Skill_Berserk_Timer
+@onready var skill_berserk_cooldown = $Timers/Attacks/Skill_Berserk_Cooldown
+@onready var skill_berserk_dice_throw_timer = $Timers/Attacks/Skill_Berserk_DiceThrow_Timer
+
 
 func _ready():
 	animation_tree.active = true
-
 
 func _physics_process(delta):
 	
@@ -91,16 +95,44 @@ func go_to_target():
 	if attack_area_melee_r.overlaps_body(target.body2D) \
 	or attack_area_melee_l.overlaps_body(target.body2D):
 		current_state = EnemyState.ATTACK_TARGET
-	
+		animation_tree.set("parameters/conditions/IsWalking", false)
+		animation_tree.set("parameters/conditions/IsAttacking", true)
 	pass
 
 func attack():
-	animation_tree.set("parameters/conditions/IsWalking", false)
-	animation_tree.set("parameters/conditions/IsAttacking", true)
 	
-	if attack_timer.is_stopped():
-		attack_timer.start()
-		target.take_damage(5)
+	var is_using_skill : bool = false
+	
+	# is skill possible?
+	if skill_berserk_duration.is_stopped():
+		animation_tree.set("parameters/conditions/IsBerserk", false)
+		is_berserk = false
+		sprite.modulate = Color(1,1,1)
+		if skill_berserk_cooldown.is_stopped():
+			if skill_berserk_dice_throw_timer.is_stopped():
+				skill_berserk_dice_throw_timer.start()
+				is_using_skill = randi_range(0,1000) > 970
+	
+	if is_using_skill:
+		sprite.modulate = Color(1,180.0 / 255.0,180.0 / 255.0)
+		skill_berserk_duration.start()
+		skill_berserk_cooldown.start()
+		is_berserk = true
+		animation_tree.set("parameters/conditions/IsAttacking", false)
+		animation_tree.set("parameters/conditions/IsBerserk", true)
+	else:	
+		if is_berserk:
+			if skill_berserk_timer.is_stopped():
+				skill_berserk_timer.start()
+				target.take_damage(attack_damage)
+		else:
+			if attack_timer.is_stopped():
+				attack_timer.start()
+				target.take_damage(attack_damage)
+				animation_tree.set("parameters/conditions/IsAttacking", true)
+			else:
+				animation_tree.set("parameters/conditions/IsAttacking", false)
+
 
 	# needs a kind of frequency -> timer for now
 	# decide if skill or normal attack -> for now just attack

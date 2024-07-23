@@ -2,6 +2,8 @@ extends Node2D
 
 const COMBAT_HEALTH_BAR = preload("res://scenes/combat/combat_health_bar.tscn")
 @onready var body2D = $StaticBody2D
+@onready var animation_player = $AnimationPlayer
+@onready var player_position : Marker2D = $PlayerPosition
 
 var health_bar
 
@@ -34,6 +36,7 @@ func heal_completely():
 
 func take_damage(damage):
 	health -= damage
+	animation_player.play("shake")
 	update_healthbar()
 
 func update_healthbar():
