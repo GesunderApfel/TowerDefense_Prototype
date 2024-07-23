@@ -9,6 +9,8 @@ enum PLAYER_COMBAT_STATE{
 
 var current_state : PLAYER_COMBAT_STATE = PLAYER_COMBAT_STATE.Idle
 
+const ARROW = preload("res://scenes/combat/combat_test/arrow.tscn")
+
 @onready var animation_tree = $Visuals/AnimationTree
 @onready var sprite = $Visuals/AnimatedSprite2D
 
@@ -32,10 +34,9 @@ func _ready():
 		
 	self.add_child(timer_pull_arrow_animation)
 	self.add_child(timer_release_arrow_animation)
-	pass # Replace with function body.
+	pass
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	update_look_direction()
 	sprite.flip_h = is_looking_left
@@ -62,8 +63,6 @@ func State_Idle():
 
 func State_PullArrow():
 	animation_tree.set("parameters/conditions/IsHoldingArrow", true)
-	print("State_pullArrow")
-	print(str(timer_pull_arrow_animation.is_stopped()) + "\n " + str(timer_pull_arrow_animation.time_left))
 	if timer_pull_arrow_animation.is_stopped():
 		current_state = PLAYER_COMBAT_STATE.HoldArrow	
 	pass
@@ -75,8 +74,11 @@ func State_HoldArrow():
 		animation_tree.set("parameters/conditions/IsReleasingArrow",true)
 		animation_tree.set("parameters/conditions/IsHoldingArrow",false)
 		
-		
-		
+		var arrow = ARROW.instantiate()
+		self.add_child(arrow)
+		arrow.global_position = global_position + Vector2(0,-65)
+		arrow.get_node("Sprite2D").flip_h = is_looking_left
+		print(arrow.global_position)
 		# spawn arrow
 		# give arrow direction
 	
