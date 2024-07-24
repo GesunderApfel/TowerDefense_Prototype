@@ -23,3 +23,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_bhhra")
 theme_override_styles/fill = SubResource("StyleBoxFlat_ug0uw")
 value = 100.0
 show_percentage = false
+
+[node name="OnScreenDuration" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true

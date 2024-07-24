@@ -313,6 +313,7 @@ sprite_frames = SubResource("SpriteFrames_ehjqw")
 animation = &"idle"
 
 [node name="AnimationTree" type="AnimationTree" parent="Visuals"]
+active = false
 tree_root = SubResource("AnimationNodeStateMachine_q4y5m")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/IsHoldingArrow = false

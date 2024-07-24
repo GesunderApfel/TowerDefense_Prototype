@@ -20,17 +20,18 @@ enum EnemyState {
 
 
 var current_state := EnemyState.GO_TO_TARGET
-
+var return_state := EnemyState.GO_TO_TARGET
 # Attributes in DTO? Allows for composition instead of inheritance...
-var health = 100
+var health
+var max_health = 10
 var move_speed = 120
 var attack_damage = 1
-var defense = 1
+var defense = 0
 var attack_frequence = 2.5 #in seconds
 
 # attack
-var can_attack : bool = true
-var is_berserk: bool = true
+var is_berserk: bool = false
+@onready var combat_health_bar = $CombatHealthBar
 
 var target #what is the next target of action -> for now carriage
 
@@ -51,22 +52,28 @@ var is_looking_left = false
 @onready var attack_area_melee_l = $Areas_FacingLeft/AttackArea_Melee_L
 
 # Timers
-@onready var attack_timer = $Timers/Attacks/AttackTimer
-@onready var skill_berserk_duration = $Timers/Attacks/Skill_Berserk_Duration
-@onready var skill_berserk_timer = $Timers/Attacks/Skill_Berserk_Timer
-@onready var skill_berserk_cooldown = $Timers/Attacks/Skill_Berserk_Cooldown
-@onready var skill_berserk_dice_throw_timer = $Timers/Attacks/Skill_Berserk_DiceThrow_Timer
+@onready var attack_timer : Timer = $Timers/Attacks/AttackTimer
+@onready var skill_berserk_duration : Timer = $Timers/Attacks/Skill_Berserk_Duration
+@onready var skill_berserk_timer : Timer = $Timers/Attacks/Skill_Berserk_Timer
+@onready var skill_berserk_cooldown : Timer = $Timers/Attacks/Skill_Berserk_Cooldown
+@onready var skill_berserk_dice_throw_timer : Timer = $Timers/Attacks/Skill_Berserk_DiceThrow_Timer
+var timer_getting_hit : Timer
 
 
 func _ready():
 	animation_tree.active = true
+	health = max_health
+	timer_getting_hit = Timer.new()
+	timer_getting_hit.wait_time = animation_tree.get_animation("get_hit").length
+	timer_getting_hit.one_shot = true
+	self.add_child(timer_getting_hit)
 
 func _physics_process(delta):
 	
 	if target == null:
 		return
 	
-	sprite.flip_h = is_looking_left		
+	sprite.flip_h = is_looking_left
 	if is_looking_left:
 		areas_facing_left.show()
 		areas_facing_right.hide()
@@ -132,30 +139,30 @@ func attack():
 				animation_tree.set("parameters/conditions/IsAttacking", true)
 			else:
 				animation_tree.set("parameters/conditions/IsAttacking", false)
-
-
-	# needs a kind of frequency -> timer for now
-	# decide if skill or normal attack -> for now just attack
-	# play animation -> use animator
-	# apply damage to target -> for now instant (start of animation), in the
-	# future must be triggered by animator event so the timing is accurate 
 	pass
 
 func die():
-	# play die animation
-	# remove object from scene -> later from animator event, 
-	# for now just a 3 second delay or smth
+	queue_free()
 	pass
 
 func get_hit():
+	animation_tree.set("parameters/conditions/IsGettingHit", true)
+	if timer_getting_hit.is_stopped():
+		current_state = return_state
+		animation_tree.set("parameters/conditions/IsGettingHit", false)
 	# play get hit animation
 	pass
 
 func receive_damage(damage):
 	# receive damage
-	health -= damage
+	health -= max(damage-defense,0)
+	return_state = current_state
+	combat_health_bar.update_health_value(float(health) / float(max_health) * 100.0)
+	
 	if health <= 0:
 		current_state= EnemyState.DYING
 	else:
-		current_state= EnemyState.GET_HIT
+		if not is_berserk:
+			current_state= EnemyState.GET_HIT
+			timer_getting_hit.start()
 	pass

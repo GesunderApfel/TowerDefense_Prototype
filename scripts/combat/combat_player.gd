@@ -1,13 +1,13 @@
 extends Node2D
 
-enum PLAYER_COMBAT_STATE{
-	Idle,
-	PullArrow,
-	HoldArrow,
-	ReleaseArrow,
+enum PlayerCombatState{
+	IDLE,
+	PULL_ARROW,
+	HOLD_ARROW,
+	RELEASE_ARROW,
 }
 
-var current_state : PLAYER_COMBAT_STATE = PLAYER_COMBAT_STATE.Idle
+var current_state : PlayerCombatState = PlayerCombatState.IDLE
 
 const ARROW = preload("res://scenes/combat/combat_test/arrow.tscn")
 
@@ -22,6 +22,8 @@ var is_looking_left : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	animation_tree.active = true
+	
 	timer_pull_arrow_animation = Timer.new()
 	timer_pull_arrow_animation.one_shot = true
 	timer_pull_arrow_animation.wait_time \
@@ -42,34 +44,34 @@ func _process(delta):
 	sprite.flip_h = is_looking_left
 	
 	match current_state:
-		PLAYER_COMBAT_STATE.Idle:
-			State_Idle()
-		PLAYER_COMBAT_STATE.PullArrow:
-			State_PullArrow()
-		PLAYER_COMBAT_STATE.HoldArrow:
-			State_HoldArrow()
-		PLAYER_COMBAT_STATE.ReleaseArrow:
-			State_ReleaseArrow()
+		PlayerCombatState.IDLE:
+			state_idle()
+		PlayerCombatState.PULL_ARROW:
+			state_pull_arrow()
+		PlayerCombatState.HOLD_ARROW:
+			state_hold_arrow()
+		PlayerCombatState.RELEASE_ARROW:
+			state_release_arrow()
 	pass
 
-func State_Idle():
+func state_idle():
 	animation_tree.set("parameters/conditions/IsHoldingArrow", false)
 	animation_tree.set("parameters/conditions/IsReleasingArrow", false)
 
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		current_state = PLAYER_COMBAT_STATE.PullArrow
+		current_state = PlayerCombatState.PULL_ARROW
 		timer_pull_arrow_animation.start()
 	pass
 
-func State_PullArrow():
+func state_pull_arrow():
 	animation_tree.set("parameters/conditions/IsHoldingArrow", true)
 	if timer_pull_arrow_animation.is_stopped():
-		current_state = PLAYER_COMBAT_STATE.HoldArrow	
+		current_state = PlayerCombatState.HOLD_ARROW	
 	pass
 
-func State_HoldArrow():	
+func state_hold_arrow():	
 	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		current_state = PLAYER_COMBAT_STATE.ReleaseArrow
+		current_state = PlayerCombatState.RELEASE_ARROW
 		timer_release_arrow_animation.start()
 		animation_tree.set("parameters/conditions/IsReleasingArrow",true)
 		animation_tree.set("parameters/conditions/IsHoldingArrow",false)
@@ -78,17 +80,16 @@ func State_HoldArrow():
 		self.add_child(arrow)
 		arrow.global_position = global_position + Vector2(0,-65)
 		arrow.get_node("Sprite2D").flip_h = is_looking_left
-		print(arrow.global_position)
-		# spawn arrow
-		# give arrow direction
-	
+		
+		var direction : Vector2 = (get_global_mouse_position()-arrow.global_position).normalized()
+		arrow.set_direction(direction)
 	pass
 
-func State_ReleaseArrow():
+func state_release_arrow():
 	animation_tree.set("parameters/conditions/IsReleasingArrow",true)
 	
 	if timer_release_arrow_animation.is_stopped():
-		current_state = PLAYER_COMBAT_STATE.Idle	
+		current_state = PlayerCombatState.IDLE
 	pass
 
 func update_look_direction():

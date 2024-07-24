@@ -3,9 +3,6 @@ extends Node2D
 const ENEMY_SCN = preload("res://scenes/combat/combat_test/enemy.tscn")
 
 # User Interface
-const COMBAT_UI = preload("res://scenes/combat/combat_ui.tscn")
-
-
 @export var carriage : Node #allows referencing node via editor
 
 @export var enemy_amount = 1
@@ -15,9 +12,7 @@ const COMBAT_UI = preload("res://scenes/combat/combat_ui.tscn")
 
 func _ready():
 	#$Start.start()
-	CombatDebug.bind_debug_method(spawn_enemy,"Spawn Enemy")
-	var combatUI = COMBAT_UI.instantiate()
-	get_tree().root.add_child.call_deferred(combatUI)
+	CombatDebug.bind_debug_method(spawn_enemy,"Spawn Enemy", KEY_1)
 
 func _process(delta):
 	pass

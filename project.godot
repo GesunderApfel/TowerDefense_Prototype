@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 CombatDebug="*res://scripts/combat/combat_debug.gd"
+GlobalEnums="*res://scripts/core/global_enums.gd"
 
 [display]
 

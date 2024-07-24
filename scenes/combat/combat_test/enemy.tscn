@@ -1,9 +1,10 @@
-[gd_scene load_steps=47 format=3 uid="uid://kd4xv22ktbk8"]
+[gd_scene load_steps=56 format=3 uid="uid://kd4xv22ktbk8"]
 
 [ext_resource type="Script" path="res://scripts/combat/enemy.gd" id="1_5ktnc"]
 [ext_resource type="Texture2D" uid="uid://bsx3bcku7oeis" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/pixelAxeBandit/Axe Bandit Attack.png" id="2_yug3r"]
 [ext_resource type="Texture2D" uid="uid://ceyx3ssv54iea" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/pixelAxeBandit/Axe Bandit.png" id="3_q7iku"]
 [ext_resource type="Texture2D" uid="uid://dgdveeepmxvqc" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/pixelAxeBandit/axe bandit run.png" id="4_682wd"]
+[ext_resource type="PackedScene" uid="uid://bl51pk2vko0vm" path="res://scenes/combat/combat_health_bar.tscn" id="5_tcx13"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yqcq4"]
 radius = 20.8
@@ -180,6 +181,9 @@ animations = [{
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3oto2"]
 animation = &"attack"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b1x0p"]
+animation = &"get_hit"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tem6a"]
 animation = &"idle"
 
@@ -216,18 +220,50 @@ advance_condition = &"IsBerserk"
 advance_mode = 2
 advance_condition = &"IsAttacking"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xl4w3"]
+priority = 0
+advance_mode = 2
+advance_condition = &"IsGettingHit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ejr6j"]
+priority = 0
+advance_mode = 2
+advance_condition = &"IsGettingHit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5xnos"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lxv50"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"IsAttacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_owntu"]
+priority = 0
+advance_mode = 2
+advance_condition = &"IsGettingHit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mpjnn"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"IsWalking"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_6m1py"]
+states/End/position = Vector2(1081, 111)
 states/Start/position = Vector2(184, 100)
 states/attack/node = SubResource("AnimationNodeAnimation_3oto2")
 states/attack/position = Vector2(611, 42)
+states/get_hit/node = SubResource("AnimationNodeAnimation_b1x0p")
+states/get_hit/position = Vector2(712, 154)
 states/idle/node = SubResource("AnimationNodeAnimation_tem6a")
-states/idle/position = Vector2(716, 100)
+states/idle/position = Vector2(712, 42)
 states/skill_berserk/node = SubResource("AnimationNodeAnimation_r6yn8")
 states/skill_berserk/position = Vector2(830, 42)
 states/walk/node = SubResource("AnimationNodeAnimation_salig")
 states/walk/position = Vector2(402, 100)
-transitions = ["Start", "walk", SubResource("AnimationNodeStateMachineTransition_idp7p"), "walk", "attack", SubResource("AnimationNodeStateMachineTransition_m0fdm"), "attack", "walk", SubResource("AnimationNodeStateMachineTransition_i3hya"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_70ga5"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_o6vab"), "idle", "skill_berserk", SubResource("AnimationNodeStateMachineTransition_xs3ie"), "skill_berserk", "idle", SubResource("AnimationNodeStateMachineTransition_4h8bo")]
-graph_offset = Vector2(273, -17)
+transitions = ["Start", "walk", SubResource("AnimationNodeStateMachineTransition_idp7p"), "walk", "attack", SubResource("AnimationNodeStateMachineTransition_m0fdm"), "attack", "walk", SubResource("AnimationNodeStateMachineTransition_i3hya"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_70ga5"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_o6vab"), "idle", "skill_berserk", SubResource("AnimationNodeStateMachineTransition_xs3ie"), "skill_berserk", "idle", SubResource("AnimationNodeStateMachineTransition_4h8bo"), "attack", "get_hit", SubResource("AnimationNodeStateMachineTransition_xl4w3"), "idle", "get_hit", SubResource("AnimationNodeStateMachineTransition_ejr6j"), "get_hit", "idle", SubResource("AnimationNodeStateMachineTransition_5xnos"), "get_hit", "attack", SubResource("AnimationNodeStateMachineTransition_lxv50"), "walk", "get_hit", SubResource("AnimationNodeStateMachineTransition_owntu"), "get_hit", "walk", SubResource("AnimationNodeStateMachineTransition_mpjnn")]
+graph_offset = Vector2(154, 7)
 
 [sub_resource type="Animation" id="Animation_q4tl2"]
 length = 0.001
@@ -254,6 +290,30 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4, 4)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -67)]
 }
 
 [sub_resource type="Animation" id="Animation_kvjdg"]
@@ -282,6 +342,58 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="Animation" id="Animation_bwh3k"]
+resource_name = "get_hit"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(4, 4), Vector2(3.625, 3.625), Vector2(4.613, 4.613), Vector2(4, 4)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -67), Vector2(0, -60), Vector2(0, -76), Vector2(0, -66)]
 }
 
 [sub_resource type="Animation" id="Animation_xvpet"]
@@ -375,6 +487,7 @@ tracks/1/keys = {
 _data = {
 "RESET": SubResource("Animation_q4tl2"),
 "attack": SubResource("Animation_kvjdg"),
+"get_hit": SubResource("Animation_bwh3k"),
 "idle": SubResource("Animation_xvpet"),
 "skill_berserk": SubResource("Animation_qgsh1"),
 "walk": SubResource("Animation_8ecui")
@@ -415,7 +528,7 @@ shape = SubResource("CircleShape2D_qmhym")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Animator"]
 texture_filter = 1
-position = Vector2(0, -70)
+position = Vector2(0, -67)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_4bak4")
 animation = &"idle"
@@ -426,6 +539,7 @@ tree_root = SubResource("AnimationNodeStateMachine_6m1py")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/IsAttacking = false
 parameters/conditions/IsBerserk = false
+parameters/conditions/IsGettingHit = false
 parameters/conditions/IsWalking = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Animator"]
@@ -457,5 +571,6 @@ one_shot = true
 wait_time = 15.0
 one_shot = true
 
-[connection signal="body_entered" from="Areas_FacingRight/AttackArea_Melee_R" to="." method="_on_attack_area_melee_r_body_entered"]
-[connection signal="body_entered" from="Areas_FacingLeft/AttackArea_Melee_L" to="." method="_on_attack_area_melee_l_body_entered"]
+[node name="CombatHealthBar" parent="." instance=ExtResource("5_tcx13")]
+offset_top = -140.0
+offset_bottom = -140.0

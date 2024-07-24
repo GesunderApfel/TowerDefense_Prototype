@@ -5,16 +5,25 @@ const DEBUG_ACTIVE = true #global control for debug
 const COMBAT_DEBUG_UI = preload("res://scenes/combat/debug/combat_debug_ui.tscn")
 var debug_ui
 
+var shortcut_dictionary : Dictionary = {}
+var timer_shortcut : Timer
+
 
 func _ready():
-	#this should pretty much never be called
+	timer_shortcut = Timer.new()
+	timer_shortcut.one_shot = true
+	timer_shortcut.wait_time = 1
+	self.add_child(timer_shortcut)
 	pass
 
-func _process(delta):
-	#if vbc_method_binder_buttons != null:
-		#print("hey")
-	#else: 
-		#print("null")
+func _process(_delta):
+	if not timer_shortcut.is_stopped():
+		return
+	
+	for shortcut in shortcut_dictionary:
+		if Input.is_key_pressed(shortcut):
+			timer_shortcut.start()
+			shortcut_dictionary[shortcut].call()
 	pass
 
 func validate_debugger():
@@ -52,14 +61,21 @@ func set_debug_button_binding_container(node):
 	vbc_method_binder_buttons = node
 	
 
-func bind_debug_method(debug_method: Callable, method_name: String):
+func bind_debug_method(debug_method: Callable, method_name: String, shortcut = KEY_F30):
 	if !validate_debugger():
 		return 
 	
 	var button = DEBUG_BUTTON_FOR_METHOD_BINDING.instantiate()
 	button.pressed.connect(debug_method)
-	button.text = method_name
 	vbc_method_binder_buttons.add_child(button)
+	
+	#KEY_F30 is just a magic key
+	if shortcut != KEY_F30:
+		method_name += " - " + OS.get_keycode_string(shortcut)
+		shortcut_dictionary[shortcut] = debug_method
+	
+	button.text = method_name
+
 
 
 #######################################
