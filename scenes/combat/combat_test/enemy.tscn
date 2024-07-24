@@ -1,9 +1,10 @@
-[gd_scene load_steps=56 format=3 uid="uid://kd4xv22ktbk8"]
+[gd_scene load_steps=58 format=3 uid="uid://kd4xv22ktbk8"]
 
 [ext_resource type="Script" path="res://scripts/combat/enemy.gd" id="1_5ktnc"]
 [ext_resource type="Texture2D" uid="uid://bsx3bcku7oeis" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/pixelAxeBandit/Axe Bandit Attack.png" id="2_yug3r"]
 [ext_resource type="Texture2D" uid="uid://ceyx3ssv54iea" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/pixelAxeBandit/Axe Bandit.png" id="3_q7iku"]
 [ext_resource type="Texture2D" uid="uid://dgdveeepmxvqc" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/pixelAxeBandit/axe bandit run.png" id="4_682wd"]
+[ext_resource type="Script" path="res://scripts/core/animation_tree_state.gd" id="5_458rn"]
 [ext_resource type="PackedScene" uid="uid://bl51pk2vko0vm" path="res://scenes/combat/combat_health_bar.tscn" id="5_tcx13"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yqcq4"]
@@ -12,6 +13,8 @@ height = 99.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qmhym"]
 radius = 39.55
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_irewp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q0c2f"]
 atlas = ExtResource("2_yug3r")
@@ -198,56 +201,58 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m0fdm"]
 advance_mode = 2
-advance_condition = &"IsAttacking"
+advance_expression = "current_state == \"ATTACKING\""
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i3hya"]
 advance_mode = 2
-advance_condition = &"IsWalking"
+advance_expression = "current_state == \"WALKING\""
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_70ga5"]
 switch_mode = 2
 advance_mode = 2
+advance_expression = "current_state == \"IDLE\""
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o6vab"]
 advance_mode = 2
-advance_condition = &"IsAttacking"
+advance_expression = "current_state == \"ATTACKING\""
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xs3ie"]
 advance_mode = 2
-advance_condition = &"IsBerserk"
+advance_expression = "current_state == \"SKILL_BERSERK\""
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4h8bo"]
 advance_mode = 2
-advance_condition = &"IsAttacking"
+advance_expression = "current_state == \"IDLE\""
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xl4w3"]
 priority = 0
 advance_mode = 2
-advance_condition = &"IsGettingHit"
+advance_expression = "current_state == \"GETTING_HIT\""
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ejr6j"]
 priority = 0
 advance_mode = 2
-advance_condition = &"IsGettingHit"
+advance_expression = "current_state == \"GETTING_HIT\""
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5xnos"]
 switch_mode = 2
 advance_mode = 2
+advance_expression = "current_state == \"IDLE\""
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lxv50"]
 switch_mode = 2
 advance_mode = 2
-advance_condition = &"IsAttacking"
+advance_expression = "current_state == \"ATTACKING\""
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_owntu"]
 priority = 0
 advance_mode = 2
-advance_condition = &"IsGettingHit"
+advance_expression = "current_state == \"GETTING_HIT\""
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mpjnn"]
 switch_mode = 2
 advance_mode = 2
-advance_condition = &"IsWalking"
+advance_expression = "current_state == \"WALKING\""
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_6m1py"]
 states/End/position = Vector2(1081, 111)
@@ -495,7 +500,7 @@ _data = {
 
 [node name="CharacterBody2D" type="CharacterBody2D" groups=["enemy"]]
 position = Vector2(500, 0)
-collision_mask = 2
+collision_mask = 6
 script = ExtResource("1_5ktnc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -503,26 +508,36 @@ position = Vector2(4.26, -50)
 shape = SubResource("CapsuleShape2D_yqcq4")
 debug_color = Color(0.992482, 0, 0.251412, 0.42)
 
-[node name="Areas_FacingRight" type="Node2D" parent="."]
-rotation = 6.28319
+[node name="Areas" type="Node2D" parent="."]
 
-[node name="AttackArea_Melee_R" type="Area2D" parent="Areas_FacingRight"]
-collision_mask = 2
+[node name="Areas_FacingRight" type="Node2D" parent="Areas"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Areas_FacingRight/AttackArea_Melee_R"]
+[node name="AttackArea_Melee_R" type="Area2D" parent="Areas/Areas_FacingRight"]
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/Areas_FacingRight/AttackArea_Melee_R"]
 position = Vector2(0, -62.585)
 shape = SubResource("CircleShape2D_qmhym")
 
-[node name="Areas_FacingLeft" type="Node2D" parent="."]
+[node name="Areas_FacingLeft" type="Node2D" parent="Areas"]
 visible = false
-rotation = 6.28319
 
-[node name="AttackArea_Melee_L" type="Area2D" parent="Areas_FacingLeft"]
-collision_mask = 2
+[node name="AttackArea_Melee_L" type="Area2D" parent="Areas/Areas_FacingLeft"]
+collision_mask = 6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Areas_FacingLeft/AttackArea_Melee_L"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/Areas_FacingLeft/AttackArea_Melee_L"]
 position = Vector2(0, -62.585)
 shape = SubResource("CircleShape2D_qmhym")
+
+[node name="Area_ScanRadius" type="Area2D" parent="Areas"]
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/Area_ScanRadius"]
+position = Vector2(3, -53)
+scale = Vector2(15, 15)
+shape = SubResource("CircleShape2D_irewp")
+debug_color = Color(0.772201, 0.443305, 9.62615e-07, 0.42)
 
 [node name="Animator" type="Node2D" parent="."]
 
@@ -537,10 +552,7 @@ animation = &"idle"
 active = false
 tree_root = SubResource("AnimationNodeStateMachine_6m1py")
 anim_player = NodePath("../AnimationPlayer")
-parameters/conditions/IsAttacking = false
-parameters/conditions/IsBerserk = false
-parameters/conditions/IsGettingHit = false
-parameters/conditions/IsWalking = false
+script = ExtResource("5_458rn")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Animator"]
 libraries = {

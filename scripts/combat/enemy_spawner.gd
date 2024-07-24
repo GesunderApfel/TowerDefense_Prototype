@@ -12,8 +12,8 @@ const ENEMY_SCN = preload("res://scenes/combat/combat_test/enemy.tscn")
 
 func _ready():
 	#$Start.start()
-	CombatDebug.bind_debug_method(spawn_enemy,"Spawn Enemy", KEY_1)
-
+	CombatDebug.bind_debug_method(spawn_enemy_left,"Spawn Enemy Left", KEY_1)
+	CombatDebug.bind_debug_method(spawn_enemy_right,"Spawn Enemy Right", KEY_2)
 func _process(delta):
 	pass
 
@@ -21,6 +21,7 @@ func _process(delta):
 func spawn_enemy():
 	var enemy = ENEMY_SCN.instantiate()
 	enemy.target = carriage
+	enemy.carriage = carriage
 	
 	var horizontal_spawn_direction : int = 0
 	
@@ -36,10 +37,24 @@ func spawn_enemy():
 	enemy.position = Vector2(pos_x,ground_height)
 	$Enemies.add_child(enemy)
 
-
-#func _on_start_timeout():
-	#var i = 0
-	#while i < enemy_amount:
-		#spawnEnemy()
-		#i+=1
-	#$Start.stop()
+func spawn_enemy_left():
+	var enemy = ENEMY_SCN.instantiate()
+	enemy.target = carriage
+	enemy.carriage = carriage
+	
+	enemy.is_looking_left = false
+	var pos_x : float = carriage.position.x + spawn_offset.x * -1
+	
+	enemy.position = Vector2(pos_x,ground_height)
+	$Enemies.add_child(enemy)
+	
+func spawn_enemy_right():
+	var enemy = ENEMY_SCN.instantiate()
+	enemy.target = carriage
+	enemy.carriage = carriage
+	
+	enemy.is_looking_left = true
+	var pos_x : float = carriage.position.x + spawn_offset.x * 1
+	
+	enemy.position = Vector2(pos_x,ground_height)
+	$Enemies.add_child(enemy)

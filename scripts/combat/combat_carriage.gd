@@ -34,7 +34,7 @@ func heal_completely():
 	health = maxHealth
 	update_healthbar()
 
-func take_damage(damage):
+func receive_damage(damage):
 	health -= damage
 	animation_player.play("shake")
 	update_healthbar()

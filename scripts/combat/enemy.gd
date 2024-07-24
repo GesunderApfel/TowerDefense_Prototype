@@ -18,6 +18,18 @@ enum EnemyState {
 	DYING,
 }
 
+enum AnimationTreeState{
+	IDLE,
+	WALKING,
+	ATTACKING,
+	SKILL_BERSERK,
+	GETTING_HIT,	
+}
+
+
+var carriage
+var body2D : Node = self
+
 
 var current_state := EnemyState.GO_TO_TARGET
 var return_state := EnemyState.GO_TO_TARGET
@@ -45,11 +57,12 @@ var is_looking_left = false
 
 # Physics & Colliders
 @onready var collision_shape_2d = $CollisionShape2D
-@onready var areas_facing_right = $Areas_FacingRight
-@onready var areas_facing_left = $Areas_FacingLeft
+@onready var areas_facing_right = $Areas/Areas_FacingRight
+@onready var areas_facing_left = $Areas/Areas_FacingLeft
 
-@onready var attack_area_melee_r = $Areas_FacingRight/AttackArea_Melee_R
-@onready var attack_area_melee_l = $Areas_FacingLeft/AttackArea_Melee_L
+@onready var attack_area_melee_r = $Areas/Areas_FacingRight/AttackArea_Melee_R
+@onready var attack_area_melee_l = $Areas/Areas_FacingLeft/AttackArea_Melee_L
+@onready var area_scan_radius = $Areas/Area_ScanRadius
 
 # Timers
 @onready var attack_timer : Timer = $Timers/Attacks/AttackTimer
@@ -68,8 +81,28 @@ func _ready():
 	timer_getting_hit.one_shot = true
 	self.add_child(timer_getting_hit)
 
-func _physics_process(delta):
+func _process(_delta):
+	find_next_target()
 	
+func find_next_target():
+	var nextTarget : Node
+	var nearest_distance := 10000
+	
+	for body in area_scan_radius.get_overlapping_bodies():
+		if body.is_in_group("ally"):
+			if nearest_distance > position.distance_to(body.position):
+				nearest_distance = position.distance_to(body.position)
+				nextTarget = body
+
+	if nextTarget == null:
+		nextTarget  = carriage
+	
+	target = nextTarget
+	is_looking_left = true if target.position.x < 0 else false 
+	# print(target.name)
+	pass
+
+func _physics_process(delta):
 	if target == null:
 		return
 	
@@ -90,20 +123,20 @@ func _physics_process(delta):
 			get_hit()
 		EnemyState.DYING:
 			die()
-			
+		
 	
 
 func go_to_target():
-	animation_tree.set("parameters/conditions/IsWalking", true)
-	animation_tree.set("parameters/conditions/IsAttacking", false)
+	animation_tree.set_current_state(AnimationTreeState.keys() \
+		[AnimationTreeState.WALKING])
 	velocity = position.direction_to(target.position) * move_speed
 	move_and_slide()
 	
 	if attack_area_melee_r.overlaps_body(target.body2D) \
 	or attack_area_melee_l.overlaps_body(target.body2D):
 		current_state = EnemyState.ATTACK_TARGET
-		animation_tree.set("parameters/conditions/IsWalking", false)
-		animation_tree.set("parameters/conditions/IsAttacking", true)
+		animation_tree.set_current_state(AnimationTreeState.keys() \
+			[AnimationTreeState.ATTACKING])
 	pass
 
 func attack():
@@ -112,7 +145,8 @@ func attack():
 	
 	# is skill possible?
 	if skill_berserk_duration.is_stopped():
-		animation_tree.set("parameters/conditions/IsBerserk", false)
+		animation_tree.set_current_state(AnimationTreeState.keys() \
+			[AnimationTreeState.IDLE])
 		is_berserk = false
 		sprite.modulate = Color(1,1,1)
 		if skill_berserk_cooldown.is_stopped():
@@ -125,20 +159,22 @@ func attack():
 		skill_berserk_duration.start()
 		skill_berserk_cooldown.start()
 		is_berserk = true
-		animation_tree.set("parameters/conditions/IsAttacking", false)
-		animation_tree.set("parameters/conditions/IsBerserk", true)
+		animation_tree.set_current_state(AnimationTreeState.keys() \
+			[AnimationTreeState.SKILL_BERSERK])
 	else:	
 		if is_berserk:
 			if skill_berserk_timer.is_stopped():
 				skill_berserk_timer.start()
-				target.take_damage(attack_damage)
+				target.receive_damage(attack_damage)
 		else:
 			if attack_timer.is_stopped():
 				attack_timer.start()
-				target.take_damage(attack_damage)
-				animation_tree.set("parameters/conditions/IsAttacking", true)
+				target.receive_damage(attack_damage)
+				animation_tree.set_current_state(AnimationTreeState.keys() \
+					[AnimationTreeState.ATTACKING])
 			else:
-				animation_tree.set("parameters/conditions/IsAttacking", false)
+				animation_tree.set_current_state(AnimationTreeState.keys() \
+					[AnimationTreeState.IDLE])
 	pass
 
 func die():
@@ -146,23 +182,24 @@ func die():
 	pass
 
 func get_hit():
-	animation_tree.set("parameters/conditions/IsGettingHit", true)
 	if timer_getting_hit.is_stopped():
 		current_state = return_state
-		animation_tree.set("parameters/conditions/IsGettingHit", false)
 	# play get hit animation
 	pass
 
 func receive_damage(damage):
 	# receive damage
 	health -= max(damage-defense,0)
-	return_state = current_state
+	if not current_state == EnemyState.GET_HIT:
+		return_state = current_state
 	combat_health_bar.update_health_value(float(health) / float(max_health) * 100.0)
 	
 	if health <= 0:
 		current_state= EnemyState.DYING
 	else:
-		if not is_berserk:
+		if not is_berserk and attack_timer.is_stopped():
 			current_state= EnemyState.GET_HIT
+			animation_tree.set_current_state(AnimationTreeState.keys() \
+				[AnimationTreeState.GETTING_HIT])
 			timer_getting_hit.start()
 	pass

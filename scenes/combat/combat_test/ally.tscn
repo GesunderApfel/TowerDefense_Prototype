@@ -1,8 +1,9 @@
-[gd_scene load_steps=61 format=3 uid="uid://b5p148lejp4uu"]
+[gd_scene load_steps=62 format=3 uid="uid://b5p148lejp4uu"]
 
 [ext_resource type="Script" path="res://scripts/combat/combat_ally.gd" id="1_drlv4"]
 [ext_resource type="Texture2D" uid="uid://dc1jg1uunsqgw" path="res://assets/graphics/combat/combat_test_graphics/Characters/Allies/char_blue.png" id="2_ldxid"]
 [ext_resource type="Script" path="res://scripts/core/animation_tree_state.gd" id="3_njq74"]
+[ext_resource type="PackedScene" uid="uid://bl51pk2vko0vm" path="res://scenes/combat/combat_health_bar.tscn" id="4_woj7t"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ae3ur"]
 radius = 8.05604
@@ -282,11 +283,11 @@ advance_expression = "current_state == \"WALKING\""
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ix56n"]
 advance_mode = 2
-advance_expression = "current_state == DYING"
+advance_expression = "current_state == \"DYING\""
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dp8mg"]
 advance_mode = 2
-advance_expression = "current_state == DYING"
+advance_expression = "current_state == \"DYING\""
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eb3o7"]
 advance_mode = 2
@@ -294,16 +295,15 @@ advance_expression = "current_state == \"IDLE\""
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o1u7p"]
 advance_mode = 2
-advance_expression = "current_state == ATTACKING"
+advance_expression = "current_state == \"ATTACKING\""
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x82gb"]
 advance_mode = 2
-advance_expression = "current_state == AllyState.ATTACKING"
+advance_expression = "current_state == \"ATTACKING\""
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hqw3u"]
 switch_mode = 2
 advance_mode = 2
-advance_expression = "current_state == AllyState.IDLE"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_w2any"]
 switch_mode = 2
@@ -311,7 +311,7 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0fk00"]
 advance_mode = 2
-advance_expression = "current_state == DYING"
+advance_expression = "current_state == \"DYING\""
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_mp8ts"]
 states/End/position = Vector2(628, 215)
@@ -338,7 +338,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"walk"]
+"values": [&"idle"]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -477,6 +477,8 @@ _data = {
 }
 
 [node name="Ally" type="CharacterBody2D" groups=["ally"]]
+collision_layer = 4
+collision_mask = 5
 script = ExtResource("1_drlv4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -489,7 +491,7 @@ shape = SubResource("CapsuleShape2D_ae3ur")
 [node name="Areas_FacingRight" type="Node2D" parent="Areas"]
 
 [node name="AttackArea_Melee_R" type="Area2D" parent="Areas/Areas_FacingRight"]
-collision_mask = 2
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/Areas_FacingRight/AttackArea_Melee_R"]
 position = Vector2(0, -62.585)
@@ -499,13 +501,15 @@ shape = SubResource("CircleShape2D_aipwp")
 visible = false
 
 [node name="AttackArea_Melee_L" type="Area2D" parent="Areas/Areas_FacingLeft"]
-collision_mask = 2
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/Areas_FacingLeft/AttackArea_Melee_L"]
 position = Vector2(0, -62.585)
 shape = SubResource("CircleShape2D_aipwp")
 
 [node name="Area_AttackRadius" type="Area2D" parent="Areas"]
+collision_layer = 4
+collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/Area_AttackRadius"]
 position = Vector2(0, -46)
@@ -519,7 +523,7 @@ scale = Vector2(3.335, 3.335)
 texture_filter = 1
 position = Vector2(1.49925, -28)
 sprite_frames = SubResource("SpriteFrames_7a1dv")
-animation = &"walk"
+animation = &"idle"
 
 [node name="AnimationTree" type="AnimationTree" parent="Visuals"]
 active = false
@@ -533,3 +537,15 @@ root_node = NodePath("../AnimationTree")
 libraries = {
 "": SubResource("AnimationLibrary_jp5sj")
 }
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="timer_wait_after_melee_attack" type="Timer" parent="Timers"]
+wait_time = 3.0
+one_shot = true
+
+[node name="timer_transition_idle_walk" type="Timer" parent="Timers"]
+wait_time = 0.1
+one_shot = true
+
+[node name="CombatHealthBar" parent="." instance=ExtResource("4_woj7t")]
