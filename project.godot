@@ -23,3 +23,7 @@ GlobalEnums="*res://scripts/core/global_enums.gd"
 
 window/size/viewport_width=1600
 window/size/viewport_height=900
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")
