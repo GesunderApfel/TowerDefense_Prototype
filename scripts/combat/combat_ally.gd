@@ -61,18 +61,19 @@ func _ready():
 	dyingTimer.wait_time = animation_tree.get_animation("dying").length
 	dyingTimer.one_shot = true
 	animation_timer_dict[AnimationTreeState.DYING] = dyingTimer
-	
+	self.add_child(dyingTimer)
 
 	timer_transition_idle_walk.wait_time = \
 		animation_tree.get_animation("walking").length / 2
 	timer_transition_idle_walk.one_shot = true
 	animation_timer_dict[AnimationTreeState.WALKING] = timer_transition_idle_walk
-	
+		
 	var timer_attack_animation_duration = Timer.new()
 	timer_attack_animation_duration.wait_time = \
 		animation_tree.get_animation("attacking").length
 	timer_attack_animation_duration.one_shot = true
 	animation_timer_dict[AnimationTreeState.ATTACKING] = timer_attack_animation_duration
+	self.add_child(timer_attack_animation_duration)
 	
 	sprite.flip_h = is_looking_left
 	pass
@@ -170,7 +171,6 @@ func state_dying():
 		if already_started_dying:
 			queue_free()
 		else:
-			animation_tree.current_state = AnimationTreeState.DYING
 			animation_timer_dict[AnimationTreeState.DYING].start()
 		pass
 	queue_free()

@@ -1,6 +1,12 @@
 extends Node2D
 
 const ENEMY_SCN = preload("res://scenes/combat/combat_test/enemy.tscn")
+const ENEMY_FLYING = preload("res://scenes/combat/combat_test/enemy_flying.tscn")
+
+enum {
+	GROUNDED,
+	FLYING,
+}
 
 # User Interface
 @export var carriage : Node #allows referencing node via editor
@@ -12,8 +18,10 @@ const ENEMY_SCN = preload("res://scenes/combat/combat_test/enemy.tscn")
 
 func _ready():
 	#$Start.start()
-	CombatDebug.bind_debug_method(spawn_enemy_left,"Spawn Enemy Left", KEY_1)
-	CombatDebug.bind_debug_method(spawn_enemy_right,"Spawn Enemy Right", KEY_2)
+	CombatDebug.bind_debug_method(spawn_enemy_left,"Grounded Enemy Left", KEY_1)
+	CombatDebug.bind_debug_method(spawn_enemy_right,"Grounded Enemy Right", KEY_2)
+	CombatDebug.bind_debug_method(spawn_flying_enemy_left,"Grounded Enemy Left", KEY_5)
+	CombatDebug.bind_debug_method(spawn_flying_enemy_right,"Grounded Enemy Right", KEY_6)
 func _process(delta):
 	pass
 
@@ -57,4 +65,26 @@ func spawn_enemy_right():
 	var pos_x : float = carriage.position.x + spawn_offset.x * 1
 	
 	enemy.position = Vector2(pos_x,ground_height)
+	$Enemies.add_child(enemy)
+	
+func spawn_flying_enemy_left():
+	var enemy = ENEMY_FLYING.instantiate()
+	enemy.target = carriage
+	enemy.carriage = carriage
+	
+	enemy.is_looking_left = false
+	var pos_x : float = carriage.position.x + spawn_offset.x * -1
+	
+	enemy.position = Vector2(pos_x,ground_height - spawn_offset.y)
+	$Enemies.add_child(enemy)
+	
+func spawn_flying_enemy_right():
+	var enemy = ENEMY_FLYING.instantiate()
+	enemy.target = carriage
+	enemy.carriage = carriage
+	
+	enemy.is_looking_left = true
+	var pos_x : float = carriage.position.x + spawn_offset.x * 1
+	
+	enemy.position = Vector2(pos_x,ground_height - spawn_offset.y)
 	$Enemies.add_child(enemy)

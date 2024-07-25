@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://bykejfxyiftto"]
+[gd_scene load_steps=58 format=3 uid="uid://bykejfxyiftto"]
 
 [ext_resource type="Script" path="res://scripts/combat/enemy_flying.gd" id="1_gcg7q"]
 [ext_resource type="Texture2D" uid="uid://cj78888ey2cv4" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/FlyingDemon/ATTACK.png" id="2_s5pca"]
@@ -11,10 +11,11 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="7_5sm02"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="8_qfvmr"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="8_xecvg"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/history_state.gd" id="12_lx5js"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="12_y2nf2"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="13_nvc0k"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yqcq4"]
-radius = 20.8
-height = 99.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_l1mi7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_irewp"]
 
@@ -246,54 +247,21 @@ animation = &"moving"
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dexjl"]
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bke6f"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wju28"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2x6pw"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m3e4j"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xf8wf"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ilvsm"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lhfw5"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ublxt"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_khywb"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_smjf3"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wfaqb"]
-advance_mode = 2
-
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_6m1py"]
 states/End/position = Vector2(1081, 111)
 states/Start/position = Vector2(179, 181)
 states/attacking/node = SubResource("AnimationNodeAnimation_p1wuv")
-states/attacking/position = Vector2(312, 292)
+states/attacking/position = Vector2(394, 239)
 states/dying/node = SubResource("AnimationNodeAnimation_xmui1")
-states/dying/position = Vector2(636, 183)
+states/dying/position = Vector2(507, 200)
 states/getting_hit/node = SubResource("AnimationNodeAnimation_nx8u0")
-states/getting_hit/position = Vector2(312, 80)
+states/getting_hit/position = Vector2(382, 122)
 states/idle/node = SubResource("AnimationNodeAnimation_jd7ga")
 states/idle/position = Vector2(312, 181)
 states/moving/node = SubResource("AnimationNodeAnimation_iet8m")
-states/moving/position = Vector2(549, 80)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_dexjl"), "idle", "moving", SubResource("AnimationNodeStateMachineTransition_bke6f"), "moving", "idle", SubResource("AnimationNodeStateMachineTransition_wju28"), "idle", "attacking", SubResource("AnimationNodeStateMachineTransition_2x6pw"), "attacking", "idle", SubResource("AnimationNodeStateMachineTransition_m3e4j"), "moving", "getting_hit", SubResource("AnimationNodeStateMachineTransition_xf8wf"), "getting_hit", "moving", SubResource("AnimationNodeStateMachineTransition_ilvsm"), "getting_hit", "idle", SubResource("AnimationNodeStateMachineTransition_lhfw5"), "idle", "getting_hit", SubResource("AnimationNodeStateMachineTransition_ublxt"), "moving", "dying", SubResource("AnimationNodeStateMachineTransition_khywb"), "attacking", "dying", SubResource("AnimationNodeStateMachineTransition_smjf3"), "getting_hit", "dying", SubResource("AnimationNodeStateMachineTransition_wfaqb")]
-graph_offset = Vector2(30, 120)
+states/moving/position = Vector2(507, 117)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_dexjl")]
+graph_offset = Vector2(2, 71)
 
 [sub_resource type="Animation" id="Animation_yw7iu"]
 resource_name = "idle"
@@ -479,29 +447,49 @@ position = Vector2(500, 0)
 collision_mask = 6
 script = ExtResource("1_gcg7q")
 
+[node name="StateChartDebugger" parent="." instance=ExtResource("13_nvc0k")]
+offset_left = -211.0
+offset_top = -284.0
+offset_right = 158.0
+offset_bottom = -30.0
+enabled = false
+initial_node_to_watch = NodePath("../StateChart")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(4.26, -50)
-shape = SubResource("CapsuleShape2D_yqcq4")
+position = Vector2(-7, 7)
+scale = Vector2(2.685, 2.685)
+shape = SubResource("CircleShape2D_l1mi7")
 debug_color = Color(0.992482, 0, 0.251412, 0.42)
 
 [node name="Areas" type="Node2D" parent="."]
 
 [node name="Area_ScanRadius" type="Area2D" parent="Areas"]
+position = Vector2(-8, 0)
 collision_layer = 0
 collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/Area_ScanRadius"]
-position = Vector2(3, -53)
-scale = Vector2(15, 15)
+position = Vector2(1, 8)
+scale = Vector2(63.7894, 63.7894)
 shape = SubResource("CircleShape2D_irewp")
 debug_color = Color(0.772201, 0.443305, 9.62615e-07, 0.42)
+
+[node name="Area_AttackRange" type="Area2D" parent="Areas"]
+position = Vector2(-8, 0)
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/Area_AttackRange"]
+position = Vector2(-2, 9)
+scale = Vector2(34.3493, 34.3493)
+shape = SubResource("CircleShape2D_irewp")
+debug_color = Color(0.772549, 0, 0, 0.419608)
 
 [node name="Animator" type="Node2D" parent="."]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Animator"]
 texture_filter = 1
-position = Vector2(0, -67)
-scale = Vector2(4, 4)
+scale = Vector2(-1, 1)
 sprite_frames = SubResource("SpriteFrames_4bak4")
 animation = &"idle"
 
@@ -520,7 +508,7 @@ libraries = {
 
 [node name="Attacks" type="Node2D" parent="Timers"]
 
-[node name="AttackTimer" type="Timer" parent="Timers/Attacks"]
+[node name="Timer_AttackInterval" type="Timer" parent="Timers/Attacks"]
 wait_time = 2.5
 one_shot = true
 
@@ -533,17 +521,94 @@ script = ExtResource("7_5sm02")
 
 [node name="Root" type="Node" parent="StateChart"]
 script = ExtResource("8_qfvmr")
-initial_state = NodePath("GoToTarget")
+initial_state = NodePath("Move")
 
-[node name="GoToTarget" type="Node" parent="StateChart/Root"]
+[node name="HistoryState" type="Node" parent="StateChart/Root"]
+script = ExtResource("12_lx5js")
+deep = true
+default_state = NodePath("../Move")
+
+[node name="Move" type="Node" parent="StateChart/Root"]
 script = ExtResource("8_xecvg")
+
+[node name="AttackTarget_TargetInRange" type="Node" parent="StateChart/Root/Move"]
+script = ExtResource("12_y2nf2")
+to = NodePath("../../AttackTarget")
+event = &"target_in_range"
+delay_in_seconds = "0.0"
+
+[node name="To_GetHit" type="Node" parent="StateChart/Root/Move"]
+script = ExtResource("12_y2nf2")
+to = NodePath("../../GetHit")
+event = &"get_hit"
+delay_in_seconds = "0.0"
+
+[node name="Dying" type="Node" parent="StateChart/Root/Move"]
+script = ExtResource("12_y2nf2")
+to = NodePath("../../Dying")
+event = &"dying"
+delay_in_seconds = "0.0"
 
 [node name="AttackTarget" type="Node" parent="StateChart/Root"]
 script = ExtResource("8_qfvmr")
-initial_state = NodePath("Attack")
+initial_state = NodePath("Idle")
 
 [node name="Attack" type="Node" parent="StateChart/Root/AttackTarget"]
 script = ExtResource("8_xecvg")
 
-[node name="Wait_AttackCooldown" type="Node" parent="StateChart/Root/AttackTarget"]
+[node name="Idle_Attacked" type="Node" parent="StateChart/Root/AttackTarget/Attack"]
+script = ExtResource("12_y2nf2")
+to = NodePath("../../Idle")
+event = &"attacked"
+delay_in_seconds = "0.0"
+
+[node name="Idle" type="Node" parent="StateChart/Root/AttackTarget"]
 script = ExtResource("8_xecvg")
+
+[node name="Move_TargetNotInRange" type="Node" parent="StateChart/Root/AttackTarget/Idle"]
+script = ExtResource("12_y2nf2")
+to = NodePath("../../../Move")
+event = &"target_not_in_range"
+delay_in_seconds = "0.0"
+
+[node name="Attack_AttackCooldownFinished" type="Node" parent="StateChart/Root/AttackTarget/Idle"]
+script = ExtResource("12_y2nf2")
+to = NodePath("../../Attack")
+event = &"attack_cooldown_finished"
+delay_in_seconds = "0.0"
+
+[node name="Dying" type="Node" parent="StateChart/Root/AttackTarget"]
+script = ExtResource("12_y2nf2")
+to = NodePath("../../Dying")
+event = &"dying"
+delay_in_seconds = "0.0"
+
+[node name="To_GetHit" type="Node" parent="StateChart/Root/AttackTarget"]
+script = ExtResource("12_y2nf2")
+to = NodePath("../../GetHit")
+event = &"get_hit"
+delay_in_seconds = "0.0"
+
+[node name="GetHit" type="Node" parent="StateChart/Root"]
+script = ExtResource("8_xecvg")
+
+[node name="ReturnToOldState" type="Node" parent="StateChart/Root/GetHit"]
+script = ExtResource("12_y2nf2")
+to = NodePath("../../HistoryState")
+event = &"return_to_old_state"
+delay_in_seconds = "0.0"
+
+[node name="Dying" type="Node" parent="StateChart/Root"]
+script = ExtResource("8_xecvg")
+
+[connection signal="state_entered" from="StateChart/Root/Move" to="." method="_on_move_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Root/Move" to="." method="_on_move_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Root/AttackTarget" to="." method="_on_attack_target_state_entered"]
+[connection signal="state_entered" from="StateChart/Root/AttackTarget/Attack" to="." method="_on_attack_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Root/AttackTarget/Attack" to="." method="_on_attack_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Root/AttackTarget/Idle" to="." method="_on_idle_state_entered"]
+[connection signal="state_processing" from="StateChart/Root/AttackTarget/Idle" to="." method="_on_idle_state_processing"]
+[connection signal="state_entered" from="StateChart/Root/GetHit" to="." method="_on_get_hit_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Root/GetHit" to="." method="_on_get_hit_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Root/Dying" to="." method="_on_dying_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Root/Dying" to="." method="_on_dying_state_physics_processing"]
