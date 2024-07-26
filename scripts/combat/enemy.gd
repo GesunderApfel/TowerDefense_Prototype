@@ -70,29 +70,10 @@ func _ready():
 	
 	UtilityStateMachine.create_timer_for_animation\
 		(self,animation_tree, timer_animation_dict,"attack")
-		
-	CombatDebug.bind_debug_method(debug_toggle_berserk,"Toggle Berserk")
-
-
-func debug_toggle_berserk():
-	if is_berserk:
-		is_berserk = false
-		skill_berserk_timer.stop()
-		skill_berserk_duration.stop()
-	else:
-		is_berserk = true
-		skill_berserk_duration.start()
-		skill_berserk_timer.start()
-		sprite.modulate = Color(1,180.0 / 255.0,180.0 / 255.0)
-		animation_tree.set_current_state(AnimationTreeState.keys() \
-			[AnimationTreeState.SKILL_BERSERK])
-	pass
-
 
 func _process(_delta):
 	var animstatemachine:AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
-	
-	print(animstatemachine.get_current_node())
+
 	find_next_target()
 	look_at_target()
 
@@ -110,7 +91,6 @@ func find_next_target():
 		nextTarget  = carriage
 	
 	target = nextTarget
-	# print(target.name)
 	pass
 
 func look_at_target():
@@ -165,7 +145,6 @@ func attack():
 	if not timer_animation_dict["attack"].is_stopped():
 		return
 	
-	print("ATTACK STATE")
 	if not target_focused:
 		current_state = EnemyState.GO_TO_TARGET
 		return
