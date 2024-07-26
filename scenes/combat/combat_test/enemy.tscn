@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://kd4xv22ktbk8"]
+[gd_scene load_steps=60 format=3 uid="uid://kd4xv22ktbk8"]
 
 [ext_resource type="Script" path="res://scripts/combat/enemy.gd" id="1_5ktnc"]
 [ext_resource type="Texture2D" uid="uid://bsx3bcku7oeis" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/pixelAxeBandit/Axe Bandit Attack.png" id="2_yug3r"]
@@ -254,6 +254,14 @@ switch_mode = 2
 advance_mode = 2
 advance_expression = "current_state == \"WALKING\""
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5up22"]
+advance_mode = 2
+advance_expression = "current_state == \"WALKING\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4cf6k"]
+advance_mode = 2
+advance_expression = "current_state == \"SKILL_BERSERK\""
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_6m1py"]
 states/End/position = Vector2(1081, 111)
 states/Start/position = Vector2(184, 100)
@@ -262,13 +270,13 @@ states/attack/position = Vector2(611, 42)
 states/get_hit/node = SubResource("AnimationNodeAnimation_b1x0p")
 states/get_hit/position = Vector2(712, 154)
 states/idle/node = SubResource("AnimationNodeAnimation_tem6a")
-states/idle/position = Vector2(712, 42)
+states/idle/position = Vector2(797, 5)
 states/skill_berserk/node = SubResource("AnimationNodeAnimation_r6yn8")
-states/skill_berserk/position = Vector2(830, 42)
+states/skill_berserk/position = Vector2(525, -48)
 states/walk/node = SubResource("AnimationNodeAnimation_salig")
 states/walk/position = Vector2(402, 100)
-transitions = ["Start", "walk", SubResource("AnimationNodeStateMachineTransition_idp7p"), "walk", "attack", SubResource("AnimationNodeStateMachineTransition_m0fdm"), "attack", "walk", SubResource("AnimationNodeStateMachineTransition_i3hya"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_70ga5"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_o6vab"), "idle", "skill_berserk", SubResource("AnimationNodeStateMachineTransition_xs3ie"), "skill_berserk", "idle", SubResource("AnimationNodeStateMachineTransition_4h8bo"), "attack", "get_hit", SubResource("AnimationNodeStateMachineTransition_xl4w3"), "idle", "get_hit", SubResource("AnimationNodeStateMachineTransition_ejr6j"), "get_hit", "idle", SubResource("AnimationNodeStateMachineTransition_5xnos"), "get_hit", "attack", SubResource("AnimationNodeStateMachineTransition_lxv50"), "walk", "get_hit", SubResource("AnimationNodeStateMachineTransition_owntu"), "get_hit", "walk", SubResource("AnimationNodeStateMachineTransition_mpjnn")]
-graph_offset = Vector2(154, 7)
+transitions = ["Start", "walk", SubResource("AnimationNodeStateMachineTransition_idp7p"), "walk", "attack", SubResource("AnimationNodeStateMachineTransition_m0fdm"), "attack", "walk", SubResource("AnimationNodeStateMachineTransition_i3hya"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_70ga5"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_o6vab"), "idle", "skill_berserk", SubResource("AnimationNodeStateMachineTransition_xs3ie"), "skill_berserk", "idle", SubResource("AnimationNodeStateMachineTransition_4h8bo"), "attack", "get_hit", SubResource("AnimationNodeStateMachineTransition_xl4w3"), "idle", "get_hit", SubResource("AnimationNodeStateMachineTransition_ejr6j"), "get_hit", "idle", SubResource("AnimationNodeStateMachineTransition_5xnos"), "get_hit", "attack", SubResource("AnimationNodeStateMachineTransition_lxv50"), "walk", "get_hit", SubResource("AnimationNodeStateMachineTransition_owntu"), "get_hit", "walk", SubResource("AnimationNodeStateMachineTransition_mpjnn"), "skill_berserk", "walk", SubResource("AnimationNodeStateMachineTransition_5up22"), "walk", "skill_berserk", SubResource("AnimationNodeStateMachineTransition_4cf6k")]
+graph_offset = Vector2(55, -65)
 
 [sub_resource type="Animation" id="Animation_q4tl2"]
 length = 0.001
@@ -502,6 +510,7 @@ _data = {
 position = Vector2(500, 0)
 collision_mask = 6
 script = ExtResource("1_5ktnc")
+attack_damage = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(4.26, -50)

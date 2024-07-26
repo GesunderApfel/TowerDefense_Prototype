@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 
 CombatDebug="*res://scripts/combat/combat_debug.gd"
 GlobalEnums="*res://scripts/core/global_enums.gd"
+UtilityStateMachine="*res://scripts/core/utility_state_machine.gd"
 
 [display]
 

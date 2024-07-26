@@ -26,7 +26,7 @@ var timer_animation_dict = {}
 var health
 var max_health := 4
 var move_speed := 80
-var attack := 2
+@export var attack := 2
 var defense := 0
 
 var carriage:Node
@@ -65,17 +65,18 @@ func _physics_process(_delta):
 	pass
 
 func find_target():
-	var nextTarget
+	var nextTarget:Node
 	var nearest_distance:= 10000
 	
 	for body in area_scan_radius.get_overlapping_bodies():
-		if body.is_in_group("ally") or body.is_in_group("carriage"):
-			if body.position.distance_to(position) < nearest_distance:
-				nearest_distance = body.position.distance_to(position)
+		if body.is_in_group("carriage") or body.is_in_group("ally"):
+			if position.distance_to(body.position) < nearest_distance:
+				nearest_distance = position.distance_to(body.position)
 				nextTarget = body
+				print(nextTarget.name)
 	
 	
-	if not nextTarget == null:
+	if nextTarget:
 		target = nextTarget
 	else:
 		target = carriage

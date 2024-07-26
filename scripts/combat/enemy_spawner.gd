@@ -81,7 +81,6 @@ func spawn_enemy_right():
 	
 func spawn_flying_enemy_left():
 	var enemy = ENEMY_FLYING.instantiate()
-	enemy.target = carriage
 	enemy.carriage = carriage
 	
 	enemy.is_looking_left = false
@@ -92,7 +91,6 @@ func spawn_flying_enemy_left():
 	
 func spawn_flying_enemy_right():
 	var enemy = ENEMY_FLYING.instantiate()
-	enemy.target = carriage
 	enemy.carriage = carriage
 	
 	enemy.is_looking_left = true

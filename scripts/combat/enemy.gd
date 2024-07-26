@@ -1,16 +1,5 @@
 extends CharacterBody2D
 
-enum CombatMovementType {
-	GROUNDED, 
-	FLYING,
-}
-
-enum CombatAttackType {
-	MELEE,
-	RANGED,
-	SUPPORT,
-}
-
 enum EnemyState {
 	GO_TO_TARGET,
 	ATTACK_TARGET,
@@ -37,7 +26,7 @@ var return_state := EnemyState.GO_TO_TARGET
 var health
 var max_health = 10
 var move_speed = 120
-var attack_damage = 1
+@export var attack_damage = 1
 var defense = 0
 var attack_frequence = 2.5 #in seconds
 
@@ -45,10 +34,9 @@ var attack_frequence = 2.5 #in seconds
 var is_berserk: bool = false
 @onready var combat_health_bar = $CombatHealthBar
 
-var target #what is the next target of action -> for now carriage
+var target:Node
+var target_focused:Node
 
-@export var combat_movement_type = CombatMovementType.GROUNDED
-@export var combat_attack_type = CombatAttackType.MELEE
 
 # Animation
 @onready var animation_tree = $Animator/AnimationTree
@@ -65,23 +53,46 @@ var is_looking_left = false
 @onready var area_scan_radius = $Areas/Area_ScanRadius
 
 # Timers
+var timer_animation_dict : Dictionary = {}
 @onready var attack_timer : Timer = $Timers/Attacks/AttackTimer
 @onready var skill_berserk_duration : Timer = $Timers/Attacks/Skill_Berserk_Duration
 @onready var skill_berserk_timer : Timer = $Timers/Attacks/Skill_Berserk_Timer
 @onready var skill_berserk_cooldown : Timer = $Timers/Attacks/Skill_Berserk_Cooldown
 @onready var skill_berserk_dice_throw_timer : Timer = $Timers/Attacks/Skill_Berserk_DiceThrow_Timer
-var timer_getting_hit : Timer
 
 
 func _ready():
 	animation_tree.active = true
 	health = max_health
-	timer_getting_hit = Timer.new()
-	timer_getting_hit.wait_time = animation_tree.get_animation("get_hit").length
-	timer_getting_hit.one_shot = true
-	self.add_child(timer_getting_hit)
+	
+	UtilityStateMachine.create_timer_for_animation\
+		(self,animation_tree, timer_animation_dict,"get_hit")
+	
+	UtilityStateMachine.create_timer_for_animation\
+		(self,animation_tree, timer_animation_dict,"attack")
+		
+	CombatDebug.bind_debug_method(debug_toggle_berserk,"Toggle Berserk")
+
+
+func debug_toggle_berserk():
+	if is_berserk:
+		is_berserk = false
+		skill_berserk_timer.stop()
+		skill_berserk_duration.stop()
+	else:
+		is_berserk = true
+		skill_berserk_duration.start()
+		skill_berserk_timer.start()
+		sprite.modulate = Color(1,180.0 / 255.0,180.0 / 255.0)
+		animation_tree.set_current_state(AnimationTreeState.keys() \
+			[AnimationTreeState.SKILL_BERSERK])
+	pass
+
 
 func _process(_delta):
+	var animstatemachine:AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
+	
+	print(animstatemachine.get_current_node())
 	find_next_target()
 	look_at_target()
 
@@ -136,14 +147,28 @@ func go_to_target():
 	velocity = position.direction_to(target.position) * move_speed
 	move_and_slide()
 	
+	if skill_berserk_duration.is_stopped():
+		is_berserk = false
+		sprite.modulate = Color(1,1,1)
+	
 	if attack_area_melee_r.overlaps_body(target.body2D) \
 	or attack_area_melee_l.overlaps_body(target.body2D):
 		current_state = EnemyState.ATTACK_TARGET
-		animation_tree.set_current_state(AnimationTreeState.keys() \
-			[AnimationTreeState.ATTACKING])
+		target_focused = target
+		
+		if not is_berserk:
+			animation_tree.set_current_state(AnimationTreeState.keys() \
+				[AnimationTreeState.ATTACKING])
 	pass
 
 func attack():
+	if not timer_animation_dict["attack"].is_stopped():
+		return
+	
+	print("ATTACK STATE")
+	if not target_focused:
+		current_state = EnemyState.GO_TO_TARGET
+		return
 	
 	var is_using_skill : bool = false
 	
@@ -159,20 +184,18 @@ func attack():
 				is_using_skill = randi_range(0,1000) > 970
 	
 	if is_using_skill:
-		sprite.modulate = Color(1,180.0 / 255.0,180.0 / 255.0)
-		skill_berserk_duration.start()
-		skill_berserk_cooldown.start()
-		is_berserk = true
-		animation_tree.set_current_state(AnimationTreeState.keys() \
-			[AnimationTreeState.SKILL_BERSERK])
+		go_berserk()
 	else:	
 		if is_berserk:
 			if skill_berserk_timer.is_stopped():
 				skill_berserk_timer.start()
 				target.receive_damage(attack_damage)
+				animation_tree.set_current_state(AnimationTreeState.keys() \
+					[AnimationTreeState.SKILL_BERSERK])
 		else:
 			if attack_timer.is_stopped():
 				attack_timer.start()
+				timer_animation_dict["attack"].start()
 				target.receive_damage(attack_damage)
 				animation_tree.set_current_state(AnimationTreeState.keys() \
 					[AnimationTreeState.ATTACKING])
@@ -181,12 +204,21 @@ func attack():
 					[AnimationTreeState.IDLE])
 	pass
 
+func go_berserk():
+	sprite.modulate = Color(1,180.0 / 255.0,180.0 / 255.0)
+	skill_berserk_duration.start()
+	skill_berserk_cooldown.start()
+	is_berserk = true
+	animation_tree.set_current_state(AnimationTreeState.keys() \
+		[AnimationTreeState.SKILL_BERSERK])
+	pass
+
 func die():
 	queue_free()
 	pass
 
 func get_hit():
-	if timer_getting_hit.is_stopped():
+	if timer_animation_dict["get_hit"].is_stopped():
 		current_state = return_state
 	# play get hit animation
 	pass
@@ -201,9 +233,9 @@ func receive_damage(damage):
 	if health <= 0:
 		current_state= EnemyState.DYING
 	else:
-		if not is_berserk and attack_timer.is_stopped():
+		if not is_berserk and timer_animation_dict["attack"].is_stopped():
 			current_state= EnemyState.GET_HIT
 			animation_tree.set_current_state(AnimationTreeState.keys() \
 				[AnimationTreeState.GETTING_HIT])
-			timer_getting_hit.start()
+			timer_animation_dict["get_hit"].start()
 	pass
