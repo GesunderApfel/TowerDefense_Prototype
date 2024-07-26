@@ -83,7 +83,8 @@ func _ready():
 
 func _process(_delta):
 	find_next_target()
-	
+	look_at_target()
+
 func find_next_target():
 	var nextTarget : Node
 	var nearest_distance := 10000
@@ -98,15 +99,18 @@ func find_next_target():
 		nextTarget  = carriage
 	
 	target = nextTarget
-	is_looking_left = true if target.position.x < 0 else false 
 	# print(target.name)
 	pass
+
+func look_at_target():
+	is_looking_left = position.direction_to(target.position).x < 0
+	sprite.flip_h = is_looking_left
+	
 
 func _physics_process(delta):
 	if target == null:
 		return
-	
-	sprite.flip_h = is_looking_left
+
 	if is_looking_left:
 		areas_facing_left.show()
 		areas_facing_right.hide()

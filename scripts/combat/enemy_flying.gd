@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @onready var state_chart = $StateChart
 
+const FIREBALL = preload("res://scenes/combat/combat_test/fireball.tscn")
 
 @onready var sprite = $Animator/AnimatedSprite2D
 @onready var body2d = $CollisionShape2D
@@ -64,7 +65,7 @@ func _physics_process(_delta):
 	pass
 
 func find_target():
-	var nextTarget:Node = target_focused
+	var nextTarget
 	var nearest_distance:= 10000
 	
 	for body in area_scan_radius.get_overlapping_bodies():
@@ -82,7 +83,6 @@ func find_target():
 
 func look_at_target():
 	is_looking_left = position.direction_to(target.position).x < 0
-	
 	sprite.flip_h = is_looking_left
 	pass
 
@@ -105,19 +105,24 @@ func _on_move_state_physics_processing(delta):
 		target_focused = target
 		timer_attack_interval.start()
 		state_chart.send_event("target_in_range")
-		return	
+		return
 	
 	velocity = position.direction_to(target.position) * move_speed
 	move_and_slide()
 	pass
 
-
-func _on_idle_state_processing(delta):
+func _on_idle_state_physics_processing(delta):
+	if target_focused == null:
+		state_chart.send_event("target_not_in_range")
+		return
+	
 	if not area_attack_range.overlaps_body(target_focused.body2D):
 		state_chart.send_event("target_not_in_range")
+		return
 	
 	if timer_attack_interval.is_stopped():
 		state_chart.send_event("attack_cooldown_finished")
+		return
 	pass
 
 
@@ -125,6 +130,20 @@ func _on_attack_state_physics_processing(delta):
 	if timer_animation_dict["attacking"].is_stopped():
 		state_chart.send_event("attacked")
 	pass 
+
+func spawn_projectile():
+	if not target_focused:
+		return
+	
+	var fireball = FIREBALL.instantiate()
+	self.add_child(fireball)
+	fireball.global_position = global_position
+	
+	var direction : Vector2 = (target_focused.global_position \
+	-fireball.global_position + Vector2(0,-65)).normalized()
+	fireball.set_direction(direction)
+	fireball.set_collision_masks([2,3])
+	fireball.set_damage_value(attack)
 
 func _on_dying_state_physics_processing(delta):
 	if timer_animation_dict["dying"].is_stopped():
@@ -142,13 +161,13 @@ func _on_get_hit_state_physics_processing(delta):
 # ######
 func _on_move_state_entered():
 	animation_state_machine.travel("moving")
-	pass # Replace with function body.
+	pass
 
 func _on_attack_state_entered():
 	timer_animation_dict["attacking"].start()
 	timer_attack_interval.start()
 	animation_state_machine.travel("attacking")
-	pass # Replace with function body.
+	pass
 
 func _on_attack_target_state_entered():
 	# cooldown time before starting attack
@@ -157,7 +176,7 @@ func _on_attack_target_state_entered():
 
 func _on_idle_state_entered():
 	animation_state_machine.travel("idle")
-	pass # Replace with function body.
+	pass
 
 func _on_dying_state_entered():
 	animation_state_machine.travel("dying")
@@ -167,5 +186,7 @@ func _on_dying_state_entered():
 func _on_get_hit_state_entered():
 	animation_state_machine.travel("getting_hit")
 	timer_animation_dict["getting_hit"].start()
-	pass # Replace with function body.
+	pass
+
+
 

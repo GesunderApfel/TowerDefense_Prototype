@@ -15,29 +15,29 @@ radius = 39.55
 [sub_resource type="CircleShape2D" id="CircleShape2D_jotcv"]
 radius = 156.029
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lct1j"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_jj5cc"]
 atlas = ExtResource("2_ldxid")
-region = Rect2(0, 56, 56, 56)
+region = Rect2(0, 56, 56, 55)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vt1o1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gdcgo"]
 atlas = ExtResource("2_ldxid")
-region = Rect2(56, 56, 56, 56)
+region = Rect2(56, 56, 56, 55)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_n5yah"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_lcbvg"]
 atlas = ExtResource("2_ldxid")
-region = Rect2(112, 56, 56, 56)
+region = Rect2(112, 56, 56, 55)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ha8e3"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_cr6y8"]
 atlas = ExtResource("2_ldxid")
-region = Rect2(168, 56, 56, 56)
+region = Rect2(168, 56, 56, 55)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rxhu2"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_7cv6l"]
 atlas = ExtResource("2_ldxid")
-region = Rect2(224, 56, 56, 56)
+region = Rect2(224, 56, 56, 55)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1y2ad"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6rs6"]
 atlas = ExtResource("2_ldxid")
-region = Rect2(280, 56, 56, 56)
+region = Rect2(280, 56, 56, 55)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mtrvt"]
 atlas = ExtResource("2_ldxid")
@@ -147,22 +147,22 @@ region = Rect2(392, 112, 56, 56)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_lct1j")
+"texture": SubResource("AtlasTexture_jj5cc")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vt1o1")
+"texture": SubResource("AtlasTexture_gdcgo")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_n5yah")
+"texture": SubResource("AtlasTexture_lcbvg")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ha8e3")
+"texture": SubResource("AtlasTexture_cr6y8")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rxhu2")
+"texture": SubResource("AtlasTexture_7cv6l")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1y2ad")
+"texture": SubResource("AtlasTexture_f6rs6")
 }],
 "loop": true,
 "name": &"attack",

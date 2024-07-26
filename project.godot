@@ -27,3 +27,10 @@ window/size/viewport_height=900
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")
+
+[layer_names]
+
+2d_physics/layer_1="Enemy"
+2d_physics/layer_2="Carriage"
+2d_physics/layer_3="Ally"
+2d_physics/layer_9="ground"

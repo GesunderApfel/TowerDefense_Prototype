@@ -3,6 +3,17 @@ extends Node2D
 const ENEMY_SCN = preload("res://scenes/combat/combat_test/enemy.tscn")
 const ENEMY_FLYING = preload("res://scenes/combat/combat_test/enemy_flying.tscn")
 
+var current_enemies_on_field : int = 0
+var spawns = {
+		1:[GROUNDED,GROUNDED,GROUNDED,GROUNDED,GROUNDED],
+		2:[GROUNDED, FLYING, GROUNDED, GROUNDED, FLYING, FLYING, GROUNDED, FLYING],
+		3:[],} 
+
+var spawns_spawn_rate = {
+		1:3,
+		2:2,
+		3:1,} 
+
 enum {
 	GROUNDED,
 	FLYING,
@@ -22,6 +33,7 @@ func _ready():
 	CombatDebug.bind_debug_method(spawn_enemy_right,"Grounded Enemy Right", KEY_2)
 	CombatDebug.bind_debug_method(spawn_flying_enemy_left,"Grounded Enemy Left", KEY_5)
 	CombatDebug.bind_debug_method(spawn_flying_enemy_right,"Grounded Enemy Right", KEY_6)
+
 func _process(delta):
 	pass
 

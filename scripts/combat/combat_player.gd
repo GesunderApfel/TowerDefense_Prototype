@@ -9,6 +9,8 @@ enum PlayerCombatState{
 
 var current_state : PlayerCombatState = PlayerCombatState.IDLE
 
+@onready var body2D = $CharacterBody2D
+
 const ARROW = preload("res://scenes/combat/combat_test/arrow.tscn")
 
 @onready var animation_tree = $Visuals/AnimationTree
@@ -19,6 +21,9 @@ var timer_release_arrow_animation : Timer
 
 var is_looking_left : bool = false
 
+
+# stats
+var attack_damage = 2
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -79,10 +84,12 @@ func state_hold_arrow():
 		var arrow = ARROW.instantiate()
 		self.add_child(arrow)
 		arrow.global_position = global_position + Vector2(0,-65)
-		arrow.get_node("Sprite2D").flip_h = is_looking_left
 		
 		var direction : Vector2 = (get_global_mouse_position()-arrow.global_position).normalized()
 		arrow.set_direction(direction)
+		arrow.set_collision_masks([1])
+		arrow.set_damage_value(attack_damage)
+		
 	pass
 
 func state_release_arrow():
