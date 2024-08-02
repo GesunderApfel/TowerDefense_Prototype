@@ -5,7 +5,6 @@ const COMBAT_UI = preload("res://scenes/combat/combat_ui.tscn")
 
 const ALLY = preload("res://scenes/combat/combat_test/ally.tscn")
 
-
 var player
 var carriage_player_placement_point : Marker2D
 @onready var carriage = $Carriage

@@ -4,6 +4,9 @@ const ENEMY_SCN = preload("res://scenes/combat/combat_test/enemy.tscn")
 const ENEMY_FLYING = preload("res://scenes/combat/combat_test/enemy_flying.tscn")
 
 var current_enemies_on_field : int = 0
+
+@export var spawn_waves : Array[EnemySpawnWave]
+
 var spawns = {
 		1:[GROUNDED,GROUNDED,GROUNDED,GROUNDED,GROUNDED],
 		2:[GROUNDED, FLYING, GROUNDED, GROUNDED, FLYING, FLYING, GROUNDED, FLYING],
