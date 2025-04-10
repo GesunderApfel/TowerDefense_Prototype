@@ -469,7 +469,7 @@ offset_bottom = -30.0
 enabled = false
 initial_node_to_watch = NodePath("../StateChart")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CS2D_BodyCollider" type="CollisionShape2D" parent="."]
 position = Vector2(-7, 7)
 scale = Vector2(2.685, 2.685)
 shape = SubResource("CircleShape2D_l1mi7")
@@ -482,7 +482,7 @@ position = Vector2(-8, 0)
 collision_layer = 0
 collision_mask = 6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/Area_ScanRadius"]
+[node name="CS2D_ScanRadius" type="CollisionShape2D" parent="Areas/Area_ScanRadius"]
 position = Vector2(1, 8)
 scale = Vector2(63.7894, 63.7894)
 shape = SubResource("CircleShape2D_irewp")
@@ -493,7 +493,7 @@ position = Vector2(-8, 0)
 collision_layer = 0
 collision_mask = 6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/Area_AttackRange"]
+[node name="CS2D_AttachRadius" type="CollisionShape2D" parent="Areas/Area_AttackRange"]
 position = Vector2(-2, 9)
 scale = Vector2(34.3493, 34.3493)
 shape = SubResource("CircleShape2D_irewp")

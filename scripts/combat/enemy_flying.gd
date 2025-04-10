@@ -5,7 +5,7 @@ extends CharacterBody2D
 const FIREBALL = preload("res://scenes/combat/combat_test/fireball.tscn")
 
 @onready var sprite = $Animator/AnimatedSprite2D
-@onready var body2d = $CollisionShape2D
+@onready var body2d = $CS2D_BodyCollider
 @onready var combat_health_bar = $CombatHealthBar
 
 
@@ -73,7 +73,6 @@ func find_target():
 			if position.distance_to(body.position) < nearest_distance:
 				nearest_distance = position.distance_to(body.position)
 				nextTarget = body
-				print(nextTarget.name)
 	
 	
 	if nextTarget:

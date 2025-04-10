@@ -1,47 +1,98 @@
-[gd_scene load_steps=6 format=3 uid="uid://phoobbn48iov"]
+[gd_scene load_steps=16 format=3 uid="uid://phoobbn48iov"]
 
 [ext_resource type="Script" path="res://scripts/combat/combat_manager.gd" id="1_5l03r"]
 [ext_resource type="PackedScene" uid="uid://o31cabihijgu" path="res://scenes/combat/combat_test/carriage.tscn" id="2_bllf6"]
 [ext_resource type="PackedScene" uid="uid://djwilso1op4es" path="res://scenes/combat/combat_test/enemy_spawner.tscn" id="3_jdns8"]
+[ext_resource type="Texture2D" uid="uid://cmfqprdxkxsra" path="res://assets/graphics/combat/environment/Layer_0011_0.png" id="4_yldym"]
+[ext_resource type="Texture2D" uid="uid://biv431bdk0218" path="res://assets/graphics/combat/environment/Layer_0009_2.png" id="5_j5q78"]
+[ext_resource type="Texture2D" uid="uid://cmd815aa0btqh" path="res://assets/graphics/combat/environment/Layer_0008_3.png" id="6_vrjdr"]
+[ext_resource type="Texture2D" uid="uid://b8lj70vjumx0y" path="res://assets/graphics/combat/environment/Layer_0007_Lights.png" id="7_k1kol"]
+[ext_resource type="Texture2D" uid="uid://c8uh0qm7u1uoy" path="res://assets/graphics/combat/environment/Layer_0006_4.png" id="8_b6tuo"]
+[ext_resource type="Texture2D" uid="uid://54tqj3mms3dl" path="res://assets/graphics/combat/environment/Layer_0005_5.png" id="9_06l28"]
+[ext_resource type="Texture2D" uid="uid://dia2k3dgcor62" path="res://assets/graphics/combat/environment/Layer_0004_Lights.png" id="10_y7q1a"]
+[ext_resource type="Texture2D" uid="uid://rdxrlxo0il0h" path="res://assets/graphics/combat/environment/Layer_0003_6.png" id="11_f4t5x"]
+[ext_resource type="Texture2D" uid="uid://d2i751wyhmj20" path="res://assets/graphics/combat/environment/Layer_0002_7.png" id="12_ogq0h"]
+[ext_resource type="Texture2D" uid="uid://cqlkabfifah44" path="res://assets/graphics/combat/environment/Layer_0001_8.png" id="13_4sb4u"]
+[ext_resource type="Texture2D" uid="uid://cux16hnpldn46" path="res://assets/graphics/combat/environment/Layer_0000_9.png" id="14_bodjw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_arwvp"]
 size = Vector2(2000, 20)
-
-[sub_resource type="BoxMesh" id="BoxMesh_ryfg2"]
-size = Vector3(2000, 20, 1)
 
 [node name="CombatManager" type="Node2D"]
 script = ExtResource("1_5l03r")
 
 [node name="Carriage" parent="." instance=ExtResource("2_bllf6")]
-position = Vector2(800, 817)
+position = Vector2(800, 832)
 
-[node name="EnemySpawner" parent="." node_paths=PackedStringArray("carriage") instance=ExtResource("3_jdns8")]
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("spawn_waves", "carriage") instance=ExtResource("3_jdns8")]
+position = Vector2(0, 10)
+spawn_waves = [NodePath("Waves/spawn_wave"), null]
 carriage = NodePath("../Carriage")
-enemy_amount = 1
 ground_height = 820
 spawn_offset = Vector2(600, 300)
 
+[node name="Enemies" type="Node2D" parent="EnemySpawner"]
+
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(671, 817)
+position = Vector2(797, 803)
 
 [node name="Visuals" type="Node2D" parent="."]
 
 [node name="Ground" type="StaticBody2D" parent="Visuals"]
-position = Vector2(0, -63)
+position = Vector2(0, -48)
 collision_layer = 256
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/Ground"]
 position = Vector2(800, 890)
+scale = Vector2(1.76, 1)
 shape = SubResource("RectangleShape2D_arwvp")
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="Visuals/Ground/CollisionShape2D"]
-modulate = Color(0.299715, 0.575578, 1.92523e-07, 1)
-mesh = SubResource("BoxMesh_ryfg2")
+[node name="Environment" type="Node2D" parent="."]
+z_index = -1
+position = Vector2(-763, -851)
+scale = Vector2(2, 2)
 
-[node name="MeshInstance2D2" type="MeshInstance2D" parent="Visuals/Ground/CollisionShape2D"]
-modulate = Color(0.39466, 0.250481, 0, 1)
-position = Vector2(4, 39.5)
-scale = Vector2(1, 3.45)
-mesh = SubResource("BoxMesh_ryfg2")
+[node name="Layer00110" type="Sprite2D" parent="Environment"]
+position = Vector2(781, 507)
+texture = ExtResource("4_yldym")
+
+[node name="Layer00092" type="Sprite2D" parent="Environment"]
+position = Vector2(780, 507)
+texture = ExtResource("5_j5q78")
+
+[node name="Layer00083" type="Sprite2D" parent="Environment"]
+position = Vector2(779, 505)
+texture = ExtResource("6_vrjdr")
+
+[node name="Layer0007Lights" type="Sprite2D" parent="Environment"]
+position = Vector2(783, 511)
+texture = ExtResource("7_k1kol")
+
+[node name="Layer00064" type="Sprite2D" parent="Environment"]
+position = Vector2(780, 505)
+texture = ExtResource("8_b6tuo")
+
+[node name="Layer00055" type="Sprite2D" parent="Environment"]
+position = Vector2(781, 503)
+texture = ExtResource("9_06l28")
+
+[node name="Layer0004Lights" type="Sprite2D" parent="Environment"]
+position = Vector2(783, 508)
+texture = ExtResource("10_y7q1a")
+
+[node name="Layer00036" type="Sprite2D" parent="Environment"]
+position = Vector2(780, 505)
+texture = ExtResource("11_f4t5x")
+
+[node name="Layer00027" type="Sprite2D" parent="Environment"]
+position = Vector2(783, 510)
+texture = ExtResource("12_ogq0h")
+
+[node name="Layer00018" type="Sprite2D" parent="Environment"]
+position = Vector2(781, 506)
+texture = ExtResource("13_4sb4u")
+
+[node name="Layer00009" type="Sprite2D" parent="Environment"]
+position = Vector2(779, 503)
+texture = ExtResource("14_bodjw")

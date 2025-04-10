@@ -1,66 +1,66 @@
 [gd_scene load_steps=33 format=3 uid="uid://db84m5s23esdi"]
 
-[ext_resource type="Texture2D" uid="uid://b64pttr37ktlc" path="res://assets/graphics/combat/combat_test_graphics/Characters/Allies/pixelAdventurer/adventurer-bow-Sheet.png" id="1_6tdg1"]
 [ext_resource type="Script" path="res://scripts/combat/combat_player.gd" id="1_lu14v"]
+[ext_resource type="Texture2D" uid="uid://nqj01d4e8o34" path="res://assets/graphics/combat/combat_test_graphics/Characters/Allies/pixelAdventurer/Hero.png" id="2_ynmab"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1l51c"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hotly"]
-atlas = ExtResource("1_6tdg1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_5fh1i"]
+atlas = ExtResource("2_ynmab")
 region = Rect2(50, 37, 50, 37)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8juna"]
-atlas = ExtResource("1_6tdg1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1qs7"]
+atlas = ExtResource("2_ynmab")
 region = Rect2(100, 37, 50, 37)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5tksx"]
-atlas = ExtResource("1_6tdg1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_1vace"]
+atlas = ExtResource("2_ynmab")
 region = Rect2(50, 0, 50, 37)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_k2u3f"]
-atlas = ExtResource("1_6tdg1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_64sjp"]
+atlas = ExtResource("2_ynmab")
 region = Rect2(100, 0, 50, 37)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_efk1k"]
-atlas = ExtResource("1_6tdg1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_kapqx"]
+atlas = ExtResource("2_ynmab")
 region = Rect2(150, 0, 50, 37)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_owvvk"]
-atlas = ExtResource("1_6tdg1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_pnsvk"]
+atlas = ExtResource("2_ynmab")
 region = Rect2(0, 37, 50, 37)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h4cru"]
-atlas = ExtResource("1_6tdg1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_ckx08"]
+atlas = ExtResource("2_ynmab")
 region = Rect2(50, 37, 50, 37)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_g7xuo"]
-atlas = ExtResource("1_6tdg1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxnt1"]
+atlas = ExtResource("2_ynmab")
 region = Rect2(100, 37, 50, 37)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gm5oi"]
-atlas = ExtResource("1_6tdg1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_nrcf8"]
+atlas = ExtResource("2_ynmab")
 region = Rect2(150, 37, 50, 37)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rsw12"]
-atlas = ExtResource("1_6tdg1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ktpx"]
+atlas = ExtResource("2_ynmab")
 region = Rect2(0, 74, 50, 37)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kl38w"]
-atlas = ExtResource("1_6tdg1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_vet73"]
+atlas = ExtResource("2_ynmab")
 region = Rect2(0, 0, 50, 37)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_30pt7"]
-atlas = ExtResource("1_6tdg1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_sk31m"]
+atlas = ExtResource("2_ynmab")
 region = Rect2(50, 0, 50, 37)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ehjqw"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hotly")
+"texture": SubResource("AtlasTexture_5fh1i")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8juna")
+"texture": SubResource("AtlasTexture_l1qs7")
 }],
 "loop": true,
 "name": &"hold_arrow",
@@ -68,7 +68,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5tksx")
+"texture": SubResource("AtlasTexture_1vace")
 }],
 "loop": true,
 "name": &"idle",
@@ -76,19 +76,19 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_k2u3f")
+"texture": SubResource("AtlasTexture_64sjp")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_efk1k")
+"texture": SubResource("AtlasTexture_kapqx")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_owvvk")
+"texture": SubResource("AtlasTexture_pnsvk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_h4cru")
+"texture": SubResource("AtlasTexture_ckx08")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_g7xuo")
+"texture": SubResource("AtlasTexture_gxnt1")
 }],
 "loop": true,
 "name": &"pull_arrow",
@@ -96,16 +96,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gm5oi")
+"texture": SubResource("AtlasTexture_nrcf8")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rsw12")
+"texture": SubResource("AtlasTexture_7ktpx")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kl38w")
+"texture": SubResource("AtlasTexture_vet73")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_30pt7")
+"texture": SubResource("AtlasTexture_sk31m")
 }],
 "loop": true,
 "name": &"release_arrow",
@@ -149,7 +149,7 @@ states/hold_arrow/position = Vector2(627, 59)
 states/idle/node = SubResource("AnimationNodeAnimation_h7lax")
 states/idle/position = Vector2(366, 151)
 states/pull_arrow/node = SubResource("AnimationNodeAnimation_7gmrv")
-states/pull_arrow/position = Vector2(479, 59)
+states/pull_arrow/position = Vector2(478, 59)
 states/release_arrow/node = SubResource("AnimationNodeAnimation_f73i6")
 states/release_arrow/position = Vector2(627, 151)
 transitions = ["idle", "pull_arrow", SubResource("AnimationNodeStateMachineTransition_bq3il"), "pull_arrow", "hold_arrow", SubResource("AnimationNodeStateMachineTransition_4yv3h"), "hold_arrow", "release_arrow", SubResource("AnimationNodeStateMachineTransition_l24ml"), "release_arrow", "idle", SubResource("AnimationNodeStateMachineTransition_h6btw"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_41sfp")]
@@ -228,7 +228,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_ajef2"]
 resource_name = "pull_arrow"
-length = 0.5
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -248,10 +248,10 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4]
+"values": [0, 1, 2]
 }
 
 [sub_resource type="Animation" id="Animation_23ejj"]
@@ -293,7 +293,7 @@ _data = {
 
 [node name="CombatPlayer" type="Node2D"]
 position = Vector2(835, 202)
-scale = Vector2(1.5, 1.5)
+scale = Vector2(1.25, 1.25)
 script = ExtResource("1_lu14v")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]

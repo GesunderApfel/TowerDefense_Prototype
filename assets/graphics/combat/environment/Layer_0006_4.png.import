@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b873ww2ee46ma"
-path="res://.godot/imported/wizard idle.png-20093a92bd1b6aa2a1e95a387a8d566c.ctex"
+uid="uid://c8uh0qm7u1uoy"
+path="res://.godot/imported/Layer_0006_4.png-3eaf38b8929fc3a20033239f0dae3c6f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/pixelLich/wizard idle.png"
-dest_files=["res://.godot/imported/wizard idle.png-20093a92bd1b6aa2a1e95a387a8d566c.ctex"]
+source_file="res://assets/graphics/combat/environment/Layer_0006_4.png"
+dest_files=["res://.godot/imported/Layer_0006_4.png-3eaf38b8929fc3a20033239f0dae3c6f.ctex"]
 
 [params]
 

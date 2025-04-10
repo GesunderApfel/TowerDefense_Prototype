@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1cv3ki7nufm6"
-path="res://.godot/imported/wizard death.png-f81e0c37f9bdf8e02d9885e30c94bd5b.ctex"
+uid="uid://d1es7uc7lfmh4"
+path="res://.godot/imported/Layer_0010_1.png-448cbc5cccbc81ca71ab215bf1db860a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/pixelLich/wizard death.png"
-dest_files=["res://.godot/imported/wizard death.png-f81e0c37f9bdf8e02d9885e30c94bd5b.ctex"]
+source_file="res://assets/graphics/combat/environment/Layer_0010_1.png"
+dest_files=["res://.godot/imported/Layer_0010_1.png-448cbc5cccbc81ca71ab215bf1db860a.ctex"]
 
 [params]
 

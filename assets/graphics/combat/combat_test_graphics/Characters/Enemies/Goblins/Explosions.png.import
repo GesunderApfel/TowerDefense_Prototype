@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhewx27vxh1lk"
-path="res://.godot/imported/wizard attack.png-e37aec3eb2e3b250c497e238f13d901b.ctex"
+uid="uid://dkhuiqugkcigd"
+path="res://.godot/imported/Explosions.png-b61dfc542dfc628068962bbebd159c8f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/pixelLich/wizard attack.png"
-dest_files=["res://.godot/imported/wizard attack.png-e37aec3eb2e3b250c497e238f13d901b.ctex"]
+source_file="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/Goblins/Explosions.png"
+dest_files=["res://.godot/imported/Explosions.png-b61dfc542dfc628068962bbebd159c8f.ctex"]
 
 [params]
 
