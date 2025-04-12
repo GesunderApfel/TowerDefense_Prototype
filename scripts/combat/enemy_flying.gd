@@ -96,17 +96,34 @@ func receive_damage(damage):
 		state_chart.send_event("get_hit")
 	pass
 
+# is called by animation track "attacking" to ensure correct timing
+func spawn_projectile():
+	if not target_focused:
+		return
+	
+	var fireball = FIREBALL.instantiate()
+	self.add_child(fireball)
+	fireball.global_position = global_position
+	
+	var direction : Vector2 = (target_focused.global_position \
+	-fireball.global_position + Vector2(0,-65)).normalized()
+	fireball.set_direction(direction)
+	fireball.set_collision_masks([2,3])
+	fireball.set_damage_value(attack)
+
 # ################
 # State Handling
 # ################
 
 func _on_move_state_physics_processing(delta):
+	# is monster in attack range to target?
 	if area_attack_range.overlaps_body(target.body2D):
 		target_focused = target
 		timer_attack_interval.start()
 		state_chart.send_event("target_in_range")
 		return
 	
+	# move to target
 	velocity = position.direction_to(target.position) * move_speed
 	move_and_slide()
 	pass
@@ -131,19 +148,6 @@ func _on_attack_state_physics_processing(delta):
 		state_chart.send_event("attacked")
 	pass 
 
-func spawn_projectile():
-	if not target_focused:
-		return
-	
-	var fireball = FIREBALL.instantiate()
-	self.add_child(fireball)
-	fireball.global_position = global_position
-	
-	var direction : Vector2 = (target_focused.global_position \
-	-fireball.global_position + Vector2(0,-65)).normalized()
-	fireball.set_direction(direction)
-	fireball.set_collision_masks([2,3])
-	fireball.set_damage_value(attack)
 
 func _on_dying_state_physics_processing(delta):
 	if timer_animation_dict["dying"].is_stopped():

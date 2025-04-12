@@ -12,3 +12,11 @@ func create_timer_for_animation(self_reference: Node,
 	self_reference.add_child(timer)
 	dictionary[animation_name] = timer
 	pass
+	
+func get_playback(animation_tree: AnimationTree):
+	if animation_tree.get("parameters/playback") is AnimationNodeStateMachinePlayback:
+		return animation_tree.get("parameters/playback")
+	else:
+		push_error("The animation tree does not have a state machine as root node.")
+	pass
+
