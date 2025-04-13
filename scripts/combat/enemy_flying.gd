@@ -66,8 +66,9 @@ func _physics_process(_delta):
 
 func find_target():
 	var nextTarget:Node
-	var nearest_distance:= 10000
+	var nearest_distance:= 10000.0
 	
+	# chooses the nearest target in scan range
 	for body in area_scan_radius.get_overlapping_bodies():
 		if body.is_in_group("carriage") or body.is_in_group("ally"):
 			if position.distance_to(body.position) < nearest_distance:
@@ -88,15 +89,15 @@ func look_at_target():
 
 func receive_damage(damage):
 	health -= max(damage-defense,0)
-	combat_health_bar.update_health_value(float(health) / float(max_health) * 100.0)
 
 	if health <= 0:
 		state_chart.send_event("dying")
 	else:
+		combat_health_bar.update_health_value(float(health) / float(max_health) * 100.0)
 		state_chart.send_event("get_hit")
 	pass
 
-# is called by animation track "attacking" to ensure correct timing
+## is called by animation track "attacking" to ensure correct timing
 func spawn_projectile():
 	if not target_focused:
 		return
@@ -105,6 +106,7 @@ func spawn_projectile():
 	self.add_child(fireball)
 	fireball.global_position = global_position
 	
+	# shoot into target direction
 	var direction : Vector2 = (target_focused.global_position \
 	-fireball.global_position + Vector2(0,-65)).normalized()
 	fireball.set_direction(direction)
@@ -115,7 +117,7 @@ func spawn_projectile():
 # State Handling
 # ################
 
-func _on_move_state_physics_processing(delta):
+func _on_move_state_physics_processing(_delta):
 	# is monster in attack range to target?
 	if area_attack_range.overlaps_body(target.body2D):
 		target_focused = target
@@ -128,11 +130,13 @@ func _on_move_state_physics_processing(delta):
 	move_and_slide()
 	pass
 
-func _on_idle_state_physics_processing(delta):
+func _on_idle_state_physics_processing(_delta):
+	# target died or was not assigned
 	if target_focused == null:
 		state_chart.send_event("target_not_in_range")
 		return
 	
+	# target not in range anymore
 	if not area_attack_range.overlaps_body(target_focused.body2D):
 		state_chart.send_event("target_not_in_range")
 		return
@@ -143,19 +147,19 @@ func _on_idle_state_physics_processing(delta):
 	pass
 
 
-func _on_attack_state_physics_processing(delta):
+func _on_attack_state_physics_processing(_delta):
 	if timer_animation_dict["attacking"].is_stopped():
 		state_chart.send_event("attacked")
 	pass 
 
 
-func _on_dying_state_physics_processing(delta):
+func _on_dying_state_physics_processing(_delta):
 	if timer_animation_dict["dying"].is_stopped():
 		queue_free()
 	pass
 	
 
-func _on_get_hit_state_physics_processing(delta):
+func _on_get_hit_state_physics_processing(_delta):
 	if timer_animation_dict["getting_hit"].is_stopped():
 		state_chart.send_event("return_to_old_state")
 	pass

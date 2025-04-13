@@ -1,9 +1,14 @@
-[gd_scene load_steps=56 format=3 uid="uid://kd4xv22ktbk8"]
+[gd_scene load_steps=47 format=3 uid="uid://kd4xv22ktbk8"]
 
-[ext_resource type="Script" path="res://scripts/combat/enemy.gd" id="1_5ktnc"]
-[ext_resource type="Texture2D" uid="uid://d3aac0snojkt8" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/Goblins/Torch_Red.png" id="3_anoua"]
-[ext_resource type="Script" path="res://scripts/core/animation_tree_state.gd" id="5_458rn"]
-[ext_resource type="PackedScene" uid="uid://bl51pk2vko0vm" path="res://scenes/combat/combat_health_bar.tscn" id="5_tcx13"]
+[ext_resource type="Script" path="res://scripts/combat/enemy.gd" id="1_fybf2"]
+[ext_resource type="Texture2D" uid="uid://d3aac0snojkt8" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/Goblins/Torch_Red.png" id="2_ihf1h"]
+[ext_resource type="Script" path="res://scripts/core/animation_tree_state.gd" id="3_7nd7c"]
+[ext_resource type="PackedScene" uid="uid://bl51pk2vko0vm" path="res://scenes/combat/combat_health_bar.tscn" id="4_61vk5"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="5_kd7gl"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="6_fmnhd"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/history_state.gd" id="7_gryei"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="8_vqsdi"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="9_40na2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yqcq4"]
 radius = 20.8
@@ -15,79 +20,79 @@ radius = 39.55
 [sub_resource type="CircleShape2D" id="CircleShape2D_irewp"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8diwu"]
-atlas = ExtResource("3_anoua")
+atlas = ExtResource("2_ihf1h")
 region = Rect2(0, 384, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_728n6"]
-atlas = ExtResource("3_anoua")
+atlas = ExtResource("2_ihf1h")
 region = Rect2(192, 384, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7jm06"]
-atlas = ExtResource("3_anoua")
+atlas = ExtResource("2_ihf1h")
 region = Rect2(384, 384, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oik4e"]
-atlas = ExtResource("3_anoua")
+atlas = ExtResource("2_ihf1h")
 region = Rect2(576, 384, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eivie"]
-atlas = ExtResource("3_anoua")
+atlas = ExtResource("2_ihf1h")
 region = Rect2(768, 384, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bmip8"]
-atlas = ExtResource("3_anoua")
+atlas = ExtResource("2_ihf1h")
 region = Rect2(960, 384, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rwpgp"]
-atlas = ExtResource("3_anoua")
+atlas = ExtResource("2_ihf1h")
 region = Rect2(0, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_68e08"]
-atlas = ExtResource("3_anoua")
+atlas = ExtResource("2_ihf1h")
 region = Rect2(192, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_klign"]
-atlas = ExtResource("3_anoua")
+atlas = ExtResource("2_ihf1h")
 region = Rect2(384, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_60oeu"]
-atlas = ExtResource("3_anoua")
+atlas = ExtResource("2_ihf1h")
 region = Rect2(576, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_myctx"]
-atlas = ExtResource("3_anoua")
+atlas = ExtResource("2_ihf1h")
 region = Rect2(768, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ewsox"]
-atlas = ExtResource("3_anoua")
+atlas = ExtResource("2_ihf1h")
 region = Rect2(960, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e34ds"]
-atlas = ExtResource("3_anoua")
+atlas = ExtResource("2_ihf1h")
 region = Rect2(1152, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dlax3"]
-atlas = ExtResource("3_anoua")
+atlas = ExtResource("2_ihf1h")
 region = Rect2(0, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wh6y8"]
-atlas = ExtResource("3_anoua")
+atlas = ExtResource("2_ihf1h")
 region = Rect2(192, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jy0dh"]
-atlas = ExtResource("3_anoua")
+atlas = ExtResource("2_ihf1h")
 region = Rect2(384, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vs8j6"]
-atlas = ExtResource("3_anoua")
+atlas = ExtResource("2_ihf1h")
 region = Rect2(576, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8iswj"]
-atlas = ExtResource("3_anoua")
+atlas = ExtResource("2_ihf1h")
 region = Rect2(768, 192, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lo346"]
-atlas = ExtResource("3_anoua")
+atlas = ExtResource("2_ihf1h")
 region = Rect2(960, 192, 192, 192)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4bak4"]
@@ -183,84 +188,21 @@ animation = &"walk"
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_idp7p"]
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m0fdm"]
-advance_mode = 2
-advance_expression = "current_state == \"ATTACKING\""
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i3hya"]
-advance_mode = 2
-advance_expression = "current_state == \"WALKING\""
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_70ga5"]
-switch_mode = 2
-advance_mode = 2
-advance_expression = "current_state == \"IDLE\""
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o6vab"]
-advance_mode = 2
-advance_expression = "current_state == \"ATTACKING\""
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xs3ie"]
-advance_mode = 2
-advance_expression = "current_state == \"SKILL_BERSERK\""
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4h8bo"]
-advance_mode = 2
-advance_expression = "current_state == \"IDLE\""
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xl4w3"]
-priority = 0
-advance_mode = 2
-advance_expression = "current_state == \"GETTING_HIT\""
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ejr6j"]
-priority = 0
-advance_mode = 2
-advance_expression = "current_state == \"GETTING_HIT\""
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5xnos"]
-switch_mode = 2
-advance_mode = 2
-advance_expression = "current_state == \"IDLE\""
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lxv50"]
-switch_mode = 2
-advance_mode = 2
-advance_expression = "current_state == \"ATTACKING\""
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_owntu"]
-priority = 0
-advance_mode = 2
-advance_expression = "current_state == \"GETTING_HIT\""
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mpjnn"]
-switch_mode = 2
-advance_mode = 2
-advance_expression = "current_state == \"WALKING\""
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5up22"]
-advance_mode = 2
-advance_expression = "current_state == \"WALKING\""
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4cf6k"]
-advance_mode = 2
-advance_expression = "current_state == \"SKILL_BERSERK\""
-
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_6m1py"]
 states/End/position = Vector2(1081, 111)
-states/Start/position = Vector2(184, 100)
+states/Start/position = Vector2(211, 100)
 states/attack/node = SubResource("AnimationNodeAnimation_3oto2")
-states/attack/position = Vector2(611, 42)
+states/attack/position = Vector2(537, 100)
 states/get_hit/node = SubResource("AnimationNodeAnimation_b1x0p")
-states/get_hit/position = Vector2(712, 154)
+states/get_hit/position = Vector2(537, 33)
 states/idle/node = SubResource("AnimationNodeAnimation_tem6a")
-states/idle/position = Vector2(797, 5)
+states/idle/position = Vector2(402, 33)
 states/skill_berserk/node = SubResource("AnimationNodeAnimation_r6yn8")
-states/skill_berserk/position = Vector2(525, -48)
+states/skill_berserk/position = Vector2(402, 168)
 states/walk/node = SubResource("AnimationNodeAnimation_salig")
 states/walk/position = Vector2(402, 100)
-transitions = ["Start", "walk", SubResource("AnimationNodeStateMachineTransition_idp7p"), "walk", "attack", SubResource("AnimationNodeStateMachineTransition_m0fdm"), "attack", "walk", SubResource("AnimationNodeStateMachineTransition_i3hya"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_70ga5"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_o6vab"), "idle", "skill_berserk", SubResource("AnimationNodeStateMachineTransition_xs3ie"), "skill_berserk", "idle", SubResource("AnimationNodeStateMachineTransition_4h8bo"), "attack", "get_hit", SubResource("AnimationNodeStateMachineTransition_xl4w3"), "idle", "get_hit", SubResource("AnimationNodeStateMachineTransition_ejr6j"), "get_hit", "idle", SubResource("AnimationNodeStateMachineTransition_5xnos"), "get_hit", "attack", SubResource("AnimationNodeStateMachineTransition_lxv50"), "walk", "get_hit", SubResource("AnimationNodeStateMachineTransition_owntu"), "get_hit", "walk", SubResource("AnimationNodeStateMachineTransition_mpjnn"), "skill_berserk", "walk", SubResource("AnimationNodeStateMachineTransition_5up22"), "walk", "skill_berserk", SubResource("AnimationNodeStateMachineTransition_4cf6k")]
-graph_offset = Vector2(55, -65)
+transitions = ["Start", "walk", SubResource("AnimationNodeStateMachineTransition_idp7p")]
+graph_offset = Vector2(-100, 13)
 
 [sub_resource type="Animation" id="Animation_q4tl2"]
 length = 0.001
@@ -493,7 +435,7 @@ _data = {
 [node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
 position = Vector2(500, 0)
 collision_mask = 6
-script = ExtResource("1_5ktnc")
+script = ExtResource("1_fybf2")
 attack_damage = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -544,7 +486,7 @@ animation = &"idle"
 active = false
 tree_root = SubResource("AnimationNodeStateMachine_6m1py")
 anim_player = NodePath("../AnimationPlayer")
-script = ExtResource("5_458rn")
+script = ExtResource("3_7nd7c")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Animator"]
 libraries = {
@@ -575,6 +517,168 @@ one_shot = true
 wait_time = 15.0
 one_shot = true
 
-[node name="CombatHealthBar" parent="." instance=ExtResource("5_tcx13")]
+[node name="CombatHealthBar" parent="." instance=ExtResource("4_61vk5")]
 offset_top = -140.0
 offset_bottom = -140.0
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("5_kd7gl")
+
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("6_fmnhd")
+initial_state = NodePath("Mode_Normal")
+
+[node name="HistoryState" type="Node" parent="StateChart/Root"]
+script = ExtResource("7_gryei")
+deep = true
+default_state = NodePath("../Mode_Normal")
+
+[node name="Mode_Normal" type="Node" parent="StateChart/Root"]
+script = ExtResource("6_fmnhd")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateChart/Root/Mode_Normal"]
+script = ExtResource("8_vqsdi")
+
+[node name="Die" type="Node" parent="StateChart/Root/Mode_Normal/Idle"]
+script = ExtResource("9_40na2")
+to = NodePath("../../../Die")
+event = &"sce_die"
+delay_in_seconds = "0.0"
+
+[node name="To_GetHit" type="Node" parent="StateChart/Root/Mode_Normal/Idle"]
+script = ExtResource("9_40na2")
+to = NodePath("../../../GetHit")
+event = &"sce_get_hit"
+delay_in_seconds = "0.0"
+
+[node name="To_MoveToTarget" type="Node" parent="StateChart/Root/Mode_Normal/Idle"]
+script = ExtResource("9_40na2")
+to = NodePath("../../MoveToTarget")
+event = &"sce_move_to_target"
+delay_in_seconds = "0.0"
+
+[node name="To_Attack" type="Node" parent="StateChart/Root/Mode_Normal/Idle"]
+script = ExtResource("9_40na2")
+to = NodePath("../../Attack")
+event = &"sce_attack"
+delay_in_seconds = "0.0"
+
+[node name="MoveToTarget" type="Node" parent="StateChart/Root/Mode_Normal"]
+script = ExtResource("8_vqsdi")
+
+[node name="Die" type="Node" parent="StateChart/Root/Mode_Normal/MoveToTarget"]
+script = ExtResource("9_40na2")
+to = NodePath("../../../Die")
+event = &"sce_die"
+delay_in_seconds = "0.0"
+
+[node name="To_Attack" type="Node" parent="StateChart/Root/Mode_Normal/MoveToTarget"]
+script = ExtResource("9_40na2")
+to = NodePath("../../Attack")
+event = &"sce_attack"
+delay_in_seconds = "0.0"
+
+[node name="To_GetHit" type="Node" parent="StateChart/Root/Mode_Normal/MoveToTarget"]
+script = ExtResource("9_40na2")
+to = NodePath("../../../GetHit")
+event = &"sce_get_hit"
+delay_in_seconds = "0.0"
+
+[node name="Attack" type="Node" parent="StateChart/Root/Mode_Normal"]
+editor_description = "Doesn't react to getting hit."
+script = ExtResource("8_vqsdi")
+
+[node name="Die" type="Node" parent="StateChart/Root/Mode_Normal/Attack"]
+script = ExtResource("9_40na2")
+to = NodePath("../../../Die")
+event = &"sce_die"
+delay_in_seconds = "0.0"
+
+[node name="To_Idle" type="Node" parent="StateChart/Root/Mode_Normal/Attack"]
+script = ExtResource("9_40na2")
+to = NodePath("../../Idle")
+event = &"sce_idle"
+delay_in_seconds = "0.0"
+
+[node name="To_MoveToTarget" type="Node" parent="StateChart/Root/Mode_Normal/Attack"]
+script = ExtResource("9_40na2")
+to = NodePath("../../MoveToTarget")
+event = &"sce_move_to_target"
+delay_in_seconds = "0.0"
+
+[node name="To_Mode_Berserk" type="Node" parent="StateChart/Root/Mode_Normal"]
+script = ExtResource("9_40na2")
+to = NodePath("../../Mode_Berserk")
+event = &"sce_berserk_start"
+delay_in_seconds = "0.0"
+
+[node name="Mode_Berserk" type="Node" parent="StateChart/Root"]
+editor_description = "Berserk Mode doesn't react to getting hit.
+Changes color of enemy and increases attack frequency."
+script = ExtResource("6_fmnhd")
+initial_state = NodePath("Berserk_Attack")
+
+[node name="Berserk_Attack" type="Node" parent="StateChart/Root/Mode_Berserk"]
+script = ExtResource("8_vqsdi")
+
+[node name="To_MoveToTarget" type="Node" parent="StateChart/Root/Mode_Berserk/Berserk_Attack"]
+script = ExtResource("9_40na2")
+to = NodePath("../../Berserk_MoveToTarget")
+event = &"sce_move_to_target"
+delay_in_seconds = "0.0"
+
+[node name="Berserk_MoveToTarget" type="Node" parent="StateChart/Root/Mode_Berserk"]
+script = ExtResource("8_vqsdi")
+
+[node name="To_Attack" type="Node" parent="StateChart/Root/Mode_Berserk/Berserk_MoveToTarget"]
+script = ExtResource("9_40na2")
+to = NodePath("../../Berserk_Attack")
+event = &"sce_attack"
+delay_in_seconds = "0.0"
+
+[node name="Die" type="Node" parent="StateChart/Root/Mode_Berserk"]
+script = ExtResource("9_40na2")
+to = NodePath("../../Die")
+event = &"sce_die"
+delay_in_seconds = "0.0"
+
+[node name="To_NormalMode" type="Node" parent="StateChart/Root/Mode_Berserk"]
+script = ExtResource("9_40na2")
+to = NodePath("../../Mode_Normal/Attack")
+event = &"sce_berserk_stop"
+delay_in_seconds = "0.0"
+
+[node name="GetHit" type="Node" parent="StateChart/Root"]
+script = ExtResource("8_vqsdi")
+
+[node name="Die" type="Node" parent="StateChart/Root/GetHit"]
+script = ExtResource("9_40na2")
+to = NodePath("../../Die")
+event = &"sce_die"
+delay_in_seconds = "0.0"
+
+[node name="To_OldState" type="Node" parent="StateChart/Root/GetHit"]
+script = ExtResource("9_40na2")
+to = NodePath("../../HistoryState")
+event = &"sce_old_state"
+delay_in_seconds = "0.0"
+
+[node name="Die" type="Node" parent="StateChart/Root"]
+script = ExtResource("8_vqsdi")
+
+[connection signal="state_entered" from="StateChart/Root/Mode_Normal/Idle" to="." method="_on_idle_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Root/Mode_Normal/Idle" to="." method="_on_idle_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Root/Mode_Normal/MoveToTarget" to="." method="_on_move_to_target_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Root/Mode_Normal/MoveToTarget" to="." method="_on_move_to_target_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Root/Mode_Normal/Attack" to="." method="_on_attack_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Root/Mode_Normal/Attack" to="." method="_on_attack_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Root/Mode_Berserk" to="." method="_on_mode_berserk_state_entered"]
+[connection signal="state_exited" from="StateChart/Root/Mode_Berserk" to="." method="_on_mode_berserk_state_exited"]
+[connection signal="state_entered" from="StateChart/Root/Mode_Berserk/Berserk_Attack" to="." method="_on_berserk_attack_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Root/Mode_Berserk/Berserk_Attack" to="." method="_on_berserk_attack_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Root/Mode_Berserk/Berserk_MoveToTarget" to="." method="_on_berserk_move_to_target_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Root/Mode_Berserk/Berserk_MoveToTarget" to="." method="_on_berserk_move_to_target_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Root/GetHit" to="." method="_on_get_hit_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Root/GetHit" to="." method="_on_get_hit_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Root/Die" to="." method="_on_die_state_entered"]

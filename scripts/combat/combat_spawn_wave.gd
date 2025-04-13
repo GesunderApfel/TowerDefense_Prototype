@@ -1,7 +1,7 @@
 @tool
 class_name EnemySpawnWave extends Node
 
-func _process(delta):
+func _process(_delta):
 	if Engine.is_editor_hint():
 		var children = get_children()
 		var sum : float = 0

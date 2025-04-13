@@ -78,7 +78,7 @@ func _ready():
 	sprite.flip_h = is_looking_left
 	pass
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	#print(current_state)
 	match current_state:
 		AllyState.DEFEND_CARRIAGE:

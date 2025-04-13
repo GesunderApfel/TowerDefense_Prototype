@@ -25,5 +25,3 @@ percentage = 35.0331
 script = ExtResource("3_t14yc")
 enemy_name = 1
 percentage = 64.9669
-
-[connection signal="timeout" from="Start" to="." method="_on_start_timeout"]

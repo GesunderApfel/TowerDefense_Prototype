@@ -1,6 +1,6 @@
 extends Node
 
-
+## adds a timer to the dictionary with the duration of the animation
 func create_timer_for_animation(self_reference: Node,
 	animation_tree: AnimationTree,
 	dictionary: Dictionary,
@@ -13,6 +13,7 @@ func create_timer_for_animation(self_reference: Node,
 	dictionary[animation_name] = timer
 	pass
 	
+## gets the playback of an animation tree
 func get_playback(animation_tree: AnimationTree):
 	if animation_tree.get("parameters/playback") is AnimationNodeStateMachinePlayback:
 		return animation_tree.get("parameters/playback")

@@ -24,9 +24,8 @@ script = ExtResource("1_5l03r")
 [node name="Carriage" parent="." instance=ExtResource("2_bllf6")]
 position = Vector2(800, 832)
 
-[node name="EnemySpawner" parent="." node_paths=PackedStringArray("spawn_waves", "carriage") instance=ExtResource("3_jdns8")]
+[node name="EnemySpawner" parent="." node_paths=PackedStringArray("carriage") instance=ExtResource("3_jdns8")]
 position = Vector2(0, 10)
-spawn_waves = [NodePath("Waves/spawn_wave"), null]
 carriage = NodePath("../Carriage")
 ground_height = 820
 spawn_offset = Vector2(600, 300)

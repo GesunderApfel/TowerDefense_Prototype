@@ -23,10 +23,10 @@ const ARROW = preload("res://scenes/combat/combat_test/arrow.tscn")
 var attack_damage = 2
 
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
 	animation_tree.active = true
-	
+		
 	UtilityStateMachine.create_timer_for_animation\
 		(self,animation_tree, timer_animation_dict,anim_state_pullArrow)
 		
@@ -36,7 +36,7 @@ func _ready():
 	animation_state_machine = UtilityStateMachine.get_playback(animation_tree)
 	pass
 
-func _process(delta):
+func _process(_delta):
 	update_look_direction()
 	sprite.flip_h = is_looking_left
 	pass
@@ -48,6 +48,7 @@ func update_look_direction():
 		is_looking_left = false
 	pass
 
+## shoots an arrow to the mouse position
 func shoot_arrow():	
 	var arrow = ARROW.instantiate()
 	self.add_child(arrow)
@@ -67,22 +68,22 @@ func shoot_arrow():
 # processing states
 # state chart event prefix => sce_..
 
-func _on_idle_state_processing(delta):
+func _on_idle_state_processing(_delta):
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		state_chart.send_event("sce_attack_pull")
 	pass
 
-func _on_attack_pull_state_processing(delta):
+func _on_attack_pull_state_processing(_delta):
 	if timer_animation_dict[anim_state_pullArrow].is_stopped():
 		state_chart.send_event("sce_attack_hold")
 	pass
 
-func _on_attack_hold_state_processing(delta):
+func _on_attack_hold_state_processing(_delta):
 	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		state_chart.send_event("sce_attack_release");
 	pass
 
-func _on_attack_release_state_processing(delta):
+func _on_attack_release_state_processing(_delta):
 	if timer_animation_dict[anim_state_releaseArrow].is_stopped():
 		state_chart.send_event("sce_idle")
 	pass

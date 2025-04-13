@@ -1,6 +1,6 @@
 extends Node2D
 
-const ENEMY_SCN = preload("res://scenes/combat/combat_test/enemy.tscn")
+const ENEMY_SCN = preload("res://scenes/combat/combat_test/enemy_goblin_torch.tscn")
 const ENEMY_FLYING = preload("res://scenes/combat/combat_test/enemy_flying.tscn")
 
 var current_enemies_on_field : int = 0
@@ -37,7 +37,7 @@ func _ready():
 	CombatDebug.bind_debug_method(spawn_flying_enemy_left,"Grounded Enemy Left", KEY_5)
 	CombatDebug.bind_debug_method(spawn_flying_enemy_right,"Grounded Enemy Right", KEY_6)
 
-func _process(delta):
+func _process(_delta):
 	pass
 
 

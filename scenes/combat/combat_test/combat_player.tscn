@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://db84m5s23esdi"]
+[gd_scene load_steps=36 format=3 uid="uid://db84m5s23esdi"]
 
 [ext_resource type="Script" path="res://scripts/combat/combat_player.gd" id="1_lu14v"]
 [ext_resource type="Texture2D" uid="uid://df1u6upneugoj" path="res://assets/graphics/combat/combat_test_graphics/Characters/Hero/Archer_Blue.png" id="3_khfqv"]
@@ -149,22 +149,6 @@ animation = &"pull_arrow"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f73i6"]
 animation = &"release_arrow"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bq3il"]
-advance_mode = 2
-advance_condition = &"IsHoldingArrow"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4yv3h"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l24ml"]
-advance_mode = 2
-advance_condition = &"IsReleasingArrow"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h6btw"]
-switch_mode = 2
-advance_mode = 2
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_41sfp"]
 advance_mode = 2
 
@@ -172,12 +156,12 @@ advance_mode = 2
 states/hold_arrow/node = SubResource("AnimationNodeAnimation_nfv3h")
 states/hold_arrow/position = Vector2(627, 59)
 states/idle/node = SubResource("AnimationNodeAnimation_h7lax")
-states/idle/position = Vector2(366, 151)
+states/idle/position = Vector2(315, 100)
 states/pull_arrow/node = SubResource("AnimationNodeAnimation_7gmrv")
 states/pull_arrow/position = Vector2(478, 59)
 states/release_arrow/node = SubResource("AnimationNodeAnimation_f73i6")
 states/release_arrow/position = Vector2(627, 151)
-transitions = ["idle", "pull_arrow", SubResource("AnimationNodeStateMachineTransition_bq3il"), "pull_arrow", "hold_arrow", SubResource("AnimationNodeStateMachineTransition_4yv3h"), "hold_arrow", "release_arrow", SubResource("AnimationNodeStateMachineTransition_l24ml"), "release_arrow", "idle", SubResource("AnimationNodeStateMachineTransition_h6btw"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_41sfp")]
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_41sfp")]
 
 [sub_resource type="Animation" id="Animation_ujgsm"]
 length = 0.001
@@ -353,8 +337,6 @@ animation = &"idle"
 active = false
 tree_root = SubResource("AnimationNodeStateMachine_q4y5m")
 anim_player = NodePath("../AnimationPlayer")
-parameters/conditions/IsHoldingArrow = false
-parameters/conditions/IsReleasingArrow = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Visuals"]
 libraries = {
