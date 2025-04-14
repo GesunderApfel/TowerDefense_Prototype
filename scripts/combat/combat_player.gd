@@ -23,7 +23,6 @@ const ARROW = preload("res://scenes/combat/combat_test/arrow.tscn")
 var attack_damage = 2
 
 
-
 func _ready():
 	animation_tree.active = true
 		

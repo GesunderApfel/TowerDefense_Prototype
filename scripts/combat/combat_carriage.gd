@@ -5,6 +5,10 @@ const COMBAT_HEALTH_BAR = preload("res://scenes/combat/combat_health_bar.tscn")
 @onready var animation_player = $AnimationPlayer
 @onready var player_position : Marker2D = $PlayerPosition
 
+
+# signals
+signal got_hit
+
 var health_bar
 
 var maxHealth = 100
@@ -33,6 +37,7 @@ func heal_completely():
 func receive_damage(damage):
 	health -= damage
 	animation_player.play("shake")
+	emit_signal("got_hit")
 	update_healthbar()
 
 func update_healthbar():

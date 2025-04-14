@@ -5,6 +5,8 @@ const COMBAT_UI = preload("res://scenes/combat/combat_ui.tscn")
 
 const ALLY = preload("res://scenes/combat/combat_test/ally.tscn")
 
+@onready var camera_2d = $Camera2D
+
 var player
 var carriage_player_placement_point : Marker2D
 @onready var carriage = $Carriage
@@ -17,9 +19,14 @@ func _ready():
 	var combatUI = COMBAT_UI.instantiate()
 	get_tree().root.add_child.call_deferred(combatUI)
 	
+	# carriage and player
 	carriage_player_placement_point = carriage.player_position
 	player = COMBAT_PLAYER.instantiate()
 	player.global_position = carriage_player_placement_point.global_position
+	
+	# bind camera shake when carriage is getting hit
+	carriage.got_hit.connect(camera_2d.start_shake)
+	
 	
 	self.add_child(player)
 	
