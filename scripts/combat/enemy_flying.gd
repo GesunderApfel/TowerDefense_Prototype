@@ -12,15 +12,20 @@ const FIREBALL = preload("res://scenes/combat/combat_test/fireball.tscn")
 # animations
 @onready var animation_tree = $Animator/AnimationTree
 var animation_state_machine : AnimationNodeStateMachinePlayback
+const anim_state_idle = "idle"
+const anim_state_move = "move"
+const anim_state_attack = "attack"
+const anim_state_getHit = "get_hit"
+const anim_state_die = "die"
 
 # physics
 @onready var area_scan_radius = $Areas/Area_ScanRadius
 @onready var area_attack_range = $Areas/Area_AttackRange
 
 # timers
+var timer_animation_dict : Dictionary = {}
 @onready var timer_attack_interval = $Timers/Attacks/Timer_AttackInterval
-var timer_animation_dict = {}
-@export var animation_names : Array = ["attacking", "dying", "getting_hit"]
+
 
 # members
 var health
@@ -40,19 +45,22 @@ func _ready():
 	
 	health = max_health
 	
-	# add all necessary timers
-	for animation_name in animation_names:
-		var new_timer = Timer.new()
-		new_timer.one_shot = true
-		new_timer.wait_time = animation_tree.get_animation(animation_name).length
-		timer_animation_dict[animation_name] = new_timer
-		self.add_child(new_timer)
+	UtilityStateMachine.create_timer_for_animation\
+		(self,animation_tree, timer_animation_dict,anim_state_idle)
+		
+	UtilityStateMachine.create_timer_for_animation\
+		(self,animation_tree, timer_animation_dict,anim_state_move)
+		
+	UtilityStateMachine.create_timer_for_animation\
+		(self,animation_tree, timer_animation_dict,anim_state_attack)
+		
+	UtilityStateMachine.create_timer_for_animation\
+		(self,animation_tree, timer_animation_dict,anim_state_getHit)
 	
-	var state_machine = animation_tree.get("parameters/playback") 
-	if state_machine is AnimationNodeStateMachinePlayback:
-		animation_state_machine = state_machine
-	else:
-		push_error("The animation tree does not have a state machine as root node.")
+	UtilityStateMachine.create_timer_for_animation\
+		(self,animation_tree, timer_animation_dict,anim_state_die)
+		
+	animation_state_machine = UtilityStateMachine.get_playback(animation_tree)
 	pass
 
 func _physics_process(_delta):
@@ -91,13 +99,13 @@ func receive_damage(damage):
 	health -= max(damage-defense,0)
 
 	if health <= 0:
-		state_chart.send_event("dying")
+		state_chart.send_event("sce_die")
 	else:
 		combat_health_bar.update_health_value(float(health) / float(max_health) * 100.0)
-		state_chart.send_event("get_hit")
+		state_chart.send_event("sce_get_hit")
 	pass
 
-## is called by animation track "attacking" to ensure correct timing
+## is called by animation track "attack" to ensure correct timing
 func spawn_projectile():
 	if not target_focused:
 		return
@@ -112,6 +120,9 @@ func spawn_projectile():
 	fireball.set_direction(direction)
 	fireball.set_collision_masks([2,3])
 	fireball.set_damage_value(attack)
+	pass
+
+
 
 # ################
 # State Handling
@@ -122,7 +133,7 @@ func _on_move_state_physics_processing(_delta):
 	if area_attack_range.overlaps_body(target.body2D):
 		target_focused = target
 		timer_attack_interval.start()
-		state_chart.send_event("target_in_range")
+		state_chart.send_event("sce_attack")
 		return
 	
 	# move to target
@@ -133,48 +144,48 @@ func _on_move_state_physics_processing(_delta):
 func _on_idle_state_physics_processing(_delta):
 	# target died or was not assigned
 	if target_focused == null:
-		state_chart.send_event("target_not_in_range")
+		state_chart.send_event("sce_move")
 		return
 	
 	# target not in range anymore
 	if not area_attack_range.overlaps_body(target_focused.body2D):
-		state_chart.send_event("target_not_in_range")
+		state_chart.send_event("sce_move")
 		return
 	
 	if timer_attack_interval.is_stopped():
-		state_chart.send_event("attack_cooldown_finished")
+		state_chart.send_event("sce_attack")
 		return
 	pass
 
 
 func _on_attack_state_physics_processing(_delta):
-	if timer_animation_dict["attacking"].is_stopped():
-		state_chart.send_event("attacked")
+	if timer_animation_dict[anim_state_attack].is_stopped():
+		state_chart.send_event("sce_idle")
 	pass 
 
 
 func _on_dying_state_physics_processing(_delta):
-	if timer_animation_dict["dying"].is_stopped():
+	if timer_animation_dict[anim_state_die].is_stopped():
 		queue_free()
 	pass
 	
 
 func _on_get_hit_state_physics_processing(_delta):
-	if timer_animation_dict["getting_hit"].is_stopped():
-		state_chart.send_event("return_to_old_state")
+	if timer_animation_dict[anim_state_getHit].is_stopped():
+		state_chart.send_event("sce_old_state")
 	pass
 
 # ######
 # handle transitions
 # ######
 func _on_move_state_entered():
-	animation_state_machine.travel("moving")
+	animation_state_machine.travel(anim_state_move)
 	pass
 
 func _on_attack_state_entered():
-	timer_animation_dict["attacking"].start()
+	timer_animation_dict[anim_state_attack].start()
 	timer_attack_interval.start()
-	animation_state_machine.travel("attacking")
+	animation_state_machine.travel(anim_state_attack)
 	pass
 
 func _on_attack_target_state_entered():
@@ -183,17 +194,17 @@ func _on_attack_target_state_entered():
 	pass
 
 func _on_idle_state_entered():
-	animation_state_machine.travel("idle")
+	animation_state_machine.travel(anim_state_idle)
 	pass
 
 func _on_dying_state_entered():
-	animation_state_machine.travel("dying")
-	timer_animation_dict["dying"].start()
+	animation_state_machine.travel(anim_state_die)
+	timer_animation_dict[anim_state_die].start()
 	pass
 
 func _on_get_hit_state_entered():
-	animation_state_machine.travel("getting_hit")
-	timer_animation_dict["getting_hit"].start()
+	animation_state_machine.travel(anim_state_getHit)
+	timer_animation_dict[anim_state_getHit].start()
 	pass
 
 

@@ -230,19 +230,19 @@ animations = [{
 }]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p1wuv"]
-animation = &"attacking"
+animation = &"attack"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xmui1"]
-animation = &"dying"
+animation = &"die"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nx8u0"]
-animation = &"getting_hit"
+animation = &"get_hit"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jd7ga"]
 animation = &"idle"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iet8m"]
-animation = &"moving"
+animation = &"move"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dexjl"]
 advance_mode = 2
@@ -250,16 +250,16 @@ advance_mode = 2
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_6m1py"]
 states/End/position = Vector2(1081, 111)
 states/Start/position = Vector2(179, 181)
-states/attacking/node = SubResource("AnimationNodeAnimation_p1wuv")
-states/attacking/position = Vector2(394, 239)
-states/dying/node = SubResource("AnimationNodeAnimation_xmui1")
-states/dying/position = Vector2(507, 200)
-states/getting_hit/node = SubResource("AnimationNodeAnimation_nx8u0")
-states/getting_hit/position = Vector2(382, 122)
+states/attack/node = SubResource("AnimationNodeAnimation_p1wuv")
+states/attack/position = Vector2(394, 239)
+states/die/node = SubResource("AnimationNodeAnimation_xmui1")
+states/die/position = Vector2(507, 200)
+states/get_hit/node = SubResource("AnimationNodeAnimation_nx8u0")
+states/get_hit/position = Vector2(382, 122)
 states/idle/node = SubResource("AnimationNodeAnimation_jd7ga")
 states/idle/position = Vector2(312, 181)
-states/moving/node = SubResource("AnimationNodeAnimation_iet8m")
-states/moving/position = Vector2(507, 117)
+states/move/node = SubResource("AnimationNodeAnimation_iet8m")
+states/move/position = Vector2(507, 117)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_dexjl")]
 graph_offset = Vector2(2, 71)
 
@@ -288,6 +288,35 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_yw7iu"]
+resource_name = "idle"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
 }
 
 [sub_resource type="Animation" id="Animation_j7il4"]
@@ -388,35 +417,6 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3]
 }
 
-[sub_resource type="Animation" id="Animation_yw7iu"]
-resource_name = "idle"
-length = 0.4
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
-
 [sub_resource type="Animation" id="Animation_nqwti"]
 resource_name = "moving"
 length = 0.4
@@ -449,11 +449,11 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rt0gx"]
 _data = {
 "RESET": SubResource("Animation_kuxjg"),
-"attacking": SubResource("Animation_j7il4"),
-"dying": SubResource("Animation_seo1r"),
-"getting_hit": SubResource("Animation_solo3"),
+"attack": SubResource("Animation_j7il4"),
+"die": SubResource("Animation_seo1r"),
+"get_hit": SubResource("Animation_solo3"),
 "idle": SubResource("Animation_yw7iu"),
-"moving": SubResource("Animation_nqwti")
+"move": SubResource("Animation_nqwti")
 }
 
 [node name="FlyingEnemy" type="CharacterBody2D" groups=["enemy"]]
@@ -545,22 +545,22 @@ default_state = NodePath("../Move")
 [node name="Move" type="Node" parent="StateChart/Root"]
 script = ExtResource("8_xecvg")
 
-[node name="AttackTarget_TargetInRange" type="Node" parent="StateChart/Root/Move"]
+[node name="To_AttackTarget" type="Node" parent="StateChart/Root/Move"]
 script = ExtResource("12_y2nf2")
 to = NodePath("../../AttackTarget")
-event = &"target_in_range"
+event = &"sce_attack"
 delay_in_seconds = "0.0"
 
 [node name="To_GetHit" type="Node" parent="StateChart/Root/Move"]
 script = ExtResource("12_y2nf2")
 to = NodePath("../../GetHit")
-event = &"get_hit"
+event = &"sce_get_hit"
 delay_in_seconds = "0.0"
 
 [node name="Dying" type="Node" parent="StateChart/Root/Move"]
 script = ExtResource("12_y2nf2")
 to = NodePath("../../Dying")
-event = &"dying"
+event = &"sce_die"
 delay_in_seconds = "0.0"
 
 [node name="AttackTarget" type="Node" parent="StateChart/Root"]
@@ -570,37 +570,37 @@ initial_state = NodePath("Idle")
 [node name="Idle" type="Node" parent="StateChart/Root/AttackTarget"]
 script = ExtResource("8_xecvg")
 
-[node name="Move_TargetNotInRange" type="Node" parent="StateChart/Root/AttackTarget/Idle"]
+[node name="To_Move" type="Node" parent="StateChart/Root/AttackTarget/Idle"]
 script = ExtResource("12_y2nf2")
 to = NodePath("../../../Move")
-event = &"target_not_in_range"
+event = &"sce_move"
 delay_in_seconds = "0.0"
 
-[node name="Attack_AttackCooldownFinished" type="Node" parent="StateChart/Root/AttackTarget/Idle"]
+[node name="To_Attack" type="Node" parent="StateChart/Root/AttackTarget/Idle"]
 script = ExtResource("12_y2nf2")
 to = NodePath("../../Attack")
-event = &"attack_cooldown_finished"
+event = &"sce_attack"
 delay_in_seconds = "0.0"
 
 [node name="Attack" type="Node" parent="StateChart/Root/AttackTarget"]
 script = ExtResource("8_xecvg")
 
-[node name="Idle_Attacked" type="Node" parent="StateChart/Root/AttackTarget/Attack"]
+[node name="To_Idle" type="Node" parent="StateChart/Root/AttackTarget/Attack"]
 script = ExtResource("12_y2nf2")
 to = NodePath("../../Idle")
-event = &"attacked"
+event = &"sce_idle"
 delay_in_seconds = "0.0"
 
 [node name="Dying" type="Node" parent="StateChart/Root/AttackTarget"]
 script = ExtResource("12_y2nf2")
 to = NodePath("../../Dying")
-event = &"dying"
+event = &"sce_die"
 delay_in_seconds = "0.0"
 
 [node name="To_GetHit" type="Node" parent="StateChart/Root/AttackTarget"]
 script = ExtResource("12_y2nf2")
 to = NodePath("../../GetHit")
-event = &"get_hit"
+event = &"sce_get_hit"
 delay_in_seconds = "0.0"
 
 [node name="GetHit" type="Node" parent="StateChart/Root"]
@@ -609,7 +609,7 @@ script = ExtResource("8_xecvg")
 [node name="ReturnToOldState" type="Node" parent="StateChart/Root/GetHit"]
 script = ExtResource("12_y2nf2")
 to = NodePath("../../HistoryState")
-event = &"return_to_old_state"
+event = &"sce_old_state"
 delay_in_seconds = "0.0"
 
 [node name="Dying" type="Node" parent="StateChart/Root"]
