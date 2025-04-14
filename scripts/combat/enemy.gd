@@ -127,6 +127,11 @@ func receive_damage(damage):
 		state_chart.send_event("sce_get_hit")
 	pass
 
+# is called in attack animation
+func apply_attack_damage():
+	if target != null:
+		target.receive_damage(attack_damage)
+	pass
 
 # ##############################
 # Handling States  #############
@@ -209,9 +214,6 @@ func _on_attack_state_entered():
 	timer_animation_dict[anim_state_attack].start()
 	timer_attack.start()
 	animation_state_machine.travel(anim_state_attack)
-	
-	if target != null:
-		target.receive_damage(attack_damage)
 	pass
 
 

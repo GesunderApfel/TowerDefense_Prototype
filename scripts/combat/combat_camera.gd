@@ -12,7 +12,6 @@ func _process(delta):
 			randf_range(-1, 1),
 			randf_range(-1, 1)
 		) * shake_strength
-		print(offset)
 	else:
 		offset = Vector2.ZERO
 	pass
