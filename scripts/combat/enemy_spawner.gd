@@ -2,6 +2,7 @@ extends Node2D
 
 const ENEMY_SCN = preload("res://scenes/combat/combat_test/enemy_goblin_torch.tscn")
 const ENEMY_FLYING = preload("res://scenes/combat/combat_test/enemy_flying.tscn")
+const ENEMY_DEMON_LORD = preload("res://scenes/combat/combat_test/enemy_demon_lord.tscn")
 
 var current_enemies_on_field : int = 0
 
@@ -36,7 +37,8 @@ func _ready():
 	CombatDebug.bind_debug_method(spawn_enemy_right,"Grounded Enemy Right", KEY_2)
 	CombatDebug.bind_debug_method(spawn_flying_enemy_left,"Grounded Enemy Left", KEY_5)
 	CombatDebug.bind_debug_method(spawn_flying_enemy_right,"Grounded Enemy Right", KEY_6)
-
+	CombatDebug.bind_debug_method(spawn_boss_left, "Boss Enemy Left", KEY_7)
+	
 func _process(_delta):
 	pass
 
@@ -98,6 +100,16 @@ func spawn_flying_enemy_right():
 	
 	enemy.is_looking_left = true
 	var pos_x : float = carriage.position.x + spawn_offset.x * 1
+	
+	enemy.position = Vector2(pos_x,ground_height - spawn_offset.y)
+	$Enemies.add_child(enemy)
+
+func spawn_boss_left():
+	var enemy = ENEMY_DEMON_LORD.instantiate()
+	enemy.carriage = carriage
+	
+	enemy.is_looking_left = false
+	var pos_x : float = carriage.position.x + spawn_offset.x * -1
 	
 	enemy.position = Vector2(pos_x,ground_height - spawn_offset.y)
 	$Enemies.add_child(enemy)
