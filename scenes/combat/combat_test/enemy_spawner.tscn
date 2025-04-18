@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://djwilso1op4es"]
 
-[ext_resource type="Script" path="res://scripts/combat/enemy_spawner.gd" id="1_cuyjv"]
-[ext_resource type="Script" path="res://scripts/combat/combat_spawn_wave.gd" id="2_uqnlt"]
-[ext_resource type="Script" path="res://scripts/combat/combat_spawn_wave_content.gd" id="3_t14yc"]
+[ext_resource type="Script" path="res://scripts/combat/spawner/enemy_spawner.gd" id="1_cuyjv"]
+[ext_resource type="Script" path="res://scripts/combat/spawner/combat_spawn_wave.gd" id="2_uqnlt"]
+[ext_resource type="Script" path="res://scripts/combat/spawner/combat_spawn_wave_content.gd" id="3_t14yc"]
 
 [node name="BanditSpawner" type="Node2D" node_paths=PackedStringArray("spawn_waves")]
 script = ExtResource("1_cuyjv")

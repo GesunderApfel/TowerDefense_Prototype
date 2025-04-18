@@ -1,6 +1,6 @@
 [gd_scene load_steps=36 format=3 uid="uid://db84m5s23esdi"]
 
-[ext_resource type="Script" path="res://scripts/combat/combat_player.gd" id="1_lu14v"]
+[ext_resource type="Script" path="res://scripts/combat/player/combat_player.gd" id="1_7aq7h"]
 [ext_resource type="Texture2D" uid="uid://df1u6upneugoj" path="res://assets/graphics/combat/combat_test_graphics/Characters/Hero/Archer_Blue.png" id="3_khfqv"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_rsauu"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_5ccqa"]
@@ -315,7 +315,7 @@ _data = {
 
 [node name="CombatPlayer" type="Node2D"]
 position = Vector2(143, 121)
-script = ExtResource("1_lu14v")
+script = ExtResource("1_7aq7h")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 collision_layer = 8

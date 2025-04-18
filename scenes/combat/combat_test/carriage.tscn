@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://o31cabihijgu"]
 
-[ext_resource type="Script" path="res://scripts/combat/combat_carriage.gd" id="1_sd2nm"]
+[ext_resource type="Script" path="res://scripts/combat/player/combat_carriage.gd" id="1_sd2nm"]
 [ext_resource type="Script" path="res://scripts/combat/combat_interaction_damage_receiver.gd" id="2_ixbyd"]
 [ext_resource type="Texture2D" uid="uid://cvoxbqbp2da5a" path="res://assets/graphics/combat/combat_test_graphics/Characters/Allies/TX Village Props.png" id="2_ljk0s"]
 

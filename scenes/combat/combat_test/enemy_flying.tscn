@@ -1,6 +1,6 @@
 [gd_scene load_steps=58 format=3 uid="uid://bykejfxyiftto"]
 
-[ext_resource type="Script" path="res://scripts/combat/enemy_flying.gd" id="1_gcg7q"]
+[ext_resource type="Script" path="res://scripts/combat/enemies/enemy_flying.gd" id="1_v3ewr"]
 [ext_resource type="Texture2D" uid="uid://cj78888ey2cv4" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/FlyingDemon/ATTACK.png" id="2_s5pca"]
 [ext_resource type="Texture2D" uid="uid://d3tfyjv6d5qn8" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/FlyingDemon/DEATH.png" id="3_kjabq"]
 [ext_resource type="Texture2D" uid="uid://bsc1y8icj33kr" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/FlyingDemon/IDLE.png" id="3_vc8yi"]
@@ -459,7 +459,7 @@ _data = {
 [node name="FlyingEnemy" type="CharacterBody2D" groups=["enemy"]]
 position = Vector2(500, 0)
 collision_mask = 6
-script = ExtResource("1_gcg7q")
+script = ExtResource("1_v3ewr")
 
 [node name="StateChartDebugger" parent="." instance=ExtResource("13_nvc0k")]
 offset_left = -211.0

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bamg0v3fdliy1"]
 
 [ext_resource type="Texture2D" uid="uid://d0uvfv7mf7dar" path="res://assets/graphics/combat/ui/PlayerSkillPlacerholder.png" id="1_33noj"]
-[ext_resource type="Script" path="res://scripts/combat/combat_player_skill_button.gd" id="2_o3ekj"]
+[ext_resource type="Script" path="res://scripts/combat/player/combat_player_skill_button.gd" id="2_o3ekj"]
 [ext_resource type="Texture2D" uid="uid://cc24wg6bj2w7n" path="res://assets/graphics/combat/ui/PlayerSkillCooldownPlaceholderPB.png" id="2_xap5j"]
 
 [node name="PlayerSkillButton" type="TextureButton"]

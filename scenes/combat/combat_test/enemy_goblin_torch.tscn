@@ -1,6 +1,6 @@
 [gd_scene load_steps=47 format=3 uid="uid://kd4xv22ktbk8"]
 
-[ext_resource type="Script" path="res://scripts/combat/enemy.gd" id="1_fybf2"]
+[ext_resource type="Script" path="res://scripts/combat/enemies/enemy_goblin_torch.gd" id="1_ynj6k"]
 [ext_resource type="Texture2D" uid="uid://d3aac0snojkt8" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/Goblins/Torch_Red.png" id="2_ihf1h"]
 [ext_resource type="Script" path="res://scripts/core/animation_tree_state.gd" id="3_7nd7c"]
 [ext_resource type="PackedScene" uid="uid://bl51pk2vko0vm" path="res://scenes/combat/combat_health_bar.tscn" id="4_61vk5"]
@@ -449,7 +449,7 @@ _data = {
 [node name="Enemy" type="CharacterBody2D" groups=["enemy"]]
 position = Vector2(500, 0)
 collision_mask = 6
-script = ExtResource("1_fybf2")
+script = ExtResource("1_ynj6k")
 attack_damage = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -465,7 +465,7 @@ debug_color = Color(0.992482, 0, 0.251412, 0.42)
 collision_mask = 6
 
 [node name="CS2D_Melee_R" type="CollisionShape2D" parent="Areas/Areas_FacingRight/AttackArea_Melee_R"]
-position = Vector2(0, -62.585)
+position = Vector2(0, -40)
 shape = SubResource("CircleShape2D_qmhym")
 
 [node name="Areas_FacingLeft" type="Node2D" parent="Areas"]

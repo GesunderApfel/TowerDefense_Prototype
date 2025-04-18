@@ -111,5 +111,5 @@ func spawn_boss_left():
 	enemy.is_looking_left = false
 	var pos_x : float = carriage.position.x + spawn_offset.x * -1
 	
-	enemy.position = Vector2(pos_x,ground_height - spawn_offset.y)
+	enemy.position = Vector2(pos_x,ground_height)
 	$Enemies.add_child(enemy)
