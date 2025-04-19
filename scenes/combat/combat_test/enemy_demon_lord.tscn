@@ -709,6 +709,34 @@ tracks/1/keys = {
 "values": [1, 2, 3, 4, 5]
 }
 
+[sub_resource type="Animation" id="Animation_kt6oe"]
+resource_name = "skill_buff"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"skill_buff"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1, 0]
+}
+
 [sub_resource type="Animation" id="Animation_8ecui"]
 resource_name = "walk"
 length = 1.1
@@ -736,34 +764,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-}
-
-[sub_resource type="Animation" id="Animation_kt6oe"]
-resource_name = "skill_buff"
-length = 1.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"skill_buff"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1, 0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_df5fh"]
@@ -845,10 +845,16 @@ libraries = {
 
 [node name="Timers" type="Node2D" parent="."]
 
-[node name="Attacks" type="Node2D" parent="Timers"]
-
-[node name="AttackTimer" type="Timer" parent="Timers/Attacks"]
+[node name="AttackTimer" type="Timer" parent="Timers"]
 wait_time = 2.5
+one_shot = true
+
+[node name="SkillFirewallTimer" type="Timer" parent="Timers"]
+wait_time = 15.0
+one_shot = true
+
+[node name="SkillFirewallSpawnTimer" type="Timer" parent="Timers"]
+wait_time = 0.5
 one_shot = true
 
 [node name="CombatHealthBar" parent="." instance=ExtResource("4_55lkj")]
@@ -941,6 +947,15 @@ delay_in_seconds = "0.0"
 script = ExtResource("9_71k1n")
 to = NodePath("../../MoveToTarget")
 event = &"sce_move_to_target"
+delay_in_seconds = "0.0"
+
+[node name="Skill_FireWall" type="Node" parent="StateChart/Root/Mode_Normal"]
+script = ExtResource("8_7bg1o")
+
+[node name="To_Idle" type="Node" parent="StateChart/Root/Mode_Normal/Skill_FireWall"]
+script = ExtResource("9_71k1n")
+to = NodePath("../../Idle")
+event = &"sce_idle"
 delay_in_seconds = "0.0"
 
 [node name="GetHit" type="Node" parent="StateChart/Root"]

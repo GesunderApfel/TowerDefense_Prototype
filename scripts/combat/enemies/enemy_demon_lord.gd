@@ -21,8 +21,7 @@ var defense = 0
 var attack_frequence = 2.5 #in seconds
 
 # Modes & Skills
-var is_berserk: bool = false
-
+const SKILL_FIREWALL = preload("res://scenes/combat/combat_test/demon_lord_skill_fire_wall.tscn")
 
 # Physics & Colliders
 @onready var collision_shape_2d = $CollisionShape2D
@@ -44,8 +43,9 @@ const anim_state_die = "die"
 
 # Timers
 var timer_animation_dict : Dictionary = {}
-@onready var timer_attack : Timer = $Timers/Attacks/AttackTimer
-
+@onready var timer_attack : Timer = $Timers/AttackTimer
+@onready var timer_skill_firewall = $Timers/SkillFirewallTimer
+@onready var timer_skill_firewall_spawn = $Timers/SkillFirewallSpawnTimer
 
 func _ready():
 	animation_tree.active = true
@@ -183,12 +183,10 @@ func use_skill():
 	var is_using_skill : bool
 	# dice throw timer regulates the cooldown time for the AI
 	# to decide on any skill
-#	if timer_berserk_cooldown.is_stopped():
-#		if timer_berserk_dice_throw.is_stopped():
-#			timer_berserk_dice_throw.start()
-			# magic number, feels good for now
-			# todo: implementing a skill pool
-#			is_using_skill = randi_range(0,1000) > 970
+	if timer_skill_firewall.is_stopped():
+		# magic number, feels good for now
+		# todo: implementing a skill pool
+		is_using_skill = randi_range(0,1000) > 970
 	return is_using_skill 
 
 func _on_get_hit_state_physics_processing(_delta):
