@@ -1,9 +1,10 @@
-[gd_scene load_steps=96 format=3 uid="uid://n5j7kaoyy78x"]
+[gd_scene load_steps=98 format=3 uid="uid://n5j7kaoyy78x"]
 
 [ext_resource type="Script" path="res://scripts/combat/enemies/enemy_demon_lord.gd" id="1_l6fgy"]
 [ext_resource type="Texture2D" uid="uid://cwklds3cgm10l" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/FireDemon/demon_slime_FREE_v1.0_288x160_spritesheet.png" id="3_0b60o"]
 [ext_resource type="Script" path="res://scripts/core/animation_tree_state.gd" id="3_wo3eh"]
 [ext_resource type="PackedScene" uid="uid://bl51pk2vko0vm" path="res://scenes/combat/combat_health_bar.tscn" id="4_55lkj"]
+[ext_resource type="Script" path="res://scripts/combat/enemies/FireWallSpawner.gd" id="4_qmtwn"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="5_w8378"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="6_4r2su"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/history_state.gd" id="7_7sg1e"]
@@ -476,7 +477,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_w101s")
 }],
 "loop": true,
-"name": &"skill_buff",
+"name": &"skill_fire_wall",
 "speed": 10.0
 }, {
 "frames": [{
@@ -533,6 +534,9 @@ animation = &"get_hit"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tem6a"]
 animation = &"idle"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_m4ujy"]
+animation = &"skill_fire_wall"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_salig"]
 animation = &"walk"
 
@@ -550,10 +554,12 @@ states/get_hit/node = SubResource("AnimationNodeAnimation_b1x0p")
 states/get_hit/position = Vector2(537, 33)
 states/idle/node = SubResource("AnimationNodeAnimation_tem6a")
 states/idle/position = Vector2(402, 33)
+states/skill_fire_wall/node = SubResource("AnimationNodeAnimation_m4ujy")
+states/skill_fire_wall/position = Vector2(691, 100)
 states/walk/node = SubResource("AnimationNodeAnimation_salig")
 states/walk/position = Vector2(402, 100)
 transitions = ["Start", "walk", SubResource("AnimationNodeStateMachineTransition_idp7p")]
-graph_offset = Vector2(78, -23)
+graph_offset = Vector2(56, -25)
 
 [sub_resource type="Animation" id="Animation_q4tl2"]
 length = 0.001
@@ -709,34 +715,6 @@ tracks/1/keys = {
 "values": [1, 2, 3, 4, 5]
 }
 
-[sub_resource type="Animation" id="Animation_kt6oe"]
-resource_name = "skill_buff"
-length = 1.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"skill_buff"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1, 0]
-}
-
 [sub_resource type="Animation" id="Animation_8ecui"]
 resource_name = "walk"
 length = 1.1
@@ -766,6 +744,48 @@ tracks/1/keys = {
 "values": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 }
 
+[sub_resource type="Animation" id="Animation_kt6oe"]
+resource_name = "skill_buff"
+length = 1.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"skill_fire_wall"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1, 0]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Skills/FireWallSpawner")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"start_spawning_process"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_df5fh"]
 _data = {
 "RESET": SubResource("Animation_q4tl2"),
@@ -773,12 +793,11 @@ _data = {
 "die": SubResource("Animation_ydxix"),
 "get_hit": SubResource("Animation_bwh3k"),
 "idle": SubResource("Animation_xvpet"),
-"skill_buff": SubResource("Animation_kt6oe"),
+"skill_fire_wall": SubResource("Animation_kt6oe"),
 "walk": SubResource("Animation_8ecui")
 }
 
 [node name="DemonLord" type="CharacterBody2D" groups=["enemy"]]
-position = Vector2(500, 0)
 collision_mask = 6
 script = ExtResource("1_l6fgy")
 attack_damage = 17
@@ -853,8 +872,15 @@ one_shot = true
 wait_time = 15.0
 one_shot = true
 
-[node name="SkillFirewallSpawnTimer" type="Timer" parent="Timers"]
-wait_time = 0.5
+[node name="Skills" type="Node2D" parent="."]
+
+[node name="FireWallSpawner" type="Node2D" parent="Skills"]
+script = ExtResource("4_qmtwn")
+damage = 6
+spawn_offset = Vector2(90, 0)
+
+[node name="FirewallSpawnerTimer" type="Timer" parent="Skills/FireWallSpawner"]
+wait_time = 0.125
 one_shot = true
 
 [node name="CombatHealthBar" parent="." instance=ExtResource("4_55lkj")]
@@ -906,6 +932,12 @@ to = NodePath("../../Attack")
 event = &"sce_attack"
 delay_in_seconds = "0.0"
 
+[node name="To_Skill_FireWall" type="Node" parent="StateChart/Root/Mode_Normal/Idle"]
+script = ExtResource("9_71k1n")
+to = NodePath("../../Skill_FireWall")
+event = &"sce_skill_fire_wall"
+delay_in_seconds = "0.0"
+
 [node name="MoveToTarget" type="Node" parent="StateChart/Root/Mode_Normal"]
 script = ExtResource("8_7bg1o")
 
@@ -925,6 +957,12 @@ delay_in_seconds = "0.0"
 script = ExtResource("9_71k1n")
 to = NodePath("../../../GetHit")
 event = &"sce_get_hit"
+delay_in_seconds = "0.0"
+
+[node name="To_Skill_FireWall" type="Node" parent="StateChart/Root/Mode_Normal/MoveToTarget"]
+script = ExtResource("9_71k1n")
+to = NodePath("../../Skill_FireWall")
+event = &"sce_skill_fire_wall"
 delay_in_seconds = "0.0"
 
 [node name="Attack" type="Node" parent="StateChart/Root/Mode_Normal"]
@@ -982,6 +1020,8 @@ script = ExtResource("8_7bg1o")
 [connection signal="state_physics_processing" from="StateChart/Root/Mode_Normal/MoveToTarget" to="." method="_on_move_to_target_state_physics_processing"]
 [connection signal="state_entered" from="StateChart/Root/Mode_Normal/Attack" to="." method="_on_attack_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/Root/Mode_Normal/Attack" to="." method="_on_attack_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Root/Mode_Normal/Skill_FireWall" to="." method="_on_skill_fire_wall_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Root/Mode_Normal/Skill_FireWall" to="." method="_on_skill_fire_wall_state_physics_processing"]
 [connection signal="state_entered" from="StateChart/Root/GetHit" to="." method="_on_get_hit_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/Root/GetHit" to="." method="_on_get_hit_state_physics_processing"]
 [connection signal="state_entered" from="StateChart/Root/Die" to="." method="_on_die_state_entered"]

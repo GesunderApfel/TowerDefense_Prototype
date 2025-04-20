@@ -40,12 +40,12 @@ const anim_state_walk = "walk"
 const anim_state_attack = "attack"
 const anim_state_getHit = "get_hit"
 const anim_state_die = "die"
+const anim_state_skillFireWall = "skill_fire_wall"
 
 # Timers
 var timer_animation_dict : Dictionary = {}
 @onready var timer_attack : Timer = $Timers/AttackTimer
 @onready var timer_skill_firewall = $Timers/SkillFirewallTimer
-@onready var timer_skill_firewall_spawn = $Timers/SkillFirewallSpawnTimer
 
 func _ready():
 	animation_tree.active = true
@@ -61,12 +61,17 @@ func _ready():
 		(self,animation_tree, timer_animation_dict,anim_state_attack)
 		
 	UtilityStateMachine.create_timer_for_animation\
+		(self,animation_tree, timer_animation_dict,anim_state_skillFireWall)
+		
+	UtilityStateMachine.create_timer_for_animation\
 		(self,animation_tree, timer_animation_dict,anim_state_getHit)
 	
 	UtilityStateMachine.create_timer_for_animation\
 		(self,animation_tree, timer_animation_dict,anim_state_die)
 		
 	animation_state_machine = UtilityStateMachine.get_playback(animation_tree)
+	
+	CombatDebug.bind_debug_method(debug_activate_fire_wall, "Demon Lord: Firewall")
 	pass
 
 func _process(_delta):
@@ -111,7 +116,6 @@ func _physics_process(_delta):
 		areas_facing_left.hide()
 	pass
 
-
 func receive_damage(damage):
 	# receive damage
 	health -= max(damage-defense,0)
@@ -124,11 +128,23 @@ func receive_damage(damage):
 		state_chart.send_event("sce_get_hit")
 	pass
 
-# is called in attack animation
+# ############################
+# DEBUG ######################
+# ############################
+
+func debug_activate_fire_wall():
+	state_chart.send_event("sce_skill_fire_wall")
+	pass
+
+# #############################
+# Called by Animations ########
+# #############################
+
 func apply_attack_damage():
 	if target != null:
 		target.receive_damage(attack_damage)
 	pass
+
 
 # ##############################
 # Handling States  #############
@@ -189,10 +205,22 @@ func use_skill():
 		is_using_skill = randi_range(0,1000) > 970
 	return is_using_skill 
 
+
+func _on_skill_fire_wall_state_physics_processing(_delta):
+	if timer_animation_dict[anim_state_skillFireWall].is_stopped():
+		state_chart.send_event("sce_idle")
+	pass
+
 func _on_get_hit_state_physics_processing(_delta):
 	if timer_animation_dict[anim_state_getHit].is_stopped():
 		state_chart.send_event("sce_old_state")
 	pass
+
+func _on_die_state_physics_processing(_delta):
+	if timer_animation_dict[anim_state_die].is_stopped():
+		queue_free()
+	pass
+
 
 # ##############################
 # Handling State Transitions ###
@@ -216,15 +244,14 @@ func _on_attack_state_entered():
 func _on_get_hit_state_entered():
 	timer_animation_dict[anim_state_getHit].start()
 	animation_state_machine.travel(anim_state_getHit)
-	pass # Replace with function body.
+	pass
 
 func _on_die_state_entered():
 	timer_animation_dict[anim_state_die].start()
 	animation_state_machine.travel(anim_state_die)
-	pass # Replace with function body.
+	pass
 
-
-func _on_die_state_physics_processing(delta):
-	if timer_animation_dict[anim_state_die].is_stopped():
-		queue_free()
+func _on_skill_fire_wall_state_entered():
+	timer_animation_dict[anim_state_skillFireWall].start()
+	animation_state_machine.travel(anim_state_skillFireWall)
 	pass
