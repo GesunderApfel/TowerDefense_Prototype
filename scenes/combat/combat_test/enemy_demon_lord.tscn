@@ -876,7 +876,7 @@ one_shot = true
 
 [node name="FireWallSpawner" type="Node2D" parent="Skills"]
 script = ExtResource("4_qmtwn")
-damage = 6
+damage = 8
 spawn_offset = Vector2(90, 0)
 
 [node name="FirewallSpawnerTimer" type="Timer" parent="Skills/FireWallSpawner"]

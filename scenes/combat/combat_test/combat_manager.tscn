@@ -46,63 +46,118 @@ position = Vector2(797, 803)
 
 [node name="Visuals" type="Node2D" parent="."]
 
-[node name="Ground" type="StaticBody2D" parent="Visuals"]
-position = Vector2(0, -48)
-collision_layer = 256
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Visuals/Ground"]
-position = Vector2(800, 890)
-scale = Vector2(1.76, 1)
-shape = SubResource("RectangleShape2D_arwvp")
-
 [node name="Environment" type="Node2D" parent="Visuals"]
 z_index = -1
-position = Vector2(-763, -851)
+position = Vector2(780, 158.26)
 scale = Vector2(2, 2)
 
 [node name="Layer00110" type="Sprite2D" parent="Visuals/Environment"]
-position = Vector2(781, 507)
 texture = ExtResource("4_yldym")
 
 [node name="Layer00092" type="Sprite2D" parent="Visuals/Environment"]
-position = Vector2(780, 507)
 texture = ExtResource("5_j5q78")
 
 [node name="Layer00083" type="Sprite2D" parent="Visuals/Environment"]
-position = Vector2(779, 505)
 texture = ExtResource("6_vrjdr")
 
 [node name="Layer0007Lights" type="Sprite2D" parent="Visuals/Environment"]
-position = Vector2(783, 511)
 texture = ExtResource("7_k1kol")
 
 [node name="Layer00064" type="Sprite2D" parent="Visuals/Environment"]
-position = Vector2(780, 505)
 texture = ExtResource("8_b6tuo")
 
 [node name="Layer00055" type="Sprite2D" parent="Visuals/Environment"]
-position = Vector2(781, 503)
 texture = ExtResource("9_06l28")
 
 [node name="Layer0004Lights" type="Sprite2D" parent="Visuals/Environment"]
-position = Vector2(783, 508)
 texture = ExtResource("10_y7q1a")
 
 [node name="Layer00036" type="Sprite2D" parent="Visuals/Environment"]
-position = Vector2(780, 505)
 texture = ExtResource("11_f4t5x")
 
 [node name="Layer00027" type="Sprite2D" parent="Visuals/Environment"]
-position = Vector2(783, 510)
 texture = ExtResource("12_ogq0h")
 
 [node name="Layer00018" type="Sprite2D" parent="Visuals/Environment"]
-position = Vector2(781, 506)
 texture = ExtResource("13_4sb4u")
 
 [node name="Layer00009" type="Sprite2D" parent="Visuals/Environment"]
-position = Vector2(779, 503)
+texture = ExtResource("14_bodjw")
+
+[node name="Environment2" type="Node2D" parent="Visuals"]
+z_index = -1
+position = Vector2(-1075, 158.26)
+scale = Vector2(2, 2)
+
+[node name="Layer00110" type="Sprite2D" parent="Visuals/Environment2"]
+texture = ExtResource("4_yldym")
+
+[node name="Layer00092" type="Sprite2D" parent="Visuals/Environment2"]
+texture = ExtResource("5_j5q78")
+
+[node name="Layer00083" type="Sprite2D" parent="Visuals/Environment2"]
+texture = ExtResource("6_vrjdr")
+
+[node name="Layer0007Lights" type="Sprite2D" parent="Visuals/Environment2"]
+texture = ExtResource("7_k1kol")
+
+[node name="Layer00064" type="Sprite2D" parent="Visuals/Environment2"]
+texture = ExtResource("8_b6tuo")
+
+[node name="Layer00055" type="Sprite2D" parent="Visuals/Environment2"]
+texture = ExtResource("9_06l28")
+
+[node name="Layer0004Lights" type="Sprite2D" parent="Visuals/Environment2"]
+texture = ExtResource("10_y7q1a")
+
+[node name="Layer00036" type="Sprite2D" parent="Visuals/Environment2"]
+texture = ExtResource("11_f4t5x")
+
+[node name="Layer00027" type="Sprite2D" parent="Visuals/Environment2"]
+texture = ExtResource("12_ogq0h")
+
+[node name="Layer00018" type="Sprite2D" parent="Visuals/Environment2"]
+texture = ExtResource("13_4sb4u")
+
+[node name="Layer00009" type="Sprite2D" parent="Visuals/Environment2"]
+texture = ExtResource("14_bodjw")
+
+[node name="Environment3" type="Node2D" parent="Visuals"]
+z_index = -2
+position = Vector2(2631.45, 158.26)
+scale = Vector2(2, 2)
+
+[node name="Layer00110" type="Sprite2D" parent="Visuals/Environment3"]
+texture = ExtResource("4_yldym")
+
+[node name="Layer00092" type="Sprite2D" parent="Visuals/Environment3"]
+texture = ExtResource("5_j5q78")
+
+[node name="Layer00083" type="Sprite2D" parent="Visuals/Environment3"]
+texture = ExtResource("6_vrjdr")
+
+[node name="Layer0007Lights" type="Sprite2D" parent="Visuals/Environment3"]
+texture = ExtResource("7_k1kol")
+
+[node name="Layer00064" type="Sprite2D" parent="Visuals/Environment3"]
+texture = ExtResource("8_b6tuo")
+
+[node name="Layer00055" type="Sprite2D" parent="Visuals/Environment3"]
+texture = ExtResource("9_06l28")
+
+[node name="Layer0004Lights" type="Sprite2D" parent="Visuals/Environment3"]
+texture = ExtResource("10_y7q1a")
+
+[node name="Layer00036" type="Sprite2D" parent="Visuals/Environment3"]
+texture = ExtResource("11_f4t5x")
+
+[node name="Layer00027" type="Sprite2D" parent="Visuals/Environment3"]
+texture = ExtResource("12_ogq0h")
+
+[node name="Layer00018" type="Sprite2D" parent="Visuals/Environment3"]
+texture = ExtResource("13_4sb4u")
+
+[node name="Layer00009" type="Sprite2D" parent="Visuals/Environment3"]
 texture = ExtResource("14_bodjw")
 
 [node name="Fogs" type="Node2D" parent="."]
@@ -120,3 +175,13 @@ z_index = 10
 position = Vector2(1492, 162)
 scale = Vector2(1.11692, 1.18015)
 texture = ExtResource("16_d140i")
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(0, -48)
+collision_layer = 256
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2(800, 890)
+scale = Vector2(3, 1)
+shape = SubResource("RectangleShape2D_arwvp")

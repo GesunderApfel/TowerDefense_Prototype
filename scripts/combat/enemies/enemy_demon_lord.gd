@@ -157,17 +157,31 @@ func _on_idle_state_physics_processing(_delta):
 		state_chart.send_event("sce_move_to_target")
 		return
 	
+	if not timer_attack.is_stopped():
+		return
+	
+	timer_attack.start()
+	
 	# throw a dice for skill usage
 	var is_using_skill : bool = use_skill()
 	
 	if is_using_skill:
-		# No skill currently
+		state_chart.send_event("sce_skill_fire_wall")
 		pass
 	else: # use normal attack
 		# regulate attack inverval
-		if timer_attack.is_stopped():
-			state_chart.send_event("sce_attack")
+		state_chart.send_event("sce_attack")
 	pass
+
+func use_skill():
+	var is_using_skill : bool
+	# dice throw timer regulates the cooldown time for the AI
+	# to decide on any skill
+	if timer_skill_firewall.is_stopped():
+		# magic number, feels good for now
+		# todo: implementing a skill pool
+		is_using_skill = randi_range(0,100) > 70
+	return is_using_skill 
 
 func _on_move_to_target_state_physics_processing(_delta):
 	# should be set by next frame via _process()
@@ -195,15 +209,6 @@ func _on_attack_state_physics_processing(_delta):
 	state_chart.send_event("sce_idle")
 	pass
 
-func use_skill():
-	var is_using_skill : bool
-	# dice throw timer regulates the cooldown time for the AI
-	# to decide on any skill
-	if timer_skill_firewall.is_stopped():
-		# magic number, feels good for now
-		# todo: implementing a skill pool
-		is_using_skill = randi_range(0,1000) > 970
-	return is_using_skill 
 
 
 func _on_skill_fire_wall_state_physics_processing(_delta):
@@ -236,7 +241,6 @@ func _on_move_to_target_state_entered():
 
 func _on_attack_state_entered():
 	timer_animation_dict[anim_state_attack].start()
-	timer_attack.start()
 	animation_state_machine.travel(anim_state_attack)
 	pass
 
