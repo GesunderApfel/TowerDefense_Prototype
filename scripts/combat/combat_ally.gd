@@ -18,7 +18,6 @@ enum AnimationTreeState {
 	DYING
 }
 
-var animation_timer_dict : Dictionary = {}
 
 var current_state := AllyState.DEFEND_CARRIAGE
 
@@ -36,16 +35,24 @@ var defense: int = 0
 var move_speed : float = 200
 
 
-
 # animation
 @onready var sprite = $Visuals/AnimatedSprite2D
 @onready var animation_tree = $Visuals/AnimationTree
+var animation_state_machine : AnimationNodeStateMachinePlayback
+const animate_state_idle = "idle"
+const animate_state_walk = "walk"
+const animate_state_die = "die"
+const animate_state_attack = "attack"
+const animate_state_getHit = "get_hit"
+
 
 # Physics
 @onready var attack_area_melee_r = $Areas/Areas_FacingRight/AttackArea_Melee_R
 @onready var attack_area_melee_l = $Areas/Areas_FacingLeft/AttackArea_Melee_L
 @onready var area_attack_radius = $Areas/Area_AttackRadius
 
+# Timers
+var timer_animation_dict : Dictionary = {}
 @onready var timer_wait_after_melee_attack = $Timers/timer_wait_after_melee_attack
 @onready var timer_transition_idle_walk = $Timers/timer_transition_idle_walk
 
@@ -56,27 +63,28 @@ func _ready():
 	health = max_health
 	
 	animation_tree.active = true
-	
-	var dyingTimer = Timer.new()
-	dyingTimer.wait_time = animation_tree.get_animation("dying").length
-	dyingTimer.one_shot = true
-	animation_timer_dict[AnimationTreeState.DYING] = dyingTimer
-	self.add_child(dyingTimer)
-
-	timer_transition_idle_walk.wait_time = \
-		animation_tree.get_animation("walking").length / 2
-	timer_transition_idle_walk.one_shot = true
-	animation_timer_dict[AnimationTreeState.WALKING] = timer_transition_idle_walk
 		
-	var timer_attack_animation_duration = Timer.new()
-	timer_attack_animation_duration.wait_time = \
-		animation_tree.get_animation("attacking").length
-	timer_attack_animation_duration.one_shot = true
-	animation_timer_dict[AnimationTreeState.ATTACKING] = timer_attack_animation_duration
-	self.add_child(timer_attack_animation_duration)
+	UtilityStateMachine.create_timer_for_animation\
+		(self,animation_tree, timer_animation_dict,animate_state_idle)
+		
+	UtilityStateMachine.create_timer_for_animation\
+		(self,animation_tree, timer_animation_dict,animate_state_walk)
 	
-	sprite.flip_h = is_looking_left
+	UtilityStateMachine.create_timer_for_animation\
+		(self,animation_tree, timer_animation_dict,animate_state_die)
+		
+	UtilityStateMachine.create_timer_for_animation\
+		(self,animation_tree, timer_animation_dict,animate_state_getHit)
+		
+	UtilityStateMachine.create_timer_for_animation\
+		(self,animation_tree, timer_animation_dict,animate_state_attack)
+		
+		
+	animation_state_machine = UtilityStateMachine.get_playback(animation_tree)
 	pass
+
+func _process(_delta):
+	look_at_target()
 
 func _physics_process(_delta):
 	#print(current_state)
@@ -87,9 +95,16 @@ func _physics_process(_delta):
 			state_attack_target()
 		AllyState.DYING:
 			state_dying()
-			
+	pass
+
+func look_at_target():
+	if(target == null):
+		return
+
+	is_looking_left = position.direction_to(target.position).x < 0
 	sprite.flip_h = is_looking_left
 	pass
+
 
 func state_defend_carriage():
 	for body in area_attack_radius.get_overlapping_bodies():
@@ -118,31 +133,27 @@ func state_defend_carriage():
 
 func state_attack_target():
 	# if attacked, wait half the time to make next decision
-
-	if animation_timer_dict[AnimationTreeState.WALKING].is_stopped():
+	if timer_animation_dict[AnimationTreeState.WALKING].is_stopped():
 		animation_tree.current_state = \
 			AnimationTreeState.keys()[AnimationTreeState.IDLE]
-	
+			
 	if not timer_wait_after_melee_attack.is_stopped() \
 		and timer_wait_after_melee_attack.time_left > \
 			(timer_wait_after_melee_attack.wait_time / 2):
 				return
 				
-
 	var enemy : Node
-
 	var nearest_distance = 10000
 	for body in area_attack_radius.get_overlapping_bodies():
 		if body.is_in_group("enemy"):
 			if nearest_distance > body.position.distance_to(position):
 				nearest_distance = body.position.distance_to(position)
 				enemy = body
-
+	
 	# if no enemies are in attack radius -> defend
 	if enemy == null:
 		current_state = AllyState.DEFEND_CARRIAGE
 		return
-	
 	
 	# check if enemy is in hit range
 	var area = attack_area_melee_l if is_looking_left else attack_area_melee_r
@@ -156,7 +167,7 @@ func state_attack_target():
 		animation_tree.current_state = \
 			AnimationTreeState.keys()[AnimationTreeState.WALKING]
 		
-		animation_timer_dict[AnimationTreeState.WALKING].start()
+		timer_animation_dict[AnimationTreeState.WALKING].start()
 		var direction_to_enemy = position.direction_to(enemy.position)
 		velocity = direction_to_enemy * move_speed
 		is_looking_left = false if direction_to_enemy.x > 0 else true
@@ -167,11 +178,11 @@ func state_attack_target():
 	
 var already_started_dying = false
 func state_dying():
-	if animation_timer_dict[AnimationTreeState.DYING].is_stopped():
+	if timer_animation_dict[AnimationTreeState.DYING].is_stopped():
 		if already_started_dying:
 			queue_free()
 		else:
-			animation_timer_dict[AnimationTreeState.DYING].start()
+			timer_animation_dict[AnimationTreeState.DYING].start()
 		pass
 	queue_free()
 	pass
@@ -188,3 +199,69 @@ func receive_damage(damage):
 	if health <= 0:
 		current_state= AllyState.DYING
 	pass
+
+# ###############################
+# Handling State Machine States #
+# ###############################
+
+func _on_wait_at_carriage_state_physics_processing(_delta):
+	animation_state_machine.travel(animate_state_idle)
+	pass
+
+func _on_return_to_carriage_state_physics_processing(_delta):
+	animation_state_machine.travel(animate_state_walk)
+	pass
+
+func _on_move_to_target_state_physics_processing(_delta):
+	animation_state_machine.travel(animate_state_walk)
+	pass
+
+func _on_idle_state_physics_processing(_delta):
+	animation_state_machine.travel(animate_state_idle)
+	pass
+
+func _on_attack_state_physics_processing(_delta):
+	animation_state_machine.travel(animate_state_attack)
+	timer_animation_dict[animate_state_attack].start()
+	pass
+
+func _on_get_hit_state_physics_processing(_delta):
+	animation_state_machine.travel(animate_state_getHit)
+	timer_animation_dict[animate_state_getHit].start()
+	pass
+
+func _on_die_state_processing(_delta):
+	animation_state_machine.travel(animate_state_die)
+	timer_animation_dict[animate_state_die].start()
+	pass
+
+# ###############################
+# Handling State Machine Transitions #
+# ###############################
+
+func _on_wait_at_carriage_state_entered():
+	
+	pass # Replace with function body.
+
+func _on_return_to_carriage_state_entered():
+	pass # Replace with function body.
+
+func _on_move_to_target_state_entered():
+	pass # Replace with function body.
+
+func _on_idle_state_entered():
+	pass # Replace with function body.
+
+func _on_attack_state_entered():
+	pass # Replace with function body.
+
+func _on_get_hit_state_entered():
+	pass # Replace with function body.
+
+func _on_die_state_entered():
+	pass # Replace with function body.
+
+
+
+
+
