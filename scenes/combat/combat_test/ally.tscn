@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://b5p148lejp4uu"]
+[gd_scene load_steps=55 format=3 uid="uid://b5p148lejp4uu"]
 
 [ext_resource type="Script" path="res://scripts/combat/combat_ally.gd" id="1_drlv4"]
 [ext_resource type="Script" path="res://scripts/core/animation_tree_state.gd" id="3_njq74"]
@@ -67,6 +67,18 @@ region = Rect2(192, 768, 192, 192)
 [sub_resource type="AtlasTexture" id="AtlasTexture_1pmh6"]
 atlas = ExtResource("3_slmwt")
 region = Rect2(384, 768, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tmjdl"]
+atlas = ExtResource("3_slmwt")
+region = Rect2(0, 960, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ffysm"]
+atlas = ExtResource("3_slmwt")
+region = Rect2(192, 960, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bq3o4"]
+atlas = ExtResource("3_slmwt")
+region = Rect2(384, 960, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_far8q"]
 atlas = ExtResource("3_slmwt")
@@ -166,6 +178,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_tmjdl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ffysm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bq3o4")
+}],
+"loop": false,
+"name": &"get_hit",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_far8q")
 }, {
 "duration": 1.0,
@@ -217,6 +243,9 @@ animation = &"attacking"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e8bix"]
 animation = &"dying"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dfjdc"]
+animation = &"get_hit"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_62437"]
 animation = &"idle"
 
@@ -232,6 +261,8 @@ states/attack/node = SubResource("AnimationNodeAnimation_rt03a")
 states/attack/position = Vector2(526, 100)
 states/die/node = SubResource("AnimationNodeAnimation_e8bix")
 states/die/position = Vector2(404, 166)
+states/get_hit/node = SubResource("AnimationNodeAnimation_dfjdc")
+states/get_hit/position = Vector2(531, 166)
 states/idle/node = SubResource("AnimationNodeAnimation_62437")
 states/idle/position = Vector2(317, 100)
 states/walk/node = SubResource("AnimationNodeAnimation_cdobr")
@@ -264,62 +295,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_cwuau"]
-resource_name = "attacking"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"attack"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5]
-}
-
-[sub_resource type="Animation" id="Animation_rcrpi"]
-resource_name = "dying"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../AnimatedSprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"die"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../AnimatedSprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 5]
 }
 
 [sub_resource type="Animation" id="Animation_ujyhw"]
@@ -380,13 +355,98 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3, 4, 5]
 }
 
+[sub_resource type="Animation" id="Animation_rcrpi"]
+resource_name = "die"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"die"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_8ytna"]
+resource_name = "get_hit"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"die"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_cwuau"]
+resource_name = "attack"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"attack"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jp5sj"]
 _data = {
 "RESET": SubResource("Animation_7jk1l"),
-"attacking": SubResource("Animation_cwuau"),
-"dying": SubResource("Animation_rcrpi"),
+"attack": SubResource("Animation_cwuau"),
+"die": SubResource("Animation_rcrpi"),
+"get_hit": SubResource("Animation_8ytna"),
 "idle": SubResource("Animation_ujyhw"),
-"walking": SubResource("Animation_85t1n")
+"walk": SubResource("Animation_85t1n")
 }
 
 [node name="Ally" type="CharacterBody2D" groups=["ally"]]
@@ -420,11 +480,11 @@ collision_layer = 0
 position = Vector2(-31, -32)
 shape = SubResource("CircleShape2D_aipwp")
 
-[node name="Area_AttackRadius" type="Area2D" parent="Areas"]
+[node name="Area_ScanRadius" type="Area2D" parent="Areas"]
 collision_layer = 4
 collision_mask = 5
 
-[node name="AttackRadius" type="CollisionShape2D" parent="Areas/Area_AttackRadius"]
+[node name="ScanRadius" type="CollisionShape2D" parent="Areas/Area_ScanRadius"]
 position = Vector2(0, -46)
 shape = SubResource("CircleShape2D_jotcv")
 debug_color = Color(1, 0.00627464, 0.0557431, 0.42)
@@ -452,12 +512,8 @@ libraries = {
 
 [node name="Timers" type="Node" parent="."]
 
-[node name="timer_wait_after_melee_attack" type="Timer" parent="Timers"]
+[node name="timer_attack" type="Timer" parent="Timers"]
 wait_time = 3.0
-one_shot = true
-
-[node name="timer_transition_idle_walk" type="Timer" parent="Timers"]
-wait_time = 0.1
 one_shot = true
 
 [node name="CombatHealthBar" parent="." instance=ExtResource("4_woj7t")]
@@ -481,6 +537,12 @@ initial_state = NodePath("ReturnToCarriage")
 [node name="WaitAtCarriage" type="Node" parent="StateChart/Root/DefendCarriage"]
 script = ExtResource("8_po8n5")
 
+[node name="StartCombat" type="Node" parent="StateChart/Root/DefendCarriage/WaitAtCarriage"]
+script = ExtResource("9_58fhu")
+to = NodePath("../../../InCombat")
+event = &"sce_start_combat"
+delay_in_seconds = "0.0"
+
 [node name="GetHit" type="Node" parent="StateChart/Root/DefendCarriage/WaitAtCarriage"]
 script = ExtResource("9_58fhu")
 to = NodePath("../../../GetHit")
@@ -491,12 +553,6 @@ delay_in_seconds = "0.0"
 script = ExtResource("9_58fhu")
 to = NodePath("../../../Die")
 event = &"sce_die"
-delay_in_seconds = "0.0"
-
-[node name="StartCombat" type="Node" parent="StateChart/Root/DefendCarriage/WaitAtCarriage"]
-script = ExtResource("9_58fhu")
-to = NodePath("../../../InCombat")
-event = &"sce_start_combat"
 delay_in_seconds = "0.0"
 
 [node name="ReturnToCarriage" type="Node" parent="StateChart/Root/DefendCarriage"]
@@ -514,6 +570,12 @@ to = NodePath("../../../Die")
 event = &"sce_die"
 delay_in_seconds = "0.0"
 
+[node name="Wait" type="Node" parent="StateChart/Root/DefendCarriage/ReturnToCarriage"]
+script = ExtResource("9_58fhu")
+to = NodePath("../../WaitAtCarriage")
+event = &"sce_wait"
+delay_in_seconds = "0.0"
+
 [node name="InCombat" type="Node" parent="StateChart/Root"]
 script = ExtResource("6_xp8b7")
 initial_state = NodePath("MoveToTarget")
@@ -521,10 +583,10 @@ initial_state = NodePath("MoveToTarget")
 [node name="MoveToTarget" type="Node" parent="StateChart/Root/InCombat"]
 script = ExtResource("8_po8n5")
 
-[node name="Attack" type="Node" parent="StateChart/Root/InCombat/MoveToTarget"]
+[node name="StartDefense" type="Node" parent="StateChart/Root/InCombat/MoveToTarget"]
 script = ExtResource("9_58fhu")
-to = NodePath("../../../GetHit")
-event = &"sce_attack"
+to = NodePath("../../../DefendCarriage")
+event = &"sce_start_defense"
 delay_in_seconds = "0.0"
 
 [node name="GetHit" type="Node" parent="StateChart/Root/InCombat/MoveToTarget"]
@@ -537,6 +599,12 @@ delay_in_seconds = "0.0"
 script = ExtResource("9_58fhu")
 to = NodePath("../../../Die")
 event = &"sce_die"
+delay_in_seconds = "0.0"
+
+[node name="Idle" type="Node" parent="StateChart/Root/InCombat/MoveToTarget"]
+script = ExtResource("9_58fhu")
+to = NodePath("../../Idle")
+event = &"sce_idle"
 delay_in_seconds = "0.0"
 
 [node name="Idle" type="Node" parent="StateChart/Root/InCombat"]
@@ -556,8 +624,14 @@ delay_in_seconds = "0.0"
 
 [node name="Attack" type="Node" parent="StateChart/Root/InCombat/Idle"]
 script = ExtResource("9_58fhu")
-to = NodePath("../../../GetHit")
+to = NodePath("../../Attack")
 event = &"sce_attack"
+delay_in_seconds = "0.0"
+
+[node name="Idle" type="Node" parent="StateChart/Root/InCombat/Idle"]
+script = ExtResource("9_58fhu")
+to = NodePath("../../MoveToTarget")
+event = &"sce_move"
 delay_in_seconds = "0.0"
 
 [node name="Attack" type="Node" parent="StateChart/Root/InCombat"]
@@ -565,7 +639,7 @@ script = ExtResource("8_po8n5")
 
 [node name="Idle" type="Node" parent="StateChart/Root/InCombat/Attack"]
 script = ExtResource("9_58fhu")
-to = NodePath("../../../GetHit")
+to = NodePath("../../Idle")
 event = &"sce_idle"
 delay_in_seconds = "0.0"
 
