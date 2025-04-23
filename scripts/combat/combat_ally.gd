@@ -42,25 +42,20 @@ var is_looking_left : bool = false
 
 func _ready():
 	health = max_health
+	look_away_from_carriage()
+	
 	
 	animation_tree.active = true
-		
 	UtilityStateMachine.create_timer_for_animation\
 		(self,animation_tree, timer_animation_dict,anim_state_idle)
-		
 	UtilityStateMachine.create_timer_for_animation\
 		(self,animation_tree, timer_animation_dict,anim_state_walk)
-	
 	UtilityStateMachine.create_timer_for_animation\
 		(self,animation_tree, timer_animation_dict,anim_state_die)
-		
 	UtilityStateMachine.create_timer_for_animation\
 		(self,animation_tree, timer_animation_dict,anim_state_getHit)
-		
 	UtilityStateMachine.create_timer_for_animation\
 		(self,animation_tree, timer_animation_dict,anim_state_attack)
-		
-		
 	animation_state_machine = UtilityStateMachine.get_playback(animation_tree)
 	pass
 
@@ -68,15 +63,20 @@ func _process(_delta):
 	look_at_target()
 
 func look_at_target():
-	if(target == null):
+	if target == null:
 		return
-		
+	
 	is_looking_left = position.direction_to(target.position).x < 0
 	sprite.flip_h = is_looking_left
 	pass
 
+func look_away_from_carriage():
+	is_looking_left = position.direction_to(carriage.position).x > 0
+	sprite.flip_h = is_looking_left
+	pass
 
-## Could return a list of enemies instead
+
+## could return list of enemies
 func find_enemy():
 	var enemy : Node
 	var nearest_distance = 10000
@@ -85,11 +85,15 @@ func find_enemy():
 			if nearest_distance > body.position.distance_to(position):
 				nearest_distance = body.position.distance_to(position)
 				enemy = body
+	
 	return enemy
 
-func is_enemy_in_hit_range(enemy : Node):
+func is_target_in_hit_range():
+	if target == null:
+		return
+	
 	var area = attack_area_melee_l if is_looking_left else attack_area_melee_r
-	if area.overlaps_body(enemy):
+	if area.overlaps_body(target):
 		return true
 	return false
 
@@ -103,53 +107,69 @@ func receive_damage(damage):
 		state_chart.send_event("sce_get_hit")
 	pass
 
+func apply_attack_damage():
+	if target != null:
+		target.receive_damage(attack)
+	pass
+
 # ###############################
 # Handling State Machine States #
 # ###############################
 
+
+# #########
+# Defend Carriage
+# #########
+
 func _on_wait_at_carriage_state_physics_processing(_delta):
-	var enemy : Node = find_enemy()
+	var enemy = find_enemy()
 	if enemy:
-		target = enemy
 		state_chart.send_event("sce_start_combat")
 		return
 	pass
 
 func _on_return_to_carriage_state_physics_processing(_delta):
-	var carriage_direction : Vector2 = \
-		position.direction_to(carriage.position)
-		
-	var is_carriage_left = carriage_direction.x < 0
+	target = find_enemy()
+	if target:
+		state_chart.send_event("sce_start_combat")
+		return
 	
-	if position.distance_to(carriage.position) < carriage_defense_radius:
+	target = carriage
+	var carriage_direction : Vector2 = \
+		position.direction_to(target.position)
+	
+	if position.distance_to(target.position) < carriage_defense_radius:
 		state_chart.send_event("sce_wait")
-		if is_carriage_left == is_looking_left:
-			is_looking_left = not is_looking_left # turn player in next frame
 	else:
-		is_looking_left = is_carriage_left
 		velocity = move_speed * carriage_direction
 		move_and_slide()
 	pass
 
+# #########
+# In Combat
+# #########
+
+
 func _on_move_to_target_state_physics_processing(_delta):
-	var enemy = find_enemy()
-	if enemy == null:
+	target = find_enemy()
+
+	if not target:
 		state_chart.send_event("sce_start_defense")
 		return
 	
-	if is_enemy_in_hit_range(enemy):
+	if is_target_in_hit_range():
 		state_chart.send_event("sce_idle")
 		return
 	
-	var direction_to_enemy = position.direction_to(enemy.position)
-	is_looking_left = direction_to_enemy.x < 0
+	var direction_to_enemy = position.direction_to(target.position)
 	velocity = direction_to_enemy * move_speed
 	move_and_slide()
 	pass
 
 func _on_idle_state_physics_processing(_delta):
-	var enemy = is_enemy_in_hit_range(find_enemy())
-	if enemy:
+	target = find_enemy()
+	var is_enemy_in_hit_range = is_target_in_hit_range()
+	if is_enemy_in_hit_range:
 		if timer_attack.is_stopped():
 			timer_attack.start()
 			state_chart.send_event("sce_attack")
@@ -178,6 +198,9 @@ func _on_die_state_processing(_delta):
 
 func _on_wait_at_carriage_state_entered():
 	animation_state_machine.travel(anim_state_idle)
+	# reset target
+	target = null
+	look_away_from_carriage()
 	pass # Replace with function body.
 
 func _on_return_to_carriage_state_entered():
