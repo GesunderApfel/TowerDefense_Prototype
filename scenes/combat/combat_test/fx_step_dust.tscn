@@ -1,0 +1,99 @@
+[gd_scene load_steps=9 format=3 uid="uid://l8gmca7jy0xj"]
+
+[ext_resource type="Script" path="res://scripts/combat/particles/fx_step_dust.gd" id="1_hf328"]
+[ext_resource type="Texture2D" uid="uid://cw02qafsfbml3" path="res://assets/graphics/combat/sfx/general/Smoke/smoke_01.png" id="1_mofst"]
+[ext_resource type="Texture2D" uid="uid://caheemam74lqg" path="res://assets/graphics/combat/sfx/general/Smoke/smoke_02.png" id="2_qhb07"]
+[ext_resource type="Texture2D" uid="uid://cei7n71n070wp" path="res://assets/graphics/combat/sfx/general/Smoke/smoke_03.png" id="3_qgw0w"]
+[ext_resource type="Texture2D" uid="uid://bfr6ut27htjqp" path="res://assets/graphics/combat/sfx/general/Smoke/smoke_04.png" id="4_sjyhb"]
+[ext_resource type="Texture2D" uid="uid://cykhktftfppe1" path="res://assets/graphics/combat/sfx/general/Smoke/smoke_05.png" id="5_ugbwy"]
+
+[sub_resource type="Animation" id="Animation_klyff"]
+resource_name = "spawn"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visuals:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -5), Vector2(0, -3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(0.52549, 0.501961, 0.27451, 0.490196), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Visuals:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.025, 0.025), Vector2(0.03, 0.03), Vector2(0.036, 0.036)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_md171"]
+_data = {
+"spawn": SubResource("Animation_klyff")
+}
+
+[node name="StepDust" type="Node2D"]
+script = ExtResource("1_hf328")
+
+[node name="Visuals" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(0.025, 0.025)
+
+[node name="V1" type="Sprite2D" parent="Visuals"]
+texture = ExtResource("1_mofst")
+
+[node name="V2" type="Sprite2D" parent="Visuals"]
+visible = false
+texture = ExtResource("2_qhb07")
+
+[node name="V3" type="Sprite2D" parent="Visuals"]
+visible = false
+texture = ExtResource("3_qgw0w")
+
+[node name="V4" type="Sprite2D" parent="Visuals"]
+visible = false
+texture = ExtResource("4_sjyhb")
+
+[node name="V5" type="Sprite2D" parent="Visuals"]
+visible = false
+texture = ExtResource("5_ugbwy")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_md171")
+}
+autoplay = "spawn"

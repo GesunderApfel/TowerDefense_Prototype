@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhxbvg4wovjie"]
+
+[ext_resource type="Script" path="res://scripts/combat/particles/fx_step_dust_spawner.gd" id="1_1omrm"]
+
+[node name="FXStepDustSpawner" type="Node2D"]
+script = ExtResource("1_1omrm")
+
+[node name="StepDustPosition" type="Marker2D" parent="."]
+position = Vector2(6, 0)
