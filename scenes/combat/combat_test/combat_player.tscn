@@ -1,6 +1,8 @@
-[gd_scene load_steps=36 format=3 uid="uid://db84m5s23esdi"]
+[gd_scene load_steps=47 format=3 uid="uid://db84m5s23esdi"]
 
 [ext_resource type="Script" path="res://scripts/combat/player/combat_player.gd" id="1_7aq7h"]
+[ext_resource type="Texture2D" uid="uid://5e65k42scisf" path="res://assets/graphics/combat/combat_test_graphics/Characters/Hero/Archer_Blue_(NoArms).png" id="2_0vnty"]
+[ext_resource type="Texture2D" uid="uid://cn14lfylmhgln" path="res://assets/graphics/combat/combat_test_graphics/Characters/Hero/Archer_Bow_Blue.png" id="3_11pxe"]
 [ext_resource type="Texture2D" uid="uid://df1u6upneugoj" path="res://assets/graphics/combat/combat_test_graphics/Characters/Hero/Archer_Blue.png" id="3_khfqv"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_rsauu"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_5ccqa"]
@@ -9,13 +11,9 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1l51c"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_yndfw"]
-atlas = ExtResource("3_khfqv")
-region = Rect2(576, 768, 192, 192)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cqfkv"]
-atlas = ExtResource("3_khfqv")
-region = Rect2(768, 768, 192, 192)
+[sub_resource type="AtlasTexture" id="AtlasTexture_5bbdc"]
+atlas = ExtResource("2_0vnty")
+region = Rect2(0, 0, 192, 192)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x2ska"]
 atlas = ExtResource("3_khfqv")
@@ -73,10 +71,7 @@ region = Rect2(0, 0, 192, 192)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_yndfw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cqfkv")
+"texture": SubResource("AtlasTexture_5bbdc")
 }],
 "loop": true,
 "name": &"hold_arrow",
@@ -313,6 +308,119 @@ _data = {
 "release_arrow": SubResource("Animation_23ejj")
 }
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_tgdoy"]
+atlas = ExtResource("3_11pxe")
+region = Rect2(576, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3abfn"]
+atlas = ExtResource("3_11pxe")
+region = Rect2(768, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eycwj"]
+atlas = ExtResource("3_11pxe")
+region = Rect2(960, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_652ni"]
+atlas = ExtResource("3_11pxe")
+region = Rect2(1152, 192, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a16oy"]
+atlas = ExtResource("3_11pxe")
+region = Rect2(1344, 192, 192, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_leao7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tgdoy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3abfn")
+}],
+"loop": true,
+"name": &"hold",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eycwj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_652ni")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a16oy")
+}],
+"loop": true,
+"name": &"release",
+"speed": 10.0
+}]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ofr82"]
+
+[sub_resource type="Animation" id="Animation_yj7c0"]
+resource_name = "hold"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BowAnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"hold"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BowAnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_byxu5"]
+resource_name = "release"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BowAnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"release"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BowAnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ejjac"]
+_data = {
+"hold": SubResource("Animation_yj7c0"),
+"release": SubResource("Animation_byxu5")
+}
+
 [node name="CombatPlayer" type="Node2D"]
 position = Vector2(143, 121)
 script = ExtResource("1_7aq7h")
@@ -341,6 +449,25 @@ anim_player = NodePath("../AnimationPlayer")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Visuals"]
 libraries = {
 "": SubResource("AnimationLibrary_t55cy")
+}
+
+[node name="Bow" type="Node2D" parent="Visuals"]
+visible = false
+
+[node name="BowAnimatedSprite" type="AnimatedSprite2D" parent="Visuals/Bow"]
+position = Vector2(5, -16)
+rotation = 6.28319
+sprite_frames = SubResource("SpriteFrames_leao7")
+animation = &"release"
+frame = 1
+
+[node name="BowAnimationTree" type="AnimationTree" parent="Visuals/Bow"]
+tree_root = SubResource("AnimationNodeStateMachine_ofr82")
+anim_player = NodePath("../BowAnimationPlayer")
+
+[node name="BowAnimationPlayer" type="AnimationPlayer" parent="Visuals/Bow"]
+libraries = {
+"": SubResource("AnimationLibrary_ejjac")
 }
 
 [node name="Timers" type="Node2D" parent="."]

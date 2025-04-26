@@ -17,22 +17,34 @@ const anim_state_pullArrow = "pull_arrow"
 const anim_state_holdArrow = "hold_arrow"
 const anim_state_releaseArrow = "release_arrow"
 
-# Arrows
+# Bow & Arrows
+@onready var bow = $Visuals/Bow
 const ARROW = preload("res://scenes/combat/combat_test/arrow.tscn")
 @onready var arrow_spawn_marker = $Attacks/ArrowSpawnMarker
 var attack_damage = 2
 
+@onready var bow_animation_tree = $Visuals/Bow/BowAnimationTree
+var bow_animation_state_machine : AnimationNodeStateMachinePlayback
+var timer_bow_animation_dict = {}
+const bow_anim_state_hold = "hold"
+const bow_anim_state_release = "release"
 
 func _ready():
 	animation_tree.active = true
 		
+	# player character
 	UtilityStateMachine.create_timer_for_animation\
 		(self,animation_tree, timer_animation_dict,anim_state_pullArrow)
-		
 	UtilityStateMachine.create_timer_for_animation\
 		(self,animation_tree, timer_animation_dict,anim_state_releaseArrow)
-	
 	animation_state_machine = UtilityStateMachine.get_playback(animation_tree)
+	
+	# bow & arrow
+	UtilityStateMachine.create_timer_for_animation\
+		(self,bow_animation_tree, timer_bow_animation_dict,bow_anim_state_hold)
+	UtilityStateMachine.create_timer_for_animation\
+		(self,bow_animation_tree, timer_bow_animation_dict,bow_anim_state_release)
+	bow_animation_state_machine = UtilityStateMachine.get_playback(bow_animation_tree)
 	pass
 
 func _process(_delta):
@@ -64,9 +76,6 @@ func shoot_arrow():
 # State Chart  #
 # ##############
 
-# processing states
-# state chart event prefix => sce_..
-
 func _on_idle_state_processing(_delta):
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		state_chart.send_event("sce_attack_pull")
@@ -83,11 +92,13 @@ func _on_attack_hold_state_processing(_delta):
 	pass
 
 func _on_attack_release_state_processing(_delta):
-	if timer_animation_dict[anim_state_releaseArrow].is_stopped():
+	if timer_bow_animation_dict[bow_anim_state_release].is_stopped():
 		state_chart.send_event("sce_idle")
 	pass
 
-# entering states
+# ######################
+# Handling Transitions #
+# ######################
 
 func _on_idle_state_entered():
 	pass
@@ -100,14 +111,21 @@ func _on_attack_pull_state_entered():
 
 func _on_attack_hold_state_entered():
 	animation_state_machine.travel(anim_state_holdArrow)
+	
+	bow.show()
+	bow_animation_state_machine.travel(bow_anim_state_hold)
 	pass
 
 
 func _on_attack_release_state_entered():
 	animation_state_machine.travel(anim_state_releaseArrow)
 	timer_animation_dict[anim_state_releaseArrow].start()
+	
+	bow_animation_state_machine.travel(bow_anim_state_release)
+	timer_bow_animation_dict[bow_anim_state_release].start()
+	
 	shoot_arrow()
-	pass # Replace with function body.
+	pass
 
 
 
