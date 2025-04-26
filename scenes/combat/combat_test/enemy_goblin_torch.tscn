@@ -506,26 +506,26 @@ scale = Vector2(15, 15)
 shape = SubResource("CircleShape2D_irewp")
 debug_color = Color(0.772201, 0.443305, 9.62615e-07, 0.42)
 
-[node name="Animator" type="Node2D" parent="."]
+[node name="Visuals" type="Node2D" parent="."]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Animator"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals"]
 texture_filter = 1
 position = Vector2(0, -36)
 sprite_frames = SubResource("SpriteFrames_4bak4")
 animation = &"idle"
 
-[node name="AnimationTree" type="AnimationTree" parent="Animator"]
+[node name="AnimationTree" type="AnimationTree" parent="Visuals"]
 active = false
 tree_root = SubResource("AnimationNodeStateMachine_6m1py")
 anim_player = NodePath("../AnimationPlayer")
 script = ExtResource("3_7nd7c")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Animator"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Visuals"]
 libraries = {
 "": SubResource("AnimationLibrary_df5fh")
 }
 
-[node name="FXStepDustSpawner" parent="Animator" instance=ExtResource("4_4li6g")]
+[node name="FXStepDustSpawner" parent="Visuals" instance=ExtResource("4_4li6g")]
 
 [node name="Timers" type="Node2D" parent="."]
 
@@ -716,3 +716,5 @@ script = ExtResource("8_vqsdi")
 [connection signal="state_entered" from="StateChart/Root/GetHit" to="." method="_on_get_hit_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/Root/GetHit" to="." method="_on_get_hit_state_physics_processing"]
 [connection signal="state_entered" from="StateChart/Root/Die" to="." method="_on_die_state_entered"]
+
+[editable path="Visuals/FXStepDustSpawner"]

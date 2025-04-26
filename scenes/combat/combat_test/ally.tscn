@@ -1,9 +1,10 @@
-[gd_scene load_steps=55 format=3 uid="uid://b5p148lejp4uu"]
+[gd_scene load_steps=56 format=3 uid="uid://b5p148lejp4uu"]
 
 [ext_resource type="Script" path="res://scripts/combat/combat_ally.gd" id="1_drlv4"]
 [ext_resource type="Script" path="res://scripts/core/animation_tree_state.gd" id="3_njq74"]
 [ext_resource type="Texture2D" uid="uid://i6k6nngbderc" path="res://assets/graphics/combat/combat_test_graphics/Characters/Allies/Warrior_Blue.png" id="3_slmwt"]
 [ext_resource type="PackedScene" uid="uid://bl51pk2vko0vm" path="res://scenes/combat/combat_health_bar.tscn" id="4_woj7t"]
+[ext_resource type="PackedScene" uid="uid://bhxbvg4wovjie" path="res://scenes/combat/combat_test/fx_step_dust_spawner.tscn" id="4_ypfsy"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="5_tqkjw"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="6_xp8b7"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/history_state.gd" id="7_n3cbf"]
@@ -452,6 +453,23 @@ tracks/1/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
 }
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../FXStepDustSpawner")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"spawn_dust"
+}, {
+"args": [],
+"method": &"spawn_dust"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jp5sj"]
 _data = {
@@ -524,6 +542,11 @@ libraries = {
 "": SubResource("AnimationLibrary_jp5sj")
 }
 
+[node name="FXStepDustSpawner" parent="Visuals" instance=ExtResource("4_ypfsy")]
+
+[node name="StepDustPosition" parent="Visuals/FXStepDustSpawner" index="0"]
+position = Vector2(0, 0)
+
 [node name="Timers" type="Node" parent="."]
 
 [node name="timer_attack" type="Timer" parent="Timers"]
@@ -531,6 +554,8 @@ wait_time = 3.0
 one_shot = true
 
 [node name="CombatHealthBar" parent="." instance=ExtResource("4_woj7t")]
+offset_top = 27.0
+offset_bottom = 27.0
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("5_tqkjw")
@@ -688,3 +713,5 @@ script = ExtResource("8_po8n5")
 [connection signal="state_physics_processing" from="StateChart/Root/GetHit" to="." method="_on_get_hit_state_physics_processing"]
 [connection signal="state_entered" from="StateChart/Root/Die" to="." method="_on_die_state_entered"]
 [connection signal="state_processing" from="StateChart/Root/Die" to="." method="_on_die_state_processing"]
+
+[editable path="Visuals/FXStepDustSpawner"]

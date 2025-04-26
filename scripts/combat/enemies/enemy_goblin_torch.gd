@@ -3,7 +3,7 @@ extends CharacterBody2D
 @onready var state_chart = $StateChart
 
 var body2D : Node = self
-@onready var sprite = $Animator/AnimatedSprite2D
+@onready var sprite = $Visuals/AnimatedSprite2D
 var is_looking_left = false
 
 var carriage # will be set by the spawner
@@ -34,7 +34,7 @@ var is_berserk: bool = false
 @onready var area_scan_radius = $Areas/Area_ScanRadius
 
 # Animation
-@onready var animation_tree = $Animator/AnimationTree
+@onready var animation_tree = $Visuals/AnimationTree
 var animation_state_machine : AnimationNodeStateMachinePlayback
 const anim_state_idle = "idle"
 const anim_state_walk = "walk"
