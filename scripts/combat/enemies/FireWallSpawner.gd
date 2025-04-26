@@ -1,7 +1,7 @@
 extends Node2D
 
 const FIRE_WALL \
- = preload("res://scenes/combat/combat_test/demon_lord_skill_fire_wall.tscn")
+ = preload("res://scenes/combat/combat_test/enemies/demon_lord_skill_fire_wall.tscn")
 
 @onready var demon_lord = $"../.."
 @onready var skill_firewall_spawn_timer = $FirewallSpawnerTimer

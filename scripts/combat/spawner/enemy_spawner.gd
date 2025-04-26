@@ -1,8 +1,8 @@
 extends Node2D
 
-const ENEMY_SCN = preload("res://scenes/combat/combat_test/enemy_goblin_torch.tscn")
-const ENEMY_FLYING = preload("res://scenes/combat/combat_test/enemy_flying.tscn")
-const ENEMY_DEMON_LORD = preload("res://scenes/combat/combat_test/enemy_demon_lord.tscn")
+const ENEMY_SCN = preload("res://scenes/combat/combat_test/enemies/enemy_goblin_torch.tscn")
+const ENEMY_FLYING = preload("res://scenes/combat/combat_test/enemies/enemy_flying.tscn")
+const ENEMY_DEMON_LORD = preload("res://scenes/combat/combat_test/enemies/enemy_demon_lord.tscn")
 
 var current_enemies_on_field : int = 0
 

@@ -1,34 +1,34 @@
 [gd_scene load_steps=14 format=3 uid="uid://bgn7r35f5jf22"]
 
-[ext_resource type="Script" path="res://scripts/combat/enemies/demon_lord_skill_fire_wall.gd" id="1_20m66"]
-[ext_resource type="Texture2D" uid="uid://orp7stnf1bcb" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/FireDemon/Fire.png" id="1_chxil"]
+[ext_resource type="Script" path="res://scripts/combat/enemies/demon_lord_skill_fire_wall.gd" id="1_sgudv"]
+[ext_resource type="Texture2D" uid="uid://orp7stnf1bcb" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/FireDemon/Fire.png" id="2_ro26p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_she60"]
-atlas = ExtResource("1_chxil")
+atlas = ExtResource("2_ro26p")
 region = Rect2(0, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tgtk2"]
-atlas = ExtResource("1_chxil")
+atlas = ExtResource("2_ro26p")
 region = Rect2(128, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m1dw0"]
-atlas = ExtResource("1_chxil")
+atlas = ExtResource("2_ro26p")
 region = Rect2(256, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2kyng"]
-atlas = ExtResource("1_chxil")
+atlas = ExtResource("2_ro26p")
 region = Rect2(384, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_864pl"]
-atlas = ExtResource("1_chxil")
+atlas = ExtResource("2_ro26p")
 region = Rect2(512, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ps6sd"]
-atlas = ExtResource("1_chxil")
+atlas = ExtResource("2_ro26p")
 region = Rect2(640, 0, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_chsbs"]
-atlas = ExtResource("1_chxil")
+atlas = ExtResource("2_ro26p")
 region = Rect2(768, 0, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dg7x4"]
@@ -137,7 +137,7 @@ _data = {
 
 [node name="DemonLord_Skill_FireWall" type="Node2D"]
 scale = Vector2(2, 2)
-script = ExtResource("1_20m66")
+script = ExtResource("1_sgudv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 1

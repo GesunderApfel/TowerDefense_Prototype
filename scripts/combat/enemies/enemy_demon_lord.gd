@@ -21,7 +21,7 @@ var defense = 0
 var attack_frequence = 2.5 #in seconds
 
 # Modes & Skills
-const SKILL_FIREWALL = preload("res://scenes/combat/combat_test/demon_lord_skill_fire_wall.tscn")
+const SKILL_FIREWALL = preload("res://scenes/combat/combat_test/enemies/demon_lord_skill_fire_wall.tscn")
 
 # Physics & Colliders
 @onready var collision_shape_2d = $CollisionShape2D

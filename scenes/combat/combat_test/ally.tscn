@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/core/animation_tree_state.gd" id="3_njq74"]
 [ext_resource type="Texture2D" uid="uid://i6k6nngbderc" path="res://assets/graphics/combat/combat_test_graphics/Characters/Allies/Warrior_Blue.png" id="3_slmwt"]
 [ext_resource type="PackedScene" uid="uid://bl51pk2vko0vm" path="res://scenes/combat/combat_health_bar.tscn" id="4_woj7t"]
-[ext_resource type="PackedScene" uid="uid://bhxbvg4wovjie" path="res://scenes/combat/combat_test/fx_step_dust_spawner.tscn" id="4_ypfsy"]
+[ext_resource type="PackedScene" uid="uid://bhxbvg4wovjie" path="res://scenes/combat/combat_test/fx/fx_step_dust_spawner.tscn" id="4_ypfsy"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="5_tqkjw"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="6_xp8b7"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/history_state.gd" id="7_n3cbf"]
@@ -633,12 +633,6 @@ to = NodePath("../../../GetHit")
 event = &"sce_get_hit"
 delay_in_seconds = "0.0"
 
-[node name="Die" type="Node" parent="StateChart/Root/InCombat/MoveToTarget"]
-script = ExtResource("9_58fhu")
-to = NodePath("../../../Die")
-event = &"sce_die"
-delay_in_seconds = "0.0"
-
 [node name="Idle" type="Node" parent="StateChart/Root/InCombat/MoveToTarget"]
 script = ExtResource("9_58fhu")
 to = NodePath("../../Idle")
@@ -652,12 +646,6 @@ script = ExtResource("8_po8n5")
 script = ExtResource("9_58fhu")
 to = NodePath("../../../GetHit")
 event = &"sce_get_hit"
-delay_in_seconds = "0.0"
-
-[node name="Die" type="Node" parent="StateChart/Root/InCombat/Idle"]
-script = ExtResource("9_58fhu")
-to = NodePath("../../../Die")
-event = &"sce_die"
 delay_in_seconds = "0.0"
 
 [node name="Attack" type="Node" parent="StateChart/Root/InCombat/Idle"]
@@ -681,12 +669,6 @@ to = NodePath("../../Idle")
 event = &"sce_idle"
 delay_in_seconds = "0.0"
 
-[node name="Die" type="Node" parent="StateChart/Root/InCombat/Attack"]
-script = ExtResource("9_58fhu")
-to = NodePath("../../../Die")
-event = &"sce_die"
-delay_in_seconds = "0.0"
-
 [node name="GetHit" type="Node" parent="StateChart/Root"]
 script = ExtResource("8_po8n5")
 
@@ -698,6 +680,12 @@ delay_in_seconds = "0.0"
 
 [node name="Die" type="Node" parent="StateChart/Root"]
 script = ExtResource("8_po8n5")
+
+[node name="To_Die" type="Node" parent="StateChart/Root"]
+script = ExtResource("9_58fhu")
+to = NodePath("../Die")
+event = &"sce_die"
+delay_in_seconds = "0.0"
 
 [connection signal="state_entered" from="StateChart/Root/DefendCarriage/WaitAtCarriage" to="." method="_on_wait_at_carriage_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/Root/DefendCarriage/WaitAtCarriage" to="." method="_on_wait_at_carriage_state_physics_processing"]

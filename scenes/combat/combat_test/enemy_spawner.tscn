@@ -4,9 +4,8 @@
 [ext_resource type="Script" path="res://scripts/combat/spawner/combat_spawn_wave.gd" id="2_uqnlt"]
 [ext_resource type="Script" path="res://scripts/combat/spawner/combat_spawn_wave_content.gd" id="3_t14yc"]
 
-[node name="BanditSpawner" type="Node2D" node_paths=PackedStringArray("spawn_waves")]
+[node name="BanditSpawner" type="Node2D"]
 script = ExtResource("1_cuyjv")
-spawn_waves = [NodePath("Waves/spawn_wave"), null]
 
 [node name="Start" type="Timer" parent="."]
 wait_time = 3.0

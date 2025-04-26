@@ -1,6 +1,6 @@
 extends Node2D
 
-const FX_STEP_DUST = preload("res://scenes/combat/combat_test/fx_step_dust.tscn")
+const FX_STEP_DUST = preload("res://scenes/combat/combat_test/fx/fx_step_dust.tscn")
 @onready var step_dust_position = $StepDustPosition
 
 func spawn_dust():
