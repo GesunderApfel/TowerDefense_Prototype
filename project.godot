@@ -26,6 +26,7 @@ UtilityEnemy="*res://scripts/core/utility_enemy.gd"
 
 window/size/viewport_width=1600
 window/size/viewport_height=900
+mouse_cursor/custom_image="res://assets/graphics/combat/combat_test_graphics/Characters/Hero/crosshair173.png"
 
 [editor_plugins]
 
