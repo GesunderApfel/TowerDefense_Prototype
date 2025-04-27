@@ -6,7 +6,7 @@ var body2D : Node = self
 @onready var sprite = $Animator/AnimatedSprite2D
 var is_looking_left = false
 
-var carriage # will be set by the spawner
+var carriage
 var target:Node
 var target_focused:Node
 
@@ -48,27 +48,22 @@ var timer_animation_dict : Dictionary = {}
 @onready var timer_skill_firewall = $Timers/SkillFirewallTimer
 
 func _ready():
-	animation_tree.active = true
+	carriage = get_tree().get_first_node_in_group("carriage")
 	health = max_health
 	
+	animation_tree.active = true
 	UtilityStateMachine.create_timer_for_animation\
 		(self,animation_tree, timer_animation_dict,anim_state_idle)
-		
 	UtilityStateMachine.create_timer_for_animation\
 		(self,animation_tree, timer_animation_dict,anim_state_walk)
-		
 	UtilityStateMachine.create_timer_for_animation\
 		(self,animation_tree, timer_animation_dict,anim_state_attack)
-		
 	UtilityStateMachine.create_timer_for_animation\
 		(self,animation_tree, timer_animation_dict,anim_state_skillFireWall)
-		
 	UtilityStateMachine.create_timer_for_animation\
 		(self,animation_tree, timer_animation_dict,anim_state_getHit)
-	
 	UtilityStateMachine.create_timer_for_animation\
 		(self,animation_tree, timer_animation_dict,anim_state_die)
-		
 	animation_state_machine = UtilityStateMachine.get_playback(animation_tree)
 	
 	CombatDebug.bind_debug_method(debug_activate_fire_wall, "Demon Lord: Firewall")

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/combat/combat_manager.gd" id="1_5l03r"]
 [ext_resource type="PackedScene" uid="uid://o31cabihijgu" path="res://scenes/combat/combat_test/carriage.tscn" id="2_bllf6"]
 [ext_resource type="Script" path="res://scripts/combat/combat_camera.gd" id="2_xcbmn"]
-[ext_resource type="PackedScene" uid="uid://djwilso1op4es" path="res://scenes/combat/combat_test/enemy_spawner.tscn" id="3_jdns8"]
+[ext_resource type="PackedScene" uid="uid://djwilso1op4es" path="res://scenes/combat/combat_test/spawn_waves/enemy_spawner.tscn" id="3_jdns8"]
 [ext_resource type="Texture2D" uid="uid://cmfqprdxkxsra" path="res://assets/graphics/combat/environment/Layer_0011_0.png" id="4_yldym"]
 [ext_resource type="Texture2D" uid="uid://biv431bdk0218" path="res://assets/graphics/combat/environment/Layer_0009_2.png" id="5_j5q78"]
 [ext_resource type="Texture2D" uid="uid://cmd815aa0btqh" path="res://assets/graphics/combat/environment/Layer_0008_3.png" id="6_vrjdr"]
@@ -32,12 +32,20 @@ shake_strength = 2.0
 [node name="Carriage" parent="." instance=ExtResource("2_bllf6")]
 position = Vector2(800, 832)
 
-[node name="EnemySpawner" parent="." node_paths=PackedStringArray("spawn_waves", "carriage") instance=ExtResource("3_jdns8")]
+[node name="EnemySpawner" parent="." instance=ExtResource("3_jdns8")]
 position = Vector2(0, 10)
-spawn_waves = [NodePath("Waves/spawn_wave"), null]
-carriage = NodePath("../Carriage")
-ground_height = 820
-spawn_offset = Vector2(600, 300)
+
+[node name="Ground_Left" parent="EnemySpawner/SpawnPositions" index="0"]
+position = Vector2(-170, 822)
+
+[node name="Ground_Right" parent="EnemySpawner/SpawnPositions" index="1"]
+position = Vector2(1778, 822)
+
+[node name="Flying_Left" parent="EnemySpawner/SpawnPositions" index="2"]
+position = Vector2(-240, 438)
+
+[node name="Flying_Right" parent="EnemySpawner/SpawnPositions" index="3"]
+position = Vector2(1857, 450)
 
 [node name="Enemies" type="Node2D" parent="EnemySpawner"]
 
@@ -185,3 +193,5 @@ collision_mask = 0
 position = Vector2(800, 890)
 scale = Vector2(3, 1)
 shape = SubResource("RectangleShape2D_arwvp")
+
+[editable path="EnemySpawner"]
