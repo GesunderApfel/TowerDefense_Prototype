@@ -20,7 +20,6 @@ const anim_state_releaseArrow = "release_arrow"
 # Bow & Arrows
 @onready var bow = $Visuals/Bow
 const ARROW = preload("res://scenes/combat/combat_test/arrow.tscn")
-@onready var arrow_spawn_marker = $Attacks/ArrowSpawnMarker
 var attack_damage = 2
 
 @onready var bow_animation_tree = $Visuals/Bow/BowAnimationTree
@@ -63,7 +62,7 @@ func update_look_direction():
 func shoot_arrow():	
 	var arrow = ARROW.instantiate()
 	self.add_child(arrow)
-	arrow.global_position = arrow_spawn_marker.global_position
+	arrow.global_position = bow.global_position
 	
 	var direction : Vector2 = (get_global_mouse_position()-arrow.global_position).normalized()
 	arrow.set_direction(direction)
@@ -86,7 +85,17 @@ func _on_attack_pull_state_processing(_delta):
 		state_chart.send_event("sce_attack_hold")
 	pass
 
+
 func _on_attack_hold_state_processing(_delta):
+	var to_mouse = get_viewport().get_mouse_position() - bow.global_position
+	bow.rotation = to_mouse.angle()
+	
+	# flip bow
+	if bow.rotation > PI/2 or bow.rotation < -PI/2:
+		bow.scale.y = -1.0
+	else:
+		bow.scale.y = 1.0
+	
 	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		state_chart.send_event("sce_attack_release");
 	pass
@@ -94,6 +103,7 @@ func _on_attack_hold_state_processing(_delta):
 func _on_attack_release_state_processing(_delta):
 	if timer_bow_animation_dict[bow_anim_state_release].is_stopped():
 		state_chart.send_event("sce_idle")
+		bow.hide()
 	pass
 
 # ######################
@@ -101,6 +111,7 @@ func _on_attack_release_state_processing(_delta):
 # ######################
 
 func _on_idle_state_entered():
+	animation_state_machine.travel(anim_state_idle)
 	pass
 
 func _on_attack_pull_state_entered():

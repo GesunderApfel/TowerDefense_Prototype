@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmp2s8c8aaiek"
-path="res://.godot/imported/Water Effect and Bullet 16x16.png-4be258ab71169763b735dd16c25ff9c1.ctex"
+uid="uid://btjrse46sft31"
+path="res://.godot/imported/Fire Effect and Bullet 16x16.png-cf64772c96bf813c02154abbc3e807fc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/graphics/combat/sfx/skills/Water Effect and Bullet 16x16.png"
-dest_files=["res://.godot/imported/Water Effect and Bullet 16x16.png-4be258ab71169763b735dd16c25ff9c1.ctex"]
+source_file="res://assets/graphics/combat/vfx/skills/Fire Effect and Bullet 16x16.png"
+dest_files=["res://.godot/imported/Fire Effect and Bullet 16x16.png-cf64772c96bf813c02154abbc3e807fc.ctex"]
 
 [params]
 

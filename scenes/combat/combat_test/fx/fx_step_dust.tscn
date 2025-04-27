@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=3 uid="uid://l8gmca7jy0xj"]
 
 [ext_resource type="Script" path="res://scripts/combat/particles/fx_step_dust.gd" id="1_hf328"]
-[ext_resource type="Texture2D" uid="uid://cw02qafsfbml3" path="res://assets/graphics/combat/sfx/general/Smoke/smoke_01.png" id="1_mofst"]
-[ext_resource type="Texture2D" uid="uid://caheemam74lqg" path="res://assets/graphics/combat/sfx/general/Smoke/smoke_02.png" id="2_qhb07"]
-[ext_resource type="Texture2D" uid="uid://cei7n71n070wp" path="res://assets/graphics/combat/sfx/general/Smoke/smoke_03.png" id="3_qgw0w"]
-[ext_resource type="Texture2D" uid="uid://bfr6ut27htjqp" path="res://assets/graphics/combat/sfx/general/Smoke/smoke_04.png" id="4_sjyhb"]
-[ext_resource type="Texture2D" uid="uid://cykhktftfppe1" path="res://assets/graphics/combat/sfx/general/Smoke/smoke_05.png" id="5_ugbwy"]
+[ext_resource type="Texture2D" uid="uid://cw02qafsfbml3" path="res://assets/graphics/combat/vfx/general/Smoke/smoke_01.png" id="1_mofst"]
+[ext_resource type="Texture2D" uid="uid://caheemam74lqg" path="res://assets/graphics/combat/vfx/general/Smoke/smoke_02.png" id="2_qhb07"]
+[ext_resource type="Texture2D" uid="uid://cei7n71n070wp" path="res://assets/graphics/combat/vfx/general/Smoke/smoke_03.png" id="3_qgw0w"]
+[ext_resource type="Texture2D" uid="uid://bfr6ut27htjqp" path="res://assets/graphics/combat/vfx/general/Smoke/smoke_04.png" id="4_sjyhb"]
+[ext_resource type="Texture2D" uid="uid://cykhktftfppe1" path="res://assets/graphics/combat/vfx/general/Smoke/smoke_05.png" id="5_ugbwy"]
 
 [sub_resource type="Animation" id="Animation_klyff"]
 resource_name = "spawn"

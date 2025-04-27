@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cei7n71n070wp"
-path="res://.godot/imported/smoke_03.png-a8434ba1f2bec53b4172332968cd3fdd.ctex"
+uid="uid://jy267g1rfeif"
+path="res://.godot/imported/Purple Effect and Bullet 16x16.png-67cdc8ea34b55ff4774d79617781872d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/graphics/combat/sfx/general/Smoke/smoke_03.png"
-dest_files=["res://.godot/imported/smoke_03.png-a8434ba1f2bec53b4172332968cd3fdd.ctex"]
+source_file="res://assets/graphics/combat/vfx/skills/Purple Effect and Bullet 16x16.png"
+dest_files=["res://.godot/imported/Purple Effect and Bullet 16x16.png-67cdc8ea34b55ff4774d79617781872d.ctex"]
 
 [params]
 

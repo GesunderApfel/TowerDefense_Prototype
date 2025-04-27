@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmpvqkbilwvg6"
-path="res://.godot/imported/Green Effect and Bullet 16x16.png-2ed59304a3781e1b5c4e39e313f6142c.ctex"
+uid="uid://bfr6ut27htjqp"
+path="res://.godot/imported/smoke_04.png-12342a4f69fd74c30d6c37090d0374d7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/graphics/combat/sfx/skills/Green Effect and Bullet 16x16.png"
-dest_files=["res://.godot/imported/Green Effect and Bullet 16x16.png-2ed59304a3781e1b5c4e39e313f6142c.ctex"]
+source_file="res://assets/graphics/combat/vfx/general/Smoke/smoke_04.png"
+dest_files=["res://.godot/imported/smoke_04.png-12342a4f69fd74c30d6c37090d0374d7.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btjrse46sft31"
-path="res://.godot/imported/Fire Effect and Bullet 16x16.png-94244c0b7e8337a961946bfda39bf21b.ctex"
+uid="uid://dmpvqkbilwvg6"
+path="res://.godot/imported/Green Effect and Bullet 16x16.png-ed8b24edbc2e423883a906ec3e723990.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/graphics/combat/sfx/skills/Fire Effect and Bullet 16x16.png"
-dest_files=["res://.godot/imported/Fire Effect and Bullet 16x16.png-94244c0b7e8337a961946bfda39bf21b.ctex"]
+source_file="res://assets/graphics/combat/vfx/skills/Green Effect and Bullet 16x16.png"
+dest_files=["res://.godot/imported/Green Effect and Bullet 16x16.png-ed8b24edbc2e423883a906ec3e723990.ctex"]
 
 [params]
 

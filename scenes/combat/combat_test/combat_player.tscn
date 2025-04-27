@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://db84m5s23esdi"]
+[gd_scene load_steps=46 format=3 uid="uid://db84m5s23esdi"]
 
 [ext_resource type="Script" path="res://scripts/combat/player/combat_player.gd" id="1_7aq7h"]
 [ext_resource type="Texture2D" uid="uid://5e65k42scisf" path="res://assets/graphics/combat/combat_test_graphics/Characters/Hero/Archer_Blue_(NoArms).png" id="2_0vnty"]
@@ -51,20 +51,8 @@ region = Rect2(192, 768, 192, 192)
 atlas = ExtResource("3_khfqv")
 region = Rect2(384, 768, 192, 192)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7k5qd"]
-atlas = ExtResource("3_khfqv")
-region = Rect2(960, 768, 192, 192)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8yi02"]
-atlas = ExtResource("3_khfqv")
-region = Rect2(1152, 768, 192, 192)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_svvs1"]
-atlas = ExtResource("3_khfqv")
-region = Rect2(1344, 768, 192, 192)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rrysg"]
-atlas = ExtResource("3_khfqv")
+[sub_resource type="AtlasTexture" id="AtlasTexture_nkn3l"]
+atlas = ExtResource("2_0vnty")
 region = Rect2(0, 0, 192, 192)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ehjqw"]
@@ -116,16 +104,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7k5qd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8yi02")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_svvs1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rrysg")
+"texture": SubResource("AtlasTexture_nkn3l")
 }],
 "loop": true,
 "name": &"release_arrow",
@@ -273,7 +252,8 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_23ejj"]
 resource_name = "release_arrow"
-length = 0.4
+length = 0.1
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -293,10 +273,10 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0, 1, 2, 3]
+"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t55cy"]
@@ -356,7 +336,17 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_se6gt"]
+animation = &"hold"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fe4t4"]
+animation = &"release"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ofr82"]
+states/hold/node = SubResource("AnimationNodeAnimation_se6gt")
+states/hold/position = Vector2(343, 72)
+states/release/node = SubResource("AnimationNodeAnimation_fe4t4")
+states/release/position = Vector2(482, 72)
 
 [sub_resource type="Animation" id="Animation_yj7c0"]
 resource_name = "hold"
@@ -455,11 +445,10 @@ libraries = {
 visible = false
 
 [node name="BowAnimatedSprite" type="AnimatedSprite2D" parent="Visuals/Bow"]
-position = Vector2(5, -16)
+position = Vector2(5, -12)
 rotation = 6.28319
 sprite_frames = SubResource("SpriteFrames_leao7")
 animation = &"release"
-frame = 1
 
 [node name="BowAnimationTree" type="AnimationTree" parent="Visuals/Bow"]
 tree_root = SubResource("AnimationNodeStateMachine_ofr82")
@@ -477,11 +466,6 @@ libraries = {
 [node name="TIMER_HoldArrow_StrongArrow" type="Timer" parent="Timers/Attack"]
 
 [node name="Skills" type="Node2D" parent="Timers"]
-
-[node name="Attacks" type="Node2D" parent="."]
-
-[node name="ArrowSpawnMarker" type="Marker2D" parent="Attacks"]
-position = Vector2(9, -9)
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("3_rsauu")
