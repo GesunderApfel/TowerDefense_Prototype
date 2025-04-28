@@ -48,6 +48,8 @@ var timer_animation_dict : Dictionary = {}
 @onready var timer_skill_firewall = $Timers/SkillFirewallTimer
 
 func _ready():
+	WaveManager.register_enemy(self)
+
 	carriage = get_tree().get_first_node_in_group("carriage")
 	health = max_health
 	
@@ -218,6 +220,7 @@ func _on_get_hit_state_physics_processing(_delta):
 
 func _on_die_state_physics_processing(_delta):
 	if timer_animation_dict[anim_state_die].is_stopped():
+		WaveManager.unregister_enemy(self)
 		queue_free()
 	pass
 

@@ -41,6 +41,8 @@ var target_focused:Node
 var is_looking_left
 
 func _ready():
+	WaveManager.register_enemy(self)
+	
 	carriage = get_tree().get_first_node_in_group("carriage")
 	
 	health = max_health
@@ -161,6 +163,7 @@ func _on_attack_state_physics_processing(_delta):
 
 func _on_dying_state_physics_processing(_delta):
 	if timer_animation_dict[anim_state_die].is_stopped():
+		WaveManager.unregister_enemy(self)
 		queue_free()
 	pass
 	

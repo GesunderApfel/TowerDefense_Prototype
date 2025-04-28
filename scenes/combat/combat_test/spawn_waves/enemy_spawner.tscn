@@ -46,7 +46,7 @@ boss = 1
 spawn_delay_between_enemies = 3
 time_until_next_wave = 30
 
-[node name="WaveSpawner" type="Node2D" node_paths=PackedStringArray("grounded_spawn_point_L", "grounded_spawn_point_R", "flying_spawn_point_L", "flying_spawn_point_R")]
+[node name="WaveSpawner" type="Node2D" node_paths=PackedStringArray("grounded_spawn_point_L", "grounded_spawn_point_R", "flying_spawn_point_L", "flying_spawn_point_R") groups=["wave_spawner"]]
 script = ExtResource("1_cuyjv")
 grounded_enemy_scene = ExtResource("2_8xuny")
 flying_enemy_scene = ExtResource("3_ggnpt")

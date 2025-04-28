@@ -52,6 +52,8 @@ var timer_animation_dict : Dictionary = {}
 
 
 func _ready():
+	WaveManager.register_enemy(self)
+	
 	carriage = get_tree().get_first_node_in_group("carriage")
 	
 	health = max_health
@@ -221,7 +223,7 @@ func _on_get_hit_state_entered():
 
 func _on_die_state_entered():
 	# spawn skull / resource
-	
+	WaveManager.unregister_enemy(self)
 	queue_free()
 	pass # Replace with function body.
 

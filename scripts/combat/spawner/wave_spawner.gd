@@ -15,7 +15,6 @@ extends Node
 var current_wave = 0
 var spawning = false
 
-
 func _ready():
 	start_next_wave()
 	pass
@@ -64,7 +63,7 @@ func spawn_enemies_with_delay(spawn_tasks: Array, wave: int):
 	var enemy = task["scene"].instantiate()
 	enemy.global_position = task["position"]
 	get_tree().current_scene.call_deferred("add_child",enemy)
-
+	
 	await get_tree().create_timer(waves[wave].spawn_delay_between_enemies).timeout
 	spawn_enemies_with_delay(spawn_tasks, wave)
 	pass
