@@ -5,9 +5,6 @@ const COMBAT_UI = preload("res://scenes/combat/combat_ui.tscn")
 
 const ALLY = preload("res://scenes/combat/combat_test/ally.tscn")
 
-const MOUSE = preload("res://assets/graphics/combat/combat_test_graphics/Characters/Hero/crosshair173.png")
-
-
 @onready var camera_2d = $Camera2D
 
 var player
@@ -35,13 +32,6 @@ func _ready():
 	
 	
 	pass # Replace with function body.
-
-# Mouse
-func instantiate_mouse_cursor():
-	pass
-
-func update_mouse_cursor():
-	pass
 
 func spawn_ally():
 	var ally = ALLY.instantiate()

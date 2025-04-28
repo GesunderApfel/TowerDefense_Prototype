@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://phoobbn48iov"]
+[gd_scene load_steps=21 format=3 uid="uid://phoobbn48iov"]
 
 [ext_resource type="Script" path="res://scripts/combat/combat_manager.gd" id="1_5l03r"]
 [ext_resource type="PackedScene" uid="uid://o31cabihijgu" path="res://scenes/combat/combat_test/carriage.tscn" id="2_bllf6"]
@@ -17,6 +17,8 @@
 [ext_resource type="Texture2D" uid="uid://cux16hnpldn46" path="res://assets/graphics/combat/environment/Layer_0000_9.png" id="14_bodjw"]
 [ext_resource type="Texture2D" uid="uid://1btgjhd8lilp" path="res://assets/graphics/combat/combat_test_graphics/Environment/SideFog.png" id="15_oegq8"]
 [ext_resource type="Texture2D" uid="uid://ep0x0xb0tlxb" path="res://assets/graphics/combat/combat_test_graphics/Environment/SmallFog.png" id="16_d140i"]
+[ext_resource type="Script" path="res://scripts/combat/player/combat_player_mouse_cursor.gd" id="18_5ll5q"]
+[ext_resource type="Texture2D" uid="uid://cgbi4dwm6utdh" path="res://assets/graphics/combat/combat_test_graphics/Characters/Hero/crosshair173.png" id="19_tfmwm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_arwvp"]
 size = Vector2(2000, 20)
@@ -193,5 +195,12 @@ collision_mask = 0
 position = Vector2(800, 890)
 scale = Vector2(3, 1)
 shape = SubResource("RectangleShape2D_arwvp")
+
+[node name="MouseCursorCrosshair" type="Node2D" parent="." groups=["mouse_cursor"]]
+position = Vector2(799, 601)
+script = ExtResource("18_5ll5q")
+
+[node name="Sprite2D" type="Sprite2D" parent="MouseCursorCrosshair"]
+texture = ExtResource("19_tfmwm")
 
 [editable path="EnemySpawner"]
