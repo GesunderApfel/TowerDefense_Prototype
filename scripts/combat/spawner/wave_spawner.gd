@@ -12,25 +12,23 @@ extends Node
 
 @export var waves: Array[WaveData] = []
 
-var current_wave := 0
-var spawning := false
+var current_wave = 0
+var spawning = false
 
 
 func _ready():
 	start_next_wave()
 	pass
 
-
 func start_next_wave():
 	if current_wave >= waves.size():
-		print("Alle Wellen gespawnt!")
+		print("All waves finished!")
 		return
 	
-	print("Starte Welle ", current_wave + 1)
+	print("Start wave ", current_wave + 1)
 	spawning = true
 	spawn_wave(waves[current_wave])
 	pass
-
 
 func spawn_wave(wave_data: WaveData):
 	var spawn_pool = []
@@ -48,7 +46,7 @@ func spawn_wave(wave_data: WaveData):
 			(boss_enemy_scene, grounded_spawn_point_L, grounded_spawn_point_R))
 	
 	spawn_pool.shuffle()
-	spawn_enemies_with_delay(spawn_pool)
+	spawn_enemies_with_delay(spawn_pool, current_wave)
 	pass
 
 func generate_spawn_entry(scene: PackedScene, spawn_L: Node2D, spawn_R: Node2D):
@@ -57,7 +55,7 @@ func generate_spawn_entry(scene: PackedScene, spawn_L: Node2D, spawn_R: Node2D):
 	return {"scene": scene, "position": spawn_point.global_position}
 
 
-func spawn_enemies_with_delay(spawn_tasks: Array):
+func spawn_enemies_with_delay(spawn_tasks: Array, wave: int):
 	if spawn_tasks.is_empty():
 		finish_wave()
 		return
@@ -67,12 +65,12 @@ func spawn_enemies_with_delay(spawn_tasks: Array):
 	enemy.global_position = task["position"]
 	get_tree().current_scene.call_deferred("add_child",enemy)
 
-	await get_tree().create_timer(waves[current_wave].spawn_delay_between_enemies).timeout
-	spawn_enemies_with_delay(spawn_tasks)
+	await get_tree().create_timer(waves[wave].spawn_delay_between_enemies).timeout
+	spawn_enemies_with_delay(spawn_tasks, wave)
 	pass
 
 func finish_wave():
-	print("Welle ", current_wave + 1, " abgeschlossen.")
+	print("Wave ", current_wave + 1, " complete.")
 	spawning = false
 	current_wave += 1
 	await get_tree().create_timer(waves[current_wave].time_until_next_wave).timeout

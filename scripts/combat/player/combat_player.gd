@@ -6,6 +6,9 @@ extends Node2D
 @onready var sprite = $Visuals/AnimatedSprite2D
 var is_looking_left : bool = false
 
+# ui
+@onready var chargeUI = $UI/Charge
+
 
 # animation
 @onready var animation_tree = $Visuals/AnimationTree
@@ -21,6 +24,11 @@ const anim_state_releaseArrow = "release_arrow"
 @onready var bow = $Visuals/Bow
 const ARROW = preload("res://scenes/combat/combat_test/arrow.tscn")
 var attack_damage = 2
+
+var arrow_charge_time = 0.0
+@export var max_charge_time = 1.5
+@export var min_arrow_speed = 300.0
+@export var max_arrow_speed = 1000.0
 
 @onready var bow_animation_tree = $Visuals/Bow/BowAnimationTree
 var bow_animation_state_machine : AnimationNodeStateMachinePlayback
@@ -59,18 +67,25 @@ func update_look_direction():
 	pass
 
 ## shoots an arrow to the mouse position
-func shoot_arrow():	
+func shoot_arrow():
 	var arrow = ARROW.instantiate()
 	self.add_child(arrow)
 	arrow.global_position = bow.global_position
 	
-	var direction : Vector2 = (get_global_mouse_position()-arrow.global_position).normalized()
-	arrow.set_direction(direction)
-	arrow.set_collision_masks([1])
-	arrow.set_damage_value(attack_damage)
-		
-	pass
+	# calculate arrow intensity / speed
+	var charge_percent = arrow_charge_time / max_charge_time
+	var arrow_speed = lerp(min_arrow_speed, max_arrow_speed, charge_percent)
 	
+	var direction: Vector2 = get_global_mouse_position()-arrow.global_position
+	arrow.set_velocity(direction, arrow_speed)
+	arrow.set_collision_masks([1]) # '1' is not very expressive...
+	arrow.set_damage_value(attack_damage)
+	
+	# reset charge
+	arrow_charge_time = 0.0
+	chargeUI.set_charge(0.0)
+	pass
+
 # ##############
 # State Chart  #
 # ##############
@@ -86,7 +101,7 @@ func _on_attack_pull_state_processing(_delta):
 	pass
 
 
-func _on_attack_hold_state_processing(_delta):
+func _on_attack_hold_state_processing(delta):
 	var to_mouse = get_viewport().get_mouse_position() - bow.global_position
 	bow.rotation = to_mouse.angle()
 	
@@ -96,8 +111,11 @@ func _on_attack_hold_state_processing(_delta):
 	else:
 		bow.scale.y = 1.0
 	
-	if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		state_chart.send_event("sce_attack_release");
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		arrow_charge_time = clamp(arrow_charge_time + delta, 0, max_charge_time)
+		chargeUI.set_charge(arrow_charge_time / max_charge_time) # charge percent
+	else:
+		state_chart.send_event("sce_attack_release")
 	pass
 
 func _on_attack_release_state_processing(_delta):

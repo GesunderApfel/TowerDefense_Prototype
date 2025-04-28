@@ -6,7 +6,7 @@ var body2D : Node = self
 @onready var sprite = $Animator/AnimatedSprite2D
 var is_looking_left = false
 
-var carriage
+var carriage:Node
 var target:Node
 var target_focused:Node
 
