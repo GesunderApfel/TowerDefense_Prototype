@@ -4,8 +4,9 @@ extends CharacterBody2D
 
 const FIREBALL = preload("res://scenes/combat/combat_test/fireball.tscn")
 
-@onready var sprite = $Animator/AnimatedSprite2D
 @onready var body2d = $CS2D_BodyCollider
+@onready var collider = $Collider
+@onready var sprite = $Animator/AnimatedSprite2D
 @onready var combat_health_bar = $CombatHealthBar
 
 
@@ -206,4 +207,6 @@ func _on_get_hit_state_entered():
 	pass
 
 
-
+func _on_move_state_exited():
+	velocity = Vector2.ZERO
+	pass # Replace with function body.

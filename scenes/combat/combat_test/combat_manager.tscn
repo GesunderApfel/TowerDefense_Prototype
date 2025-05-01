@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://phoobbn48iov"]
+[gd_scene load_steps=23 format=3 uid="uid://phoobbn48iov"]
 
 [ext_resource type="Script" path="res://scripts/combat/combat_manager.gd" id="1_5l03r"]
 [ext_resource type="PackedScene" uid="uid://o31cabihijgu" path="res://scenes/combat/combat_test/carriage.tscn" id="2_bllf6"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://djwilso1op4es" path="res://scenes/combat/combat_test/spawn_waves/enemy_spawner.tscn" id="3_jdns8"]
 [ext_resource type="Texture2D" uid="uid://cmfqprdxkxsra" path="res://assets/graphics/combat/environment/Layer_0011_0.png" id="4_yldym"]
 [ext_resource type="Texture2D" uid="uid://biv431bdk0218" path="res://assets/graphics/combat/environment/Layer_0009_2.png" id="5_j5q78"]
+[ext_resource type="Script" path="res://scripts/combat/spawner/wave_data.gd" id="5_x52di"]
 [ext_resource type="Texture2D" uid="uid://cmd815aa0btqh" path="res://assets/graphics/combat/environment/Layer_0008_3.png" id="6_vrjdr"]
 [ext_resource type="Texture2D" uid="uid://b8lj70vjumx0y" path="res://assets/graphics/combat/environment/Layer_0007_Lights.png" id="7_k1kol"]
 [ext_resource type="Texture2D" uid="uid://c8uh0qm7u1uoy" path="res://assets/graphics/combat/environment/Layer_0006_4.png" id="8_b6tuo"]
@@ -19,6 +20,14 @@
 [ext_resource type="Texture2D" uid="uid://ep0x0xb0tlxb" path="res://assets/graphics/combat/combat_test_graphics/Environment/SmallFog.png" id="16_d140i"]
 [ext_resource type="Script" path="res://scripts/combat/player/combat_player_mouse_cursor.gd" id="18_5ll5q"]
 [ext_resource type="Texture2D" uid="uid://cgbi4dwm6utdh" path="res://assets/graphics/combat/combat_test_graphics/Characters/Hero/crosshair173.png" id="19_tfmwm"]
+
+[sub_resource type="Resource" id="Resource_57p71"]
+script = ExtResource("5_x52di")
+grounded = 1
+flying = 0
+boss = 0
+spawn_delay_between_enemies = 3
+time_until_next_wave = 30
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_arwvp"]
 size = Vector2(2000, 20)
@@ -36,6 +45,7 @@ position = Vector2(800, 832)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_jdns8")]
 position = Vector2(0, 10)
+waves = Array[ExtResource("5_x52di")]([SubResource("Resource_57p71")])
 
 [node name="Ground_Left" parent="EnemySpawner/SpawnPositions" index="0"]
 position = Vector2(-170, 822)

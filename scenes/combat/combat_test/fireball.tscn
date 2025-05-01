@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ba6j2yt22ys2t"]
 
-[ext_resource type="Script" path="res://scripts/combat/projectile.gd" id="1_nxo37"]
+[ext_resource type="Script" path="res://scripts/combat/player_arrow.gd" id="1_nxo37"]
 [ext_resource type="Texture2D" uid="uid://dl2dtqylt6vfy" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/FlyingDemon/projectile.png" id="2_qra7p"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_15t5a"]

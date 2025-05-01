@@ -21,6 +21,7 @@ CombatDebug="*res://scripts/combat/combat_debug.gd"
 GlobalEnums="*res://scripts/core/global_enums.gd"
 UtilityStateMachine="*res://scripts/core/utility_state_machine.gd"
 WaveManager="*res://scripts/combat/spawner/wave_manager.gd"
+CameraManager="*res://scripts/core/cinema_camera_manager.gd"
 
 [display]
 

@@ -1,50 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://djwilso1op4es"]
+[gd_scene load_steps=5 format=3 uid="uid://djwilso1op4es"]
 
 [ext_resource type="Script" path="res://scripts/combat/spawner/wave_spawner.gd" id="1_cuyjv"]
 [ext_resource type="PackedScene" uid="uid://kd4xv22ktbk8" path="res://scenes/combat/combat_test/enemies/enemy_goblin_torch.tscn" id="2_8xuny"]
 [ext_resource type="PackedScene" uid="uid://bykejfxyiftto" path="res://scenes/combat/combat_test/enemies/enemy_flying.tscn" id="3_ggnpt"]
 [ext_resource type="PackedScene" uid="uid://n5j7kaoyy78x" path="res://scenes/combat/combat_test/enemies/enemy_demon_lord.tscn" id="4_awjxh"]
-[ext_resource type="Script" path="res://scripts/combat/spawner/wave_data.gd" id="5_mmak1"]
-
-[sub_resource type="Resource" id="Resource_jx3mn"]
-script = ExtResource("5_mmak1")
-grounded = 5
-flying = 0
-boss = 0
-spawn_delay_between_enemies = 3
-time_until_next_wave = 30
-
-[sub_resource type="Resource" id="Resource_ktpvo"]
-script = ExtResource("5_mmak1")
-grounded = 8
-flying = 3
-boss = 0
-spawn_delay_between_enemies = 3
-time_until_next_wave = 30
-
-[sub_resource type="Resource" id="Resource_5qdr8"]
-script = ExtResource("5_mmak1")
-grounded = 12
-flying = 5
-boss = 0
-spawn_delay_between_enemies = 3
-time_until_next_wave = 30
-
-[sub_resource type="Resource" id="Resource_8u20u"]
-script = ExtResource("5_mmak1")
-grounded = 18
-flying = 10
-boss = 0
-spawn_delay_between_enemies = 3
-time_until_next_wave = 30
-
-[sub_resource type="Resource" id="Resource_jk8d0"]
-script = ExtResource("5_mmak1")
-grounded = 7
-flying = 3
-boss = 1
-spawn_delay_between_enemies = 3
-time_until_next_wave = 30
 
 [node name="WaveSpawner" type="Node2D" node_paths=PackedStringArray("grounded_spawn_point_L", "grounded_spawn_point_R", "flying_spawn_point_L", "flying_spawn_point_R") groups=["wave_spawner"]]
 script = ExtResource("1_cuyjv")
@@ -55,7 +14,6 @@ grounded_spawn_point_L = NodePath("SpawnPositions/Ground_Left")
 grounded_spawn_point_R = NodePath("SpawnPositions/Ground_Right")
 flying_spawn_point_L = NodePath("SpawnPositions/Flying_Left")
 flying_spawn_point_R = NodePath("SpawnPositions/Flying_Right")
-waves = Array[ExtResource("5_mmak1")]([SubResource("Resource_jx3mn"), SubResource("Resource_ktpvo"), SubResource("Resource_5qdr8"), SubResource("Resource_8u20u"), SubResource("Resource_jk8d0")])
 
 [node name="SpawnPositions" type="Node2D" parent="."]
 

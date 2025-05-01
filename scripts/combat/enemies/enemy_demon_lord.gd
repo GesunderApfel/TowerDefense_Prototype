@@ -3,6 +3,8 @@ extends CharacterBody2D
 @onready var state_chart = $StateChart
 
 var body2D : Node = self
+@onready var collider = $Collider
+
 @onready var sprite = $Animator/AnimatedSprite2D
 var is_looking_left = false
 
@@ -257,3 +259,8 @@ func _on_skill_fire_wall_state_entered():
 	timer_animation_dict[anim_state_skillFireWall].start()
 	animation_state_machine.travel(anim_state_skillFireWall)
 	pass
+
+# !exited!
+func _on_move_to_target_state_exited():
+	velocity = Vector2.ZERO
+	pass # Replace with function body.

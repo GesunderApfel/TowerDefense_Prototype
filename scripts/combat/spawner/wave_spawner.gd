@@ -72,6 +72,10 @@ func finish_wave():
 	print("Wave ", current_wave + 1, " complete.")
 	spawning = false
 	current_wave += 1
+	
+	if current_wave >= waves.size():
+		return
+	
 	await get_tree().create_timer(waves[current_wave].time_until_next_wave).timeout
 	start_next_wave()
 	pass

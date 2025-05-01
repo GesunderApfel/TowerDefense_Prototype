@@ -3,6 +3,8 @@ extends CharacterBody2D
 @onready var state_chart = $StateChart
 
 var body2D : Node = self
+@onready var collider = $Collider
+
 @onready var sprite = $Visuals/AnimatedSprite2D
 var is_looking_left = false
 
@@ -25,7 +27,6 @@ var is_berserk: bool = false
 
 
 # Physics & Colliders
-@onready var collision_shape_2d = $CollisionShape2D
 @onready var areas_facing_right = $Areas/Areas_FacingRight
 @onready var areas_facing_left = $Areas/Areas_FacingLeft
 
@@ -227,6 +228,10 @@ func _on_die_state_entered():
 	queue_free()
 	pass # Replace with function body.
 
+# !Exit!
+func _on_move_to_target_state_exited():
+	velocity = Vector2.ZERO
+	pass # Replace with function body.
 
 # BERSERK MODE ------------------
 
@@ -285,4 +290,6 @@ func _on_mode_berserk_state_entered():
 func _on_mode_berserk_state_exited():
 	sprite.modulate = Color(1,1,1)
 	pass
+
+
 
