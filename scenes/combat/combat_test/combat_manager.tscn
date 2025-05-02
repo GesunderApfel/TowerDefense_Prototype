@@ -23,8 +23,8 @@
 
 [sub_resource type="Resource" id="Resource_57p71"]
 script = ExtResource("5_x52di")
-grounded = 1
-flying = 0
+grounded = 0
+flying = 1
 boss = 0
 spawn_delay_between_enemies = 3
 time_until_next_wave = 30

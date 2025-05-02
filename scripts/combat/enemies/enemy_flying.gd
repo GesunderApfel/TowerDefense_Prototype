@@ -4,7 +4,6 @@ extends CharacterBody2D
 
 const FIREBALL = preload("res://scenes/combat/combat_test/fireball.tscn")
 
-@onready var body2d = $CS2D_BodyCollider
 @onready var collider = $Collider
 @onready var sprite = $Animator/AnimatedSprite2D
 @onready var combat_health_bar = $CombatHealthBar
@@ -113,10 +112,12 @@ func spawn_projectile():
 	fireball.global_position = global_position
 	
 	# shoot into target direction
+	# magic vector, could be replaced with marker position
 	var direction : Vector2 = (target_focused.global_position \
-	-fireball.global_position + Vector2(0,-65)).normalized()
+		-fireball.global_position + Vector2(0,-65)).normalized()
 	fireball.set_direction(direction)
-	fireball.set_collision_masks([2,3])
+	fireball.set_collision_masks \
+		([GlobalEnums.PhysicLayer.CARRIAGE,GlobalEnums.PhysicLayer.ALLY])
 	fireball.set_damage_value(attack)
 	pass
 

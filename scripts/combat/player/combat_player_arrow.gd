@@ -4,10 +4,10 @@ extends Node2D
 @onready var area = $Area
 
 var velocity: Vector2
-@export var gravity: float = 800.0
+@export var gravity: float = GlobalConstants.COMBAT_GRAVITY
 
 var damage := 0.0
-var is_destroyed = false # prevents hitting multiple objects with one call
+var is_destroyed := false # prevents hitting multiple objects with one call
 
 # prediction & kill cam
 @export var prediction_steps := 30
@@ -34,7 +34,6 @@ func set_direction_and_speed(direction: Vector2, speed: float):
 	if not cinema_check_done and check_for_killshot():
 		CameraManager.focus_on(self)
 		cinema_check_done = true
-	queue_redraw()
 	pass
 
 func set_collision_masks(collision_mask_layer_numbers: Array):
@@ -105,26 +104,26 @@ func predict_hit(enemy) -> bool:
 		
 		debug_node.add_debug_point(sim_arrow_pos, Color.GREEN,3,3)
 		debug_node.add_debug_point(sim_enemy_pos, Color.RED,3,3)
-		debug_node.add_capsule(collider, sim_enemy_pos, Color.RED, 3)
 		
 		if is_point_in_shape(sim_arrow_pos, sim_enemy_pos, collider):
 			return true
 	return false
 
-func is_point_in_shape(point: Vector2, shape_center: Vector2, collider: CollisionShape2D) -> bool:
+func is_point_in_shape(point: Vector2, predicted_center: Vector2, collider: CollisionShape2D) -> bool:
 	var shape : Shape2D = collider.shape
 	if shape is CircleShape2D:
-		return Geometry2D.is_point_in_circle(point,shape_center,shape.radius)
+		return Geometry2D.is_point_in_circle(point,predicted_center,shape.radius)
 	elif shape is RectangleShape2D:
-		var rect := Rect2(shape_center, shape.extents)
+		var rect := Rect2(predicted_center, shape.extents)
 		return rect.has_point(point)
 	elif shape is CapsuleShape2D:
+		debug_node.add_capsule(collider, predicted_center, Color.RED, 3)
 		var half_height : float = (shape.height * 0.5) - shape.radius
 		# capsules global up vector
 		var up := collider.global_transform.y.normalized()
 		
-		var top := shape_center - up * half_height
-		var bottom := shape_center + up * half_height
+		var top := predicted_center - up * half_height
+		var bottom := predicted_center + up * half_height
 		
 		var ab := bottom - top
 		var ap := point - top

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c433esrohh38s"]
 
-[ext_resource type="Script" path="res://scripts/combat/player_arrow.gd" id="1_ncsrd"]
+[ext_resource type="Script" path="res://scripts/combat/player/combat_player_arrow.gd" id="1_osd5n"]
 [ext_resource type="Texture2D" uid="uid://dc0nt5mpvfhkb" path="res://assets/graphics/combat/combat_test_graphics/combat_resources/Arrow.png" id="2_1vp64"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_15t5a"]
@@ -8,7 +8,7 @@ radius = 12.0
 height = 48.0
 
 [node name="Arrow" type="Node2D"]
-script = ExtResource("1_ncsrd")
+script = ExtResource("1_osd5n")
 prediction_steps = 100
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
