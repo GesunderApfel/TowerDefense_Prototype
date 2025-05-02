@@ -81,17 +81,15 @@ func _on_area_body_entered(body):
 
 func check_for_killshot() -> bool:
 	for enemy in WaveManager.living_enemies:
-		#TODO: only if the shot would kill
 		if WaveManager.is_last_enemy(enemy):
-			return predict_hit(enemy)
+			assert(enemy.has_method("enough_damage_to_die"), "Enemy is missing method for killshot functionality")
+			assert(damage != 0, "damage was not set")
+			if enemy.enough_damage_to_die(damage):
+				return predict_hit(enemy)
 	return false
 
 func predict_hit(enemy) -> bool:
 	assert(enemy.collider != null, "Enemy has no collider variable")
-	
-	#TODO: Currently we are predicting if a point is in a shape
-	# but this is unprecise, we need the radius (circle) of the arrow
-	# and check if it overlaps 
 	
 	var sim_arrow_pos = global_position
 	var sim_arrow_velocity = velocity
@@ -109,8 +107,8 @@ func predict_hit(enemy) -> bool:
 		# predict enemy
 		sim_enemy_pos += enemy_velocity * prediction_step_time
 		
-		debug_node.add_debug_point(sim_arrow_pos, arrow_radius ,Color.GREEN,3)
-		debug_node.add_debug_point(sim_enemy_pos,3,Color.RED,3)
+		#debug_node.add_debug_point(sim_arrow_pos, arrow_radius ,Color.GREEN,3)
+		#debug_node.add_debug_point(sim_enemy_pos,3,Color.RED,3)
 		
 		if is_point_in_shape(sim_arrow_pos, arrow_radius, sim_enemy_pos, collider):
 			return true
@@ -120,7 +118,7 @@ func is_point_in_shape(point: Vector2, arrow_radius: float, predicted_center: Ve
 	var shape : Shape2D = collider.shape
 	if shape is CircleShape2D:
 		# show enemy collider movement
-		debug_node.add_debug_point(predicted_center,shape.radius, Color.RED, 3)
+		#debug_node.add_debug_point(predicted_center,shape.radius, Color.RED, 3)
 		var total_radius = shape.radius + arrow_radius 
 		return point.distance_squared_to(predicted_center) <= total_radius * total_radius
 	elif shape is RectangleShape2D:
@@ -130,7 +128,7 @@ func is_point_in_shape(point: Vector2, arrow_radius: float, predicted_center: Ve
 		return clamped_point.distance_squared_to(point) <= arrow_radius * arrow_radius
 	elif shape is CapsuleShape2D:
 		# show enemy collider movement
-		debug_node.add_debug_capsule(collider, predicted_center, Color.RED, 3)
+		#debug_node.add_debug_capsule(collider, predicted_center, Color.RED, 3)
 		var half_height : float = (shape.height * 0.5) - shape.radius
 		# capsules global up vector
 		var up := collider.global_transform.y.normalized()

@@ -92,6 +92,9 @@ func look_at_target():
 	sprite.flip_h = is_looking_left
 	pass
 
+func enough_damage_to_die(damage):
+	return health-max(damage-defense,0) <= 0
+
 func receive_damage(damage):
 	health -= max(damage-defense,0)
 

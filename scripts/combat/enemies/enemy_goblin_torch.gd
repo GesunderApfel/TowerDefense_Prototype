@@ -114,6 +114,8 @@ func _physics_process(_delta):
 		areas_facing_left.hide()
 	pass
 
+func enough_damage_to_die(damage):
+	return health-max(damage-defense,0) <= 0
 
 func receive_damage(damage):
 	# receive damage

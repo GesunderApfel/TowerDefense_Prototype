@@ -77,9 +77,9 @@ func shoot_arrow():
 	var arrow_speed = lerp(min_arrow_speed, max_arrow_speed, charge_percent)
 	
 	var direction: Vector2 = get_global_mouse_position()-arrow.global_position
+	arrow.set_damage_value(attack_damage)
 	arrow.set_direction_and_speed(direction, arrow_speed)
 	arrow.set_collision_masks([1]) # '1' is not very expressive...
-	arrow.set_damage_value(attack_damage)
 	
 	# reset charge
 	arrow_charge_time = 0.0
