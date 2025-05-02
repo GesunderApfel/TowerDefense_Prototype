@@ -23,6 +23,7 @@ UtilityStateMachine="*res://scripts/core/utility_state_machine.gd"
 WaveManager="*res://scripts/combat/spawner/wave_manager.gd"
 CameraManager="*res://scripts/core/cinema_camera_manager.gd"
 GlobalConstants="*res://scripts/core/global_constants.gd"
+DebugHelper="*res://scripts/core/debug_helper.gd"
 
 [display]
 
@@ -38,4 +39,4 @@ enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")
 2d_physics/layer_1="Enemy"
 2d_physics/layer_2="Carriage"
 2d_physics/layer_3="Ally"
-2d_physics/layer_9="Ground"
+2d_physics/layer_9="ground"

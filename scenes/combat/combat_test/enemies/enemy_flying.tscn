@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="13_nvc0k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l1mi7"]
+radius = 23.39
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_irewp"]
 
@@ -470,8 +471,7 @@ enabled = false
 initial_node_to_watch = NodePath("../StateChart")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
-position = Vector2(-7, 7)
-scale = Vector2(2.685, 2.685)
+position = Vector2(2, 8)
 shape = SubResource("CircleShape2D_l1mi7")
 debug_color = Color(0.992482, 0, 0.251412, 0.42)
 

@@ -2,18 +2,18 @@ extends Node2D
 class_name DebugDrawNode
 
 var points: Array[Dictionary] = []
-
-# capsule bullshit
 var capsules: Array[Dictionary] = []
+var circles: Array[Dictionary] = []
+
 
 func _draw():
 	for p in points:
-		draw_circle(to_local(p.position), p.radius, p.color)
+		draw_circle(p.position, p.radius, p.color)
 	for c in capsules:
 		draw_capsule(c.collider, c.position, c.color)
 	pass
 
-func add_debug_point(global_pos: Vector2, color := Color.GREEN, radius := 6.0, lifetime := 1.0):
+func add_debug_point(global_pos: Vector2, radius := 6.0, color := Color.GREEN, lifetime := 1.0):
 	points.append({
 		"position": global_pos,
 		"color": color,
@@ -26,7 +26,7 @@ func add_debug_point(global_pos: Vector2, color := Color.GREEN, radius := 6.0, l
 	pass
 	
 
-func add_capsule(collider: CollisionShape2D, center: Vector2, color: Color, lifetime := 1.0):
+func add_debug_capsule(collider: CollisionShape2D, center: Vector2, color: Color, lifetime := 1.0):
 	capsules.append({
 		"collider": collider,
 		"position": center,

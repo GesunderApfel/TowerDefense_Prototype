@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://phoobbn48iov"]
+[gd_scene load_steps=22 format=3 uid="uid://phoobbn48iov"]
 
 [ext_resource type="Script" path="res://scripts/combat/combat_manager.gd" id="1_5l03r"]
 [ext_resource type="PackedScene" uid="uid://o31cabihijgu" path="res://scenes/combat/combat_test/carriage.tscn" id="2_bllf6"]
@@ -16,8 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://d2i751wyhmj20" path="res://assets/graphics/combat/environment/Layer_0002_7.png" id="12_ogq0h"]
 [ext_resource type="Texture2D" uid="uid://cqlkabfifah44" path="res://assets/graphics/combat/environment/Layer_0001_8.png" id="13_4sb4u"]
 [ext_resource type="Texture2D" uid="uid://cux16hnpldn46" path="res://assets/graphics/combat/environment/Layer_0000_9.png" id="14_bodjw"]
-[ext_resource type="Texture2D" uid="uid://1btgjhd8lilp" path="res://assets/graphics/combat/combat_test_graphics/Environment/SideFog.png" id="15_oegq8"]
-[ext_resource type="Texture2D" uid="uid://ep0x0xb0tlxb" path="res://assets/graphics/combat/combat_test_graphics/Environment/SmallFog.png" id="16_d140i"]
+[ext_resource type="Texture2D" uid="uid://cjbkoegcdcf4g" path="res://assets/graphics/white_pixel.png" id="17_efmrv"]
 [ext_resource type="Script" path="res://scripts/combat/player/combat_player_mouse_cursor.gd" id="18_5ll5q"]
 [ext_resource type="Texture2D" uid="uid://cgbi4dwm6utdh" path="res://assets/graphics/combat/combat_test_graphics/Characters/Hero/crosshair173.png" id="19_tfmwm"]
 
@@ -65,6 +64,9 @@ position = Vector2(1857, 450)
 position = Vector2(797, 803)
 
 [node name="Visuals" type="Node2D" parent="."]
+
+[node name="Canvas_DayAndNightCycle" type="CanvasModulate" parent="Visuals"]
+position = Vector2(63, 1765)
 
 [node name="Environment" type="Node2D" parent="Visuals"]
 z_index = -1
@@ -180,21 +182,12 @@ texture = ExtResource("13_4sb4u")
 [node name="Layer00009" type="Sprite2D" parent="Visuals/Environment3"]
 texture = ExtResource("14_bodjw")
 
-[node name="Fogs" type="Node2D" parent="."]
-
-[node name="SideFog" type="Sprite2D" parent="Fogs"]
-modulate = Color(1, 1, 1, 0.172549)
-z_index = 20
-position = Vector2(801, 421)
-scale = Vector2(4.26628, 5.12809)
-texture = ExtResource("15_oegq8")
-
-[node name="2" type="Sprite2D" parent="Fogs"]
-modulate = Color(1, 1, 1, 0.105882)
-z_index = 10
-position = Vector2(1492, 162)
-scale = Vector2(1.11692, 1.18015)
-texture = ExtResource("16_d140i")
+[node name="Background" type="Sprite2D" parent="Visuals"]
+modulate = Color(0.0470588, 0.0666667, 0.133333, 1)
+z_index = -3000
+position = Vector2(877, 386)
+scale = Vector2(10000, 4211.5)
+texture = ExtResource("17_efmrv")
 
 [node name="Ground" type="StaticBody2D" parent="."]
 position = Vector2(0, -48)
