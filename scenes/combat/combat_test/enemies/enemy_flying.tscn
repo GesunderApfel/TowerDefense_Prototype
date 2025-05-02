@@ -457,7 +457,7 @@ _data = {
 "move": SubResource("Animation_nqwti")
 }
 
-[node name="FlyingEnemy" type="CharacterBody2D" groups=["enemy"]]
+[node name="FlyingEnemy" type="CharacterBody2D" groups=["enemy", "flying"]]
 position = Vector2(500, 0)
 collision_mask = 6
 script = ExtResource("1_v3ewr")

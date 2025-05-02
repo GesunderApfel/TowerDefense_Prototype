@@ -81,7 +81,7 @@ func find_enemy():
 	var enemy : Node
 	var nearest_distance = 10000
 	for body in area_attack_radius.get_overlapping_bodies():
-		if body.is_in_group("enemy"):
+		if body.is_in_group("enemy") and not body.is_in_group("flying"):
 			if nearest_distance > body.position.distance_to(position):
 				nearest_distance = body.position.distance_to(position)
 				enemy = body
