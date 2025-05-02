@@ -24,3 +24,29 @@ flying_spawn_point_R = NodePath("SpawnPositions/Flying_Right")
 [node name="Flying_Left" type="Node2D" parent="SpawnPositions"]
 
 [node name="Flying_Right" type="Node2D" parent="SpawnPositions"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="WaveLabel" type="Label" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "WaveLabel"
+
+[node name="EnemyCounter" type="Label" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "EnemyCounter"
+
+[node name="WaveCountdown" type="Label" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "WaveCountdown"

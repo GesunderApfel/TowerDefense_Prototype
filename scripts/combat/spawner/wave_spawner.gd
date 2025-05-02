@@ -15,8 +15,18 @@ extends Node
 var current_wave = 0
 var spawning = false
 
+# UI #
+@onready var label_wave = $CanvasLayer/UI/WaveLabel
+@onready var label_enemy_counter = $CanvasLayer/UI/EnemyCounter
+@onready var label_wave_countdown = $CanvasLayer/UI/WaveCountdown
+var next_wave_time := 0.0
+
 func _ready():
 	start_next_wave()
+	pass
+
+func _process(delta):
+	update_wave_countdown()
 	pass
 
 func start_next_wave():
@@ -46,6 +56,8 @@ func spawn_wave(wave_data: WaveData):
 	
 	spawn_pool.shuffle()
 	spawn_enemies_with_delay(spawn_pool, current_wave)
+	
+	update_ui_for_wave_start()
 	pass
 
 func generate_spawn_entry(scene: PackedScene, spawn_L: Node2D, spawn_R: Node2D):
@@ -58,7 +70,8 @@ func spawn_enemies_with_delay(spawn_tasks: Array, wave: int):
 	if spawn_tasks.is_empty():
 		finish_wave()
 		return
-
+	
+	
 	var task = spawn_tasks.pop_front()
 	var enemy = task["scene"].instantiate()
 	enemy.global_position = task["position"]
@@ -78,4 +91,37 @@ func finish_wave():
 	
 	await get_tree().create_timer(waves[current_wave].time_until_next_wave).timeout
 	start_next_wave()
+	pass
+
+# ##############
+# UI ###########
+# ##############
+
+func update_ui_for_wave_start():
+	show_wave_number()
+	update_enemy_counter()
+	
+	next_wave_time = Time.get_unix_time_from_system() \
+					+ waves[current_wave].time_until_next_wave
+	update_wave_countdown()
+	pass
+
+func show_wave_number():
+	label_wave.text = "Wave %d" % (current_wave + 1)
+	label_wave.show()
+	await get_tree().create_timer(1.5).timeout
+	label_wave.hide()
+	pass
+
+func update_enemy_counter():
+	var enemy_count = waves[current_wave].grounded \
+					+ waves[current_wave].flying \
+					+ waves[current_wave].boss
+	
+	label_enemy_counter.text = "Enemies: %d" % enemy_count
+	pass
+
+func update_wave_countdown():
+	var remaining_time = next_wave_time - Time.get_unix_time_from_system()
+	label_wave_countdown.text = "Next wave in %.1fs" % remaining_time
 	pass
