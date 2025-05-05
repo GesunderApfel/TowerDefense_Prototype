@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddhrgnmwix066"
-path="res://.godot/imported/AttackImpact.png-f4753dc3dac4deb952d503e3f45c5fd1.ctex"
+uid="uid://bp7fi1fk50gpe"
+path="res://.godot/imported/blunt_attack_sheet.png-c6fb1b00694de800b4d573f35d407971.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/graphics/combat/vfx/general/AttackImpact.png"
-dest_files=["res://.godot/imported/AttackImpact.png-f4753dc3dac4deb952d503e3f45c5fd1.ctex"]
+source_file="res://assets/graphics/combat/vfx/general/blunt_attack_sheet.png"
+dest_files=["res://.godot/imported/blunt_attack_sheet.png-c6fb1b00694de800b4d573f35d407971.ctex"]
 
 [params]
 

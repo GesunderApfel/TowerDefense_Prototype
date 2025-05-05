@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var sprite = $Sprite2D
 @onready var area = $Area
+@onready var vfx_spawner = $VFXSpawner
 
 var velocity: Vector2
 @export var gravity := GlobalConstants.COMBAT_GRAVITY
@@ -55,6 +56,9 @@ func _on_area_body_entered(body):
 	
 	if body.has_method("receive_damage"):
 		body.receive_damage(damage)
+	
+	vfx_spawner.set_spawn_position_to(global_position) 
+	vfx_spawner.spawn_animated_effect()
 	
 	is_destroyed = true
 	queue_free()

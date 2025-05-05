@@ -1,0 +1,75 @@
+[gd_scene load_steps=11 format=3 uid="uid://b6idhx35git6c"]
+
+[ext_resource type="Texture2D" uid="uid://bp7fi1fk50gpe" path="res://assets/graphics/combat/vfx/general/blunt_attack_sheet.png" id="1_wej52"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6ij3"]
+atlas = ExtResource("1_wej52")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ppu4o"]
+atlas = ExtResource("1_wej52")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hv1hb"]
+atlas = ExtResource("1_wej52")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o3tyo"]
+atlas = ExtResource("1_wej52")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v5a0l"]
+atlas = ExtResource("1_wej52")
+region = Rect2(256, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_valoj"]
+atlas = ExtResource("1_wej52")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1bg8f"]
+atlas = ExtResource("1_wej52")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hamu6"]
+atlas = ExtResource("1_wej52")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hy08v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r6ij3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ppu4o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hv1hb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o3tyo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v5a0l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_valoj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1bg8f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hamu6")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="VfxAttackImpactBlunt" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 0.721569, 0.556863, 1)
+sprite_frames = SubResource("SpriteFrames_hy08v")
+frame = 7
+frame_progress = 1.0

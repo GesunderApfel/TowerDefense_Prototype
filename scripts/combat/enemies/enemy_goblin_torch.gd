@@ -7,6 +7,7 @@ var body2D : Node = self
 
 @onready var sprite = $Visuals/AnimatedSprite2D
 var is_looking_left = false
+@onready var vfx_spawner = $Visuals/VFXSpawner
 
 var carriage
 var target:Node
@@ -99,6 +100,8 @@ func look_at_target():
 		return
 	is_looking_left = position.direction_to(target.position).x < 0
 	sprite.flip_h = is_looking_left
+	vfx_spawner.flip_spawn_position(is_looking_left)
+	pass
 
 func _physics_process(_delta):
 	if target == null:
