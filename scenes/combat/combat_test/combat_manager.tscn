@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://phoobbn48iov"]
+[gd_scene load_steps=23 format=3 uid="uid://phoobbn48iov"]
 
 [ext_resource type="Script" path="res://scripts/combat/combat_manager.gd" id="1_5l03r"]
 [ext_resource type="PackedScene" uid="uid://o31cabihijgu" path="res://scenes/combat/combat_test/carriage.tscn" id="2_bllf6"]
@@ -26,7 +26,15 @@ grounded = 0
 flying = 1
 boss = 0
 spawn_delay_between_enemies = 3
-time_until_next_wave = 30
+time_until_next_wave = 5
+
+[sub_resource type="Resource" id="Resource_l1oul"]
+script = ExtResource("5_x52di")
+grounded = 1
+flying = 0
+boss = 0
+spawn_delay_between_enemies = 3
+time_until_next_wave = 5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_arwvp"]
 size = Vector2(2000, 20)
@@ -44,7 +52,7 @@ position = Vector2(800, 832)
 
 [node name="EnemySpawner" parent="." instance=ExtResource("3_jdns8")]
 position = Vector2(0, 10)
-waves = Array[ExtResource("5_x52di")]([SubResource("Resource_57p71")])
+waves = Array[ExtResource("5_x52di")]([SubResource("Resource_57p71"), SubResource("Resource_l1oul")])
 
 [node name="Ground_Left" parent="EnemySpawner/SpawnPositions" index="0"]
 position = Vector2(-170, 822)

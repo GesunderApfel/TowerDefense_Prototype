@@ -13,7 +13,8 @@ extends Node
 @export var waves: Array[WaveData] = []
 
 var current_wave = 0
-var spawning = false
+var spawning = false # true as long as a wave is spawning enemies
+var is_wave_finished = false
 
 # UI #
 @onready var label_wave = $CanvasLayer/UI/WaveLabel
@@ -21,8 +22,10 @@ var spawning = false
 @onready var label_wave_countdown = $CanvasLayer/UI/WaveCountdown
 var next_wave_time := 0.0
 
+
 func _ready():
 	start_next_wave()
+	WaveManager.connect("last_enemy_killed", Callable(self, "finish_wave"))
 	pass
 
 func _process(delta):
@@ -36,6 +39,7 @@ func start_next_wave():
 	
 	print("Start wave ", current_wave + 1)
 	spawning = true
+	is_wave_finished = false
 	spawn_wave(waves[current_wave])
 	pass
 
@@ -68,7 +72,7 @@ func generate_spawn_entry(scene: PackedScene, spawn_L: Node2D, spawn_R: Node2D):
 
 func spawn_enemies_with_delay(spawn_tasks: Array, wave: int):
 	if spawn_tasks.is_empty():
-		finish_wave()
+		spawnig_complete()
 		return
 	
 	
@@ -81,14 +85,22 @@ func spawn_enemies_with_delay(spawn_tasks: Array, wave: int):
 	spawn_enemies_with_delay(spawn_tasks, wave)
 	pass
 
-func finish_wave():
-	print("Wave ", current_wave + 1, " complete.")
+
+func spawnig_complete():
+	print("Wave ", current_wave + 1, " spawning complete.")
 	spawning = false
 	current_wave += 1
-	
+	pass
+
+#TODO
+# wird jetzt ausgeführt sobald der letzte Gegner einer Wave stirbt. 
+func finish_wave():
+	is_wave_finished = true
 	if current_wave >= waves.size():
 		return
 	
+	next_wave_time = Time.get_unix_time_from_system() \
+					+ waves[current_wave].time_until_next_wave
 	await get_tree().create_timer(waves[current_wave].time_until_next_wave).timeout
 	start_next_wave()
 	pass
@@ -100,28 +112,42 @@ func finish_wave():
 func update_ui_for_wave_start():
 	show_wave_number()
 	update_enemy_counter()
-	
-	next_wave_time = Time.get_unix_time_from_system() \
-					+ waves[current_wave].time_until_next_wave
 	update_wave_countdown()
 	pass
 
 func show_wave_number():
 	label_wave.text = "Wave %d" % (current_wave + 1)
+	label_wave.modulate.a = 1.0
+	label_wave.scale = Vector2(0.1, 0.1)
 	label_wave.show()
-	await get_tree().create_timer(1.5).timeout
-	label_wave.hide()
+	
+	var tween = create_tween()
+	tween.tween_property(label_wave, "scale", Vector2(1, 1), 0.5).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_interval(1.0)
+	tween.tween_property(label_wave, "modulate:a", 0.0, 0.5)
+	tween.tween_callback(label_wave.hide)
 	pass
 
 func update_enemy_counter():
+	if current_wave +1 >= waves.size():
+		label_enemy_counter.text = "No new enemies coming."
+		label_enemy_counter.hide()
+		return
+	
 	var enemy_count = waves[current_wave].grounded \
 					+ waves[current_wave].flying \
 					+ waves[current_wave].boss
 	
-	label_enemy_counter.text = "Enemies: %d" % enemy_count
+	label_enemy_counter.text = "New Enemies: %d" % enemy_count
 	pass
 
 func update_wave_countdown():
-	var remaining_time = next_wave_time - Time.get_unix_time_from_system()
-	label_wave_countdown.text = "Next wave in %.1fs" % remaining_time
+	if not is_wave_finished:
+		label_wave_countdown.text = "Ongoing wave."
+	else:
+		if current_wave < waves.size():
+			var remaining_time = max(0,next_wave_time - Time.get_unix_time_from_system())
+			label_wave_countdown.text = "Next wave in %.1fs" % remaining_time
+		else:
+			label_wave_countdown.text = "No more waves coming."
 	pass
