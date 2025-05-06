@@ -3,6 +3,7 @@ extends Node2D
 @onready var spawn_position : Marker2D = $SpawnPosition
 @export var vfx : PackedScene
 @export var animation_name : String = "default"
+@export var flip_effect_animation_graphic := false
 
 var flipped := false
 
@@ -23,6 +24,8 @@ func spawn_animated_effect():
 	effect.global_position = spawn_position.global_position
 	
 	var sprite: AnimatedSprite2D = effect.get_node("AnimatedSprite2D")
+	if flipped and flip_effect_animation_graphic:
+		sprite.flip_h = true
 	sprite.play(animation_name)
 	# deletes effect when animated sprite finished the animation
 	sprite.animation_finished.connect(func():effect.queue_free())

@@ -7,6 +7,7 @@ var carriage : Node
 var target : Node
 
 @export var carriage_defense_radius := 200.0
+@onready var vfx_spawner = $Visuals/VFXSpawner
 
 @onready var combat_health_bar = $CombatHealthBar
 
@@ -68,6 +69,7 @@ func look_at_target():
 	
 	is_looking_left = position.direction_to(target.position).x < 0
 	sprite.flip_h = is_looking_left
+	vfx_spawner.flip_spawn_position(is_looking_left)
 	pass
 
 func look_away_from_carriage():

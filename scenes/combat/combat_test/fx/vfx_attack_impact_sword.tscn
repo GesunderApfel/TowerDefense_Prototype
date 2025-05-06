@@ -1,0 +1,74 @@
+[gd_scene load_steps=11 format=3 uid="uid://do1nbunptcjda"]
+
+[ext_resource type="Texture2D" uid="uid://b1e6lrbn00cjt" path="res://assets/graphics/combat/vfx/general/cut_attack_single_sheet.png" id="1_5o4bq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ms8hq"]
+atlas = ExtResource("1_5o4bq")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1sqy"]
+atlas = ExtResource("1_5o4bq")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5jc55"]
+atlas = ExtResource("1_5o4bq")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugsa4"]
+atlas = ExtResource("1_5o4bq")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yat02"]
+atlas = ExtResource("1_5o4bq")
+region = Rect2(256, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3f16q"]
+atlas = ExtResource("1_5o4bq")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pt1i4"]
+atlas = ExtResource("1_5o4bq")
+region = Rect2(384, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_34lv2"]
+atlas = ExtResource("1_5o4bq")
+region = Rect2(448, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hy08v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ms8hq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1sqy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5jc55")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ugsa4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yat02")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3f16q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pt1i4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_34lv2")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="VfxAttackImpactSword" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_hy08v")
+frame = 7
+frame_progress = 1.0
