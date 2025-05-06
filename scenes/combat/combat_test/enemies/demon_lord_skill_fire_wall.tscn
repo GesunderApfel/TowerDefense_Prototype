@@ -141,10 +141,10 @@ script = ExtResource("1_sgudv")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 1
-position = Vector2(0, -5)
-scale = Vector2(0.1, 0.1)
+texture_filter = 1
+position = Vector2(0, -41)
 sprite_frames = SubResource("SpriteFrames_dg7x4")
-frame = 5
+frame = 3
 
 [node name="Area2D" type="Area2D" parent="AnimatedSprite2D"]
 collision_mask = 6

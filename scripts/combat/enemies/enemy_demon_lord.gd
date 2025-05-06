@@ -26,7 +26,6 @@ var attack_frequence = 2.5 #in seconds
 const SKILL_FIREWALL = preload("res://scenes/combat/combat_test/enemies/demon_lord_skill_fire_wall.tscn")
 
 # Physics & Colliders
-@onready var collision_shape_2d = $CollisionShape2D
 @onready var areas_facing_right = $Areas/Areas_FacingRight
 @onready var areas_facing_left = $Areas/Areas_FacingLeft
 
@@ -75,6 +74,7 @@ func _ready():
 
 func _process(_delta):
 	look_at_target()
+	pass
 
 func find_next_target():
 	var nextTarget : Node
@@ -100,11 +100,11 @@ func look_at_target():
 	# > 0 because it is already flipped
 	is_looking_left = position.direction_to(target.position).x > 0
 	sprite.flip_h = is_looking_left
+	pass
 
 func _physics_process(_delta):
 	if target == null:
 		return
-
 	# "flip" scan & attack areas
 	# todo: one area which x position will be inverted
 	if is_looking_left:

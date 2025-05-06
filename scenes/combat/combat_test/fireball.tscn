@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/combat/combat_simple_projectile.gd" id="1_hpph5"]
 [ext_resource type="Texture2D" uid="uid://dl2dtqylt6vfy" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/FlyingDemon/projectile.png" id="2_qra7p"]
 [ext_resource type="PackedScene" uid="uid://b6gmml2houqjw" path="res://scenes/core/vfx/vfx_spawner.tscn" id="3_ymj1g"]
-[ext_resource type="PackedScene" uid="uid://b6idhx35git6c" path="res://scenes/combat/combat_test/fx/vfx_attack_impact_torch.tscn" id="4_5mkf6"]
+[ext_resource type="PackedScene" uid="uid://b6idhx35git6c" path="res://scenes/combat/combat_test/vfx/vfx_attack_impact_torch.tscn" id="4_cq23r"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_15t5a"]
 radius = 12.0
@@ -31,7 +31,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_15t5a")
 
 [node name="VFXSpawner" parent="." instance=ExtResource("3_ymj1g")]
-vfx = ExtResource("4_5mkf6")
+vfx = ExtResource("4_cq23r")
 
 [connection signal="body_entered" from="Area" to="." method="_on_area_body_entered"]
 

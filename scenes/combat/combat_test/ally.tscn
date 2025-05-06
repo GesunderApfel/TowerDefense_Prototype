@@ -3,12 +3,12 @@
 [ext_resource type="Script" path="res://scripts/combat/combat_ally.gd" id="1_drlv4"]
 [ext_resource type="Script" path="res://scripts/core/animation_tree_state.gd" id="3_njq74"]
 [ext_resource type="Texture2D" uid="uid://i6k6nngbderc" path="res://assets/graphics/combat/combat_test_graphics/Characters/Allies/Warrior_Blue.png" id="3_slmwt"]
+[ext_resource type="PackedScene" uid="uid://bhxbvg4wovjie" path="res://scenes/combat/combat_test/vfx/fx_step_dust_spawner.tscn" id="4_ml1rv"]
 [ext_resource type="PackedScene" uid="uid://bl51pk2vko0vm" path="res://scenes/combat/combat_health_bar.tscn" id="4_woj7t"]
-[ext_resource type="PackedScene" uid="uid://bhxbvg4wovjie" path="res://scenes/combat/combat_test/fx/fx_step_dust_spawner.tscn" id="4_ypfsy"]
 [ext_resource type="PackedScene" uid="uid://b6gmml2houqjw" path="res://scenes/core/vfx/vfx_spawner.tscn" id="5_6wiqb"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="5_tqkjw"]
+[ext_resource type="PackedScene" uid="uid://do1nbunptcjda" path="res://scenes/combat/combat_test/vfx/vfx_attack_impact_sword.tscn" id="6_h360k"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="6_xp8b7"]
-[ext_resource type="PackedScene" uid="uid://do1nbunptcjda" path="res://scenes/combat/combat_test/fx/vfx_attack_impact_sword.tscn" id="6_xpedt"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/history_state.gd" id="7_n3cbf"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="8_po8n5"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="9_58fhu"]
@@ -344,7 +344,7 @@ tracks/2/keys = {
 tracks/3/type = "method"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../VFXSpawner")
+tracks/3/path = NodePath("../VFXSpawner_Attack_Cut")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -558,16 +558,16 @@ libraries = {
 "": SubResource("AnimationLibrary_jp5sj")
 }
 
-[node name="FXStepDustSpawner" parent="Visuals" instance=ExtResource("4_ypfsy")]
+[node name="FXStepDustSpawner" parent="Visuals" instance=ExtResource("4_ml1rv")]
 
 [node name="StepDustPosition" parent="Visuals/FXStepDustSpawner" index="0"]
 position = Vector2(0, 0)
 
-[node name="VFXSpawner" parent="Visuals" instance=ExtResource("5_6wiqb")]
-vfx = ExtResource("6_xpedt")
+[node name="VFXSpawner_Attack_Cut" parent="Visuals" instance=ExtResource("5_6wiqb")]
+vfx = ExtResource("6_h360k")
 flip_effect_animation_graphic = true
 
-[node name="SpawnPosition" parent="Visuals/VFXSpawner" index="0"]
+[node name="SpawnPosition" parent="Visuals/VFXSpawner_Attack_Cut" index="0"]
 position = Vector2(62, -37)
 
 [node name="Timers" type="Node" parent="."]
@@ -726,4 +726,4 @@ delay_in_seconds = "0.0"
 [connection signal="state_processing" from="StateChart/Root/Die" to="." method="_on_die_state_processing"]
 
 [editable path="Visuals/FXStepDustSpawner"]
-[editable path="Visuals/VFXSpawner"]
+[editable path="Visuals/VFXSpawner_Attack_Cut"]

@@ -1,0 +1,74 @@
+[gd_scene load_steps=7 format=3 uid="uid://dcjhid363tq3h"]
+
+[ext_resource type="Texture2D" uid="uid://btjrse46sft31" path="res://assets/graphics/combat/vfx/skills/Fire Effect and Bullet 16x16.png" id="1_bwo6q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i1m7a"]
+atlas = ExtResource("1_bwo6q")
+region = Rect2(304, 176, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h5s4p"]
+atlas = ExtResource("1_bwo6q")
+region = Rect2(320, 176, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rgtf0"]
+atlas = ExtResource("1_bwo6q")
+region = Rect2(336, 176, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lfkfb"]
+atlas = ExtResource("1_bwo6q")
+region = Rect2(352, 176, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hy08v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i1m7a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h5s4p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rgtf0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lfkfb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i1m7a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h5s4p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rgtf0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lfkfb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i1m7a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h5s4p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rgtf0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lfkfb")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="VfxAttackImpactTorch" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 0.721569, 0.556863, 1)
+texture_filter = 1
+position = Vector2(0, -4)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_hy08v")
+frame = 11
+frame_progress = 1.0

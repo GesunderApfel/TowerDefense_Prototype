@@ -446,6 +446,7 @@ libraries = {
 visible = false
 
 [node name="BowAnimatedSprite" type="AnimatedSprite2D" parent="Visuals/Bow"]
+texture_filter = 1
 position = Vector2(5, -12)
 rotation = 6.28319
 sprite_frames = SubResource("SpriteFrames_leao7")

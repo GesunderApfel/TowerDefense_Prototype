@@ -862,6 +862,8 @@ libraries = {
 "": SubResource("AnimationLibrary_df5fh")
 }
 
+[node name="Visuals" type="Node2D" parent="."]
+
 [node name="Timers" type="Node2D" parent="."]
 
 [node name="AttackTimer" type="Timer" parent="Timers"]

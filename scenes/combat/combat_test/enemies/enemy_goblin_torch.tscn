@@ -3,12 +3,12 @@
 [ext_resource type="Script" path="res://scripts/combat/enemies/enemy_goblin_torch.gd" id="1_ynj6k"]
 [ext_resource type="Texture2D" uid="uid://d3aac0snojkt8" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/Goblins/Torch_Red.png" id="2_ihf1h"]
 [ext_resource type="Script" path="res://scripts/core/animation_tree_state.gd" id="3_7nd7c"]
-[ext_resource type="PackedScene" uid="uid://bhxbvg4wovjie" path="res://scenes/combat/combat_test/fx/fx_step_dust_spawner.tscn" id="4_4li6g"]
 [ext_resource type="PackedScene" uid="uid://bl51pk2vko0vm" path="res://scenes/combat/combat_health_bar.tscn" id="4_61vk5"]
+[ext_resource type="PackedScene" uid="uid://bhxbvg4wovjie" path="res://scenes/combat/combat_test/vfx/fx_step_dust_spawner.tscn" id="4_xab8w"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="5_kd7gl"]
 [ext_resource type="PackedScene" uid="uid://b6gmml2houqjw" path="res://scenes/core/vfx/vfx_spawner.tscn" id="5_naegq"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="6_fmnhd"]
-[ext_resource type="PackedScene" uid="uid://b6idhx35git6c" path="res://scenes/combat/combat_test/fx/vfx_attack_impact_torch.tscn" id="6_v1gtq"]
+[ext_resource type="PackedScene" uid="uid://b6idhx35git6c" path="res://scenes/combat/combat_test/vfx/vfx_attack_impact_torch.tscn" id="6_onmor"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/history_state.gd" id="7_gryei"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="8_vqsdi"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="9_40na2"]
@@ -556,10 +556,10 @@ libraries = {
 "": SubResource("AnimationLibrary_df5fh")
 }
 
-[node name="FXStepDustSpawner" parent="Visuals" instance=ExtResource("4_4li6g")]
+[node name="FXStepDustSpawner" parent="Visuals" instance=ExtResource("4_xab8w")]
 
 [node name="VFXSpawner" parent="Visuals" instance=ExtResource("5_naegq")]
-vfx = ExtResource("6_v1gtq")
+vfx = ExtResource("6_onmor")
 
 [node name="SpawnPosition" parent="Visuals/VFXSpawner" index="0"]
 position = Vector2(59, -40)
