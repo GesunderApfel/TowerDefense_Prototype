@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c433esrohh38s"]
+[gd_scene load_steps=6 format=3 uid="uid://c433esrohh38s"]
 
 [ext_resource type="Script" path="res://scripts/combat/player/combat_player_arrow.gd" id="1_osd5n"]
 [ext_resource type="Texture2D" uid="uid://dc0nt5mpvfhkb" path="res://assets/graphics/combat/combat_test_graphics/combat_resources/Arrow.png" id="2_1vp64"]
+[ext_resource type="PackedScene" uid="uid://b6gmml2houqjw" path="res://scenes/core/vfx/vfx_spawner.tscn" id="3_i33dj"]
+[ext_resource type="PackedScene" uid="uid://cnrh7lyhp54il" path="res://scenes/combat/combat_test/vfx/vfx_attack_impact_arrow.tscn" id="4_lf8hi"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_15t5a"]
 radius = 12.0
@@ -25,4 +27,12 @@ position = Vector2(-3, 0)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_15t5a")
 
+[node name="VFXSpawner" parent="." instance=ExtResource("3_i33dj")]
+vfx = ExtResource("4_lf8hi")
+
+[node name="SpawnPosition" parent="VFXSpawner" index="0"]
+position = Vector2(20, 0)
+
 [connection signal="body_entered" from="Area" to="." method="_on_area_body_entered"]
+
+[editable path="VFXSpawner"]

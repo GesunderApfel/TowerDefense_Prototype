@@ -3,6 +3,7 @@ extends Node2D
 @onready var sprite = $Sprite2D
 @onready var area = $Area
 @onready var collision_shape = $Area/CollisionShape
+@onready var vfx_spawner = $VFXSpawner
 
 
 var velocity: Vector2
@@ -68,6 +69,8 @@ func _on_area_body_entered(body):
 	# clear focus if cinema effect was activated
 	if cinema_check_done:
 		CameraManager.clear_focus()
+	
+	vfx_spawner.spawn_animated_effect()
 	
 	is_destroyed = true
 	debug_node.queue_free()

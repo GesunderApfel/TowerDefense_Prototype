@@ -1,0 +1,68 @@
+[gd_scene load_steps=10 format=3 uid="uid://cnrh7lyhp54il"]
+
+[ext_resource type="Texture2D" uid="uid://cuvtbjqk5wmv2" path="res://assets/graphics/combat/vfx/general/carriage_splinter_sheet.png" id="1_0pgds"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1rxnk"]
+atlas = ExtResource("1_0pgds")
+region = Rect2(0, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cefej"]
+atlas = ExtResource("1_0pgds")
+region = Rect2(64, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmo07"]
+atlas = ExtResource("1_0pgds")
+region = Rect2(128, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8kvnu"]
+atlas = ExtResource("1_0pgds")
+region = Rect2(192, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5u5q7"]
+atlas = ExtResource("1_0pgds")
+region = Rect2(320, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nb1s3"]
+atlas = ExtResource("1_0pgds")
+region = Rect2(576, 320, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5k22p"]
+atlas = ExtResource("1_0pgds")
+region = Rect2(640, 320, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hy08v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1rxnk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cefej")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gmo07")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8kvnu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5u5q7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nb1s3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5k22p")
+}],
+"loop": false,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="VfxAttackImpactSword" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 2
+sprite_frames = SubResource("SpriteFrames_hy08v")
+frame = 6
+frame_progress = 1.0
