@@ -26,6 +26,9 @@ var next_wave_time := 0.0
 func _ready():
 	start_next_wave()
 	WaveManager.connect("last_enemy_killed", Callable(self, "finish_wave"))
+	
+	# debug
+	CombatDebug.bind_debug_method(set_enemy_health_to_1, "Enemy Health To 1", KEY_1)
 	pass
 
 func _process(delta):
@@ -69,7 +72,6 @@ func generate_spawn_entry(scene: PackedScene, spawn_L: Node2D, spawn_R: Node2D):
 	var spawn_point = spawn_L if spawn_left else spawn_R
 	return {"scene": scene, "position": spawn_point.global_position}
 
-
 func spawn_enemies_with_delay(spawn_tasks: Array, wave: int):
 	if spawn_tasks.is_empty():
 		spawnig_complete()
@@ -84,7 +86,6 @@ func spawn_enemies_with_delay(spawn_tasks: Array, wave: int):
 	await get_tree().create_timer(waves[wave].spawn_delay_between_enemies).timeout
 	spawn_enemies_with_delay(spawn_tasks, wave)
 	pass
-
 
 func spawnig_complete():
 	print("Wave ", current_wave + 1, " spawning complete.")
@@ -150,4 +151,14 @@ func update_wave_countdown():
 			label_wave_countdown.text = "Next wave in %.1fs" % remaining_time
 		else:
 			label_wave_countdown.text = "No more waves coming."
+	pass
+
+
+# ##################
+# DEBUG ############
+# ##################
+
+func set_enemy_health_to_1():
+	for e in WaveManager.living_enemies:
+		e.receive_damage(e.health-1)
 	pass

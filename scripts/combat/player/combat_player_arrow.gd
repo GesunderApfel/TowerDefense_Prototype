@@ -15,7 +15,10 @@ var is_destroyed := false # prevents hitting multiple objects with one call
 # prediction & kill cam
 @export var prediction_steps := 30
 @export var prediction_step_time := 0.025
-var cinema_check_done := false
+var is_killshot := false
+var cinema_active := false # focus and slow mo
+
+var prediction_hit_time := 0.0
 
 var debug_node : DebugDrawNode
 
@@ -34,9 +37,8 @@ func set_direction_and_speed(direction: Vector2, speed: float):
 	velocity = direction.normalized() * speed
 	look_at(global_position + velocity)
 
-	if not cinema_check_done and check_for_killshot():
-		CameraManager.focus_on(self)
-		cinema_check_done = true
+	if check_for_killshot():
+		is_killshot = true
 	pass
 
 func set_collision_masks(collision_mask_layer_numbers: Array):
@@ -56,6 +58,13 @@ func _physics_process(delta):
 	position += velocity * delta
 	# rotate
 	look_at(global_position + velocity)
+	
+	if is_killshot and not cinema_active:
+		var difference = prediction_hit_time - Time.get_unix_time_from_system()
+		# 0.2 is magic number, in the end it depends on how strong the slowmo is 
+		if difference - 0.2 < 0.0: 
+			cinema_active = true
+			CameraManager.focus_on(self)
 	pass
 
 
@@ -67,7 +76,7 @@ func _on_area_body_entered(body):
 		body.receive_damage(damage)
 	
 	# clear focus if cinema effect was activated
-	if cinema_check_done:
+	if is_killshot:
 		CameraManager.clear_focus()
 	
 	vfx_spawner.spawn_animated_effect()
@@ -114,6 +123,7 @@ func predict_hit(enemy) -> bool:
 		#debug_node.add_debug_point(sim_enemy_pos,3,Color.RED,3)
 		
 		if is_point_in_shape(sim_arrow_pos, arrow_radius, sim_enemy_pos, collider):
+			prediction_hit_time = Time.get_unix_time_from_system() + i * prediction_step_time
 			return true
 	return false
 
