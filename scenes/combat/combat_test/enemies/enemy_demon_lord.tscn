@@ -1,8 +1,7 @@
-[gd_scene load_steps=98 format=3 uid="uid://n5j7kaoyy78x"]
+[gd_scene load_steps=97 format=3 uid="uid://n5j7kaoyy78x"]
 
 [ext_resource type="Script" path="res://scripts/combat/enemies/enemy_demon_lord.gd" id="1_l6fgy"]
 [ext_resource type="Texture2D" uid="uid://cwklds3cgm10l" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/FireDemon/demon_slime_FREE_v1.0_288x160_spritesheet.png" id="3_0b60o"]
-[ext_resource type="Script" path="res://scripts/core/animation_tree_state.gd" id="3_wo3eh"]
 [ext_resource type="PackedScene" uid="uid://bl51pk2vko0vm" path="res://scenes/combat/combat_health_bar.tscn" id="4_55lkj"]
 [ext_resource type="Script" path="res://scripts/combat/enemies/FireWallSpawner.gd" id="4_qmtwn"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="5_w8378"]
@@ -855,7 +854,6 @@ flip_h = true
 active = false
 tree_root = SubResource("AnimationNodeStateMachine_6m1py")
 anim_player = NodePath("../AnimationPlayer")
-script = ExtResource("3_wo3eh")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Animator"]
 libraries = {

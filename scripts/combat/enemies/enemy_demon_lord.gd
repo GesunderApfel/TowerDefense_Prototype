@@ -122,6 +122,7 @@ func receive_damage(damage):
 	# receive damage
 	health -= max(damage-defense,0)
 	combat_health_bar.update_health_value(float(health) / float(max_health) * 100.0)
+	UtilityGraphicEffects.flash_white(sprite)
 	
 	if health <= 0:
 		state_chart.send_event("sce_die")

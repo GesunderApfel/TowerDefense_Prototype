@@ -24,6 +24,7 @@ WaveManager="*res://scripts/combat/spawner/wave_manager.gd"
 CameraManager="*res://scripts/core/cinema_camera_manager.gd"
 GlobalConstants="*res://scripts/core/global_constants.gd"
 DebugHelper="*res://scripts/core/debug_helper.gd"
+UtilityGraphicEffects="*res://scripts/core/utility_graphic_effects.gd"
 
 [display]
 

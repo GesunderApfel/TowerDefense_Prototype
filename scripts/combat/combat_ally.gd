@@ -7,7 +7,7 @@ var carriage : Node
 var target : Node
 
 @export var carriage_defense_radius := 200.0
-@onready var vfx_spawner = $Visuals/VFXSpawner
+@onready var vfx_spawner = $Visuals/VFXSpawner_Attack_Cut
 
 @onready var combat_health_bar = $CombatHealthBar
 
@@ -102,6 +102,8 @@ func is_target_in_hit_range():
 func receive_damage(damage):
 	health -= max(damage-defense,0)
 	combat_health_bar.update_health_value(float(health) / float(max_health) * 100.0)
+	
+	UtilityGraphicEffects.flash_white(sprite)
 	
 	if health <= 0:
 		state_chart.send_event("sce_die")

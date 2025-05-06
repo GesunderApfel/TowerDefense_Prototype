@@ -1,8 +1,7 @@
-[gd_scene load_steps=50 format=3 uid="uid://kd4xv22ktbk8"]
+[gd_scene load_steps=49 format=3 uid="uid://kd4xv22ktbk8"]
 
 [ext_resource type="Script" path="res://scripts/combat/enemies/enemy_goblin_torch.gd" id="1_ynj6k"]
 [ext_resource type="Texture2D" uid="uid://d3aac0snojkt8" path="res://assets/graphics/combat/combat_test_graphics/Characters/Enemies/Goblins/Torch_Red.png" id="2_ihf1h"]
-[ext_resource type="Script" path="res://scripts/core/animation_tree_state.gd" id="3_7nd7c"]
 [ext_resource type="PackedScene" uid="uid://bl51pk2vko0vm" path="res://scenes/combat/combat_health_bar.tscn" id="4_61vk5"]
 [ext_resource type="PackedScene" uid="uid://bhxbvg4wovjie" path="res://scenes/combat/combat_test/vfx/fx_step_dust_spawner.tscn" id="4_xab8w"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="5_kd7gl"]
@@ -549,7 +548,6 @@ animation = &"idle"
 active = false
 tree_root = SubResource("AnimationNodeStateMachine_6m1py")
 anim_player = NodePath("../AnimationPlayer")
-script = ExtResource("3_7nd7c")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Visuals"]
 libraries = {

@@ -123,6 +123,7 @@ func enough_damage_to_die(damage):
 func receive_damage(damage):
 	# receive damage
 	health -= max(damage-defense,0)
+	UtilityGraphicEffects.flash_white(sprite)
 	
 	if health <= 0:
 		state_chart.send_event("sce_die")
