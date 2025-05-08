@@ -1,0 +1,78 @@
+[gd_scene load_steps=12 format=3 uid="uid://bwhacx47ivkcf"]
+
+[ext_resource type="Script" path="res://scripts/combat/gold_drop.gd" id="1_5vqav"]
+[ext_resource type="Texture2D" uid="uid://bu8nrjlhwdqao" path="res://assets/graphics/combat/combat_test_graphics/combat_resources/G_Spawn.png" id="1_123py"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1v6hq"]
+atlas = ExtResource("1_123py")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mtjdr"]
+atlas = ExtResource("1_123py")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lorxs"]
+atlas = ExtResource("1_123py")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fqism"]
+atlas = ExtResource("1_123py")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0fl1"]
+atlas = ExtResource("1_123py")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8pbtv"]
+atlas = ExtResource("1_123py")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u00vc"]
+atlas = ExtResource("1_123py")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b1x6d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1v6hq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mtjdr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lorxs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fqism")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u0fl1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8pbtv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u00vc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yncgh"]
+radius = 37.5
+
+[node name="GoldDrop" type="Node2D"]
+script = ExtResource("1_5vqav")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-4, -32)
+sprite_frames = SubResource("SpriteFrames_b1x6d")
+frame = 6
+
+[node name="Area2D_MouseInteraction" type="Area2D" parent="."]
+
+[node name="Collider_OnClick" type="CollisionShape2D" parent="Area2D_MouseInteraction"]
+position = Vector2(1, -21)
+shape = SubResource("CircleShape2D_yncgh")
